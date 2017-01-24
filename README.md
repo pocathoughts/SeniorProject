@@ -33,4 +33,4 @@ http://stackoverflow.com/questions/22261124/what-is-cocoapods
 https://phonegappro.com/tutorials/apache-cordova-phonegap-push-notification-tutorial-part-2/
 
 ## Creating iOS app in PhoneGap with XCode Setup Steps
-https://www.adobe.com/devnet/archive/html5/articles/getting-started-with-phonegap-in-xcode-for-ios.html
+http://docs.phonegap.com/tutorials/develop/1-embed-webview/ios/
