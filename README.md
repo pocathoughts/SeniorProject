@@ -19,7 +19,17 @@ http://coenraets.org/blog/phonegap-tutorial/
 ## Tips
 If shit hits the fan try .podspec file for inconsistencies
 
+# When loading in a new phone gap project
+You have to load in the folder in your project that contains the config.xml file
+If you created the project with Pods:
+This file is usually in Pods -> phonegap-ios-template (or android equivalent) -> Resources 
+If you created the project without Pods:
+You can find it in the main project folder, should be in the root.
+
 ## PhoneGap utilizes something called CocoaPods, for more insight look here
 http://stackoverflow.com/questions/22261124/what-is-cocoapods
+
+## For creating push notifications in PhoneGap
+https://phonegappro.com/tutorials/apache-cordova-phonegap-push-notification-tutorial-part-2/
 
 
