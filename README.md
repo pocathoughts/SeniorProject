@@ -11,8 +11,10 @@ https://www.tutorialspoint.com/phonegap/index.htm
 The documentation and tutorials to set up the dev environment can be found here: 
 http://docs.phonegap.com/tutorials/develop/1-embed-webview/ios/
 
-Explains a little more how everything is configured:
-https://www.youtube.com/watch?v=M6Q6ak7UfvQ
+Helpful Tutorials
+http://coenraets.org/blog/phonegap-tutorial/
+
+
 
 ## Tips
 If shit hits the fan try .podspec file for inconsistencies
