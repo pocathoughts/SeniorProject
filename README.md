@@ -32,4 +32,5 @@ http://stackoverflow.com/questions/22261124/what-is-cocoapods
 ## For creating push notifications in PhoneGap
 https://phonegappro.com/tutorials/apache-cordova-phonegap-push-notification-tutorial-part-2/
 
-
+## Creating iOS app in PhoneGap with XCode Setup Steps
+https://www.adobe.com/devnet/archive/html5/articles/getting-started-with-phonegap-in-xcode-for-ios.html
