@@ -69,6 +69,13 @@ body {
     }
 }
 
+@font-face {
+    font-family: "Oswald";
+    src: url("font/Oswald/Oswald-Regular.ttf") format("opentype");
+        /* Make sure you defined the correct path, which is related to
+            the location of your file `my_css.css` */
+}
+
 h1 {
     font-size:24px;
     font-weight:normal;
@@ -76,6 +83,7 @@ h1 {
     overflow:visible;
     padding:0px;
     text-align:center;
+    font-family: 'Oswald', sans-serif;
 }
 
 .event {

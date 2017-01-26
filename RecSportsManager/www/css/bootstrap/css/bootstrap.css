@@ -4,6 +4,8 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
@@ -59,10 +61,13 @@ strong {
 dfn {
   font-style: italic;
 }
+
 h1 {
   margin: .67em 0;
   font-size: 2em;
+  font-family: 'Oswald', sans-serif;
 }
+
 mark {
   color: #000;
   background: #ff0;
@@ -4176,10 +4181,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 @media (min-width: 768px) {
   .navbar-header {
-    float: left;
+    float: none;
+    text-align: center;
   }
 }
 .navbar-collapse {
+  text-align: center;
   padding-right: 15px;
   padding-left: 15px;
   overflow-x: visible;
@@ -4191,6 +4198,17 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-collapse.in {
   overflow-y: auto;
 }
+
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar-header{
+  text-align: center;
+}
+
 @media (min-width: 768px) {
   .navbar-collapse {
     width: auto;
@@ -4322,6 +4340,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-nav {
   margin: 7.5px -15px;
+  display: inline-block;
+  float: none;
 }
 .navbar-nav > li > a {
   padding-top: 10px;
@@ -4472,6 +4492,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-text {
   margin-top: 15px;
   margin-bottom: 15px;
+  float: none;
+  text-align: center;
 }
 @media (min-width: 768px) {
   .navbar-text {
