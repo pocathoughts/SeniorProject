@@ -17,7 +17,9 @@ http://coenraets.org/blog/phonegap-tutorial/
 Adding a splash screen
 http://pointdeveloper.com/how-to-add-splash-screen-to-phonegap-apps-phonegap-build/
 
-
+#NOTE ABOUT FONTS
+SO PHONE GAP HATES EVERYTHING, TO CHANGE FONTS MODIFY THE FONT FACE ATTRIBUTE 
+DIFFERENT THEN NORMAL WHERE ITS FONT FAMILY
 
 ## Tips
 If shit hits the fan try .podspec file for inconsistencies
