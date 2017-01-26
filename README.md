@@ -14,6 +14,9 @@ http://docs.phonegap.com/tutorials/develop/1-embed-webview/ios/
 Helpful Tutorials
 http://coenraets.org/blog/phonegap-tutorial/
 
+Adding a splash screen
+http://pointdeveloper.com/how-to-add-splash-screen-to-phonegap-apps-phonegap-build/
+
 
 
 ## Tips
