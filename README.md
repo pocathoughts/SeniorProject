@@ -21,6 +21,9 @@ http://pointdeveloper.com/how-to-add-splash-screen-to-phonegap-apps-phonegap-bui
 SO PHONE GAP HATES EVERYTHING, TO CHANGE FONTS MODIFY THE FONT FACE ATTRIBUTE 
 DIFFERENT THEN NORMAL WHERE ITS FONT FAMILY
 
+#helpful bootstrap design link
+http://www.webdesignerdepot.com/2014/10/the-ultimate-guide-to-bootstrap/
+
 ## Tips
 If shit hits the fan try .podspec file for inconsistencies
 
