@@ -14,6 +14,7 @@ html {
 body {
   margin: 0;
 }
+
 article,
 aside,
 details,
@@ -65,7 +66,6 @@ dfn {
 h1 {
   margin: .67em 0;
   font-size: 2em;
-  font-family: 'Oswald', sans-serif;
 }
 
 mark {

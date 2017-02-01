@@ -121,3 +121,26 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+
+#between_input {
+  margin-bottom:10px;
+}
+
+.rec-button{
+    font-family: 'Oswald';
+}
+
+.spacer {
+    margin-top: 40px; /* define margin as you see fit */
+}
+
+#font-style{
+    font-family: 'Oswald';
+    color: white;
+}
+
+#big-font-style{
+    font-family: 'Oswald';
+    color: white;
+    font-size: 60px;
+}

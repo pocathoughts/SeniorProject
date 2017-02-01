@@ -22,6 +22,11 @@
 <html>
 
 <head>
+    <!-- Description of page -->
+    <!-- This page is the landing page. After the splash screen this is
+    the first page users will encounter. They will either login to the
+    application or they will choose the option to make a new acccount -->
+
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
@@ -42,23 +47,57 @@
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-    <title>Home Page</title>
+    <title>Log In</title>
 
 </head>
 
-<body>
+<body style = "background-image:url('img/splash.png')" >
+
+    <div class = "spacer"/>
+
     <div class = "container">
-        <h1 style = "font-family: 'Oswald'"> SPORT NAME </h1>
+        <div class="col-md-4 col-md-offset-4" style = "border-style: solid; border-color: orange; border-width: 8px;">
+            <h1 id = "big-font-style">UF</h1>
+            <h1 id = "font-style"> CLUB SPORT </h1>
+            <h1 id = "font-style"> MANAGER </h1>
+        </div>
     </div>
-    <!-- Start of the Navbar -->
-    <nav style = "background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
-        <img class = "navbar-brand" src = "img/menuSymbol.png"/>
-        <h1 class="navbar-text" style = "color: white"> <center>SPORT NAME</center> </h1>
-    </nav> <!-- /.navbar -->
 
+    <div class = "spacer"/>
 
-    <h1>PhoneGap</h1>
-    <h1> Hikljklj Nick</h1>
+    <div class = "container">
+        <form>
+            <div class="col-md-4 col-md-offset-4"> <!-- centering the forms -->
+                <div class = "row">
+                    <div class="form-group"> <!-- Email field !-->
+                        <label id = "font-style" for="email_id" class="control-label">Email</label>
+                        <input type="email" class="form-control" id="between_input" name="email_name" placeholder="UFL Email Address">
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class="form-group"> <!-- Password field !-->
+    		            <label id = "font-style" for="email_id" class="control-label">Password</label>
+    		            <input type="password" class="form-control" id="between_input" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class = "row">
+    	            <div class="form-group"> <!-- Submit button !-->
+    		            <center><button style = "background-color:#7AAE96; border-style: none;" type="submit" class="rec-button btn btn-primary">LOGIN</button></center>
+    	            </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class = "container">
+        <div class="col-md-4 col-md-offset-4">
+            <center>
+                <h5 id = "font-style"> Need An Account? </h5>
+                <h5 id = "font-style" style = "color: blue"> Sign Up Here </h5>
+            </center>
+        </div>
+    </div>
+
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
