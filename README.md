@@ -29,6 +29,7 @@ http://stackoverflow.com/questions/20410497/use-app-scripts-to-open-form-and-mak
 https://support.google.com/docs/answer/2839588?hl=en&topic=1360904&visit_id=1-636216605427324443-1096539171&rd=1
 http://stackoverflow.com/questions/21151896/can-a-google-form-be-auto-filled-and-submitted-using-data-from-a-spreadsheet
 https://developers.google.com/apps-script/quickstart/forms-add-on
+http://www.cubemg.com/how-to-fill-out-forms-on-websites-with-applescript/
 
 ## Tips
 If shit hits the fan try .podspec file for inconsistencies
