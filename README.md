@@ -24,6 +24,13 @@ DIFFERENT THEN NORMAL WHERE ITS FONT FAMILY
 #helpful bootstrap design link
 http://www.webdesignerdepot.com/2014/10/the-ultimate-guide-to-bootstrap/
 
+##Google form upload help documetns
+http://stackoverflow.com/questions/20410497/use-app-scripts-to-open-form-and-make-a-selection/20510224#20510224
+https://support.google.com/docs/answer/2839588?hl=en&topic=1360904&visit_id=1-636216605427324443-1096539171&rd=1
+http://stackoverflow.com/questions/21151896/can-a-google-form-be-auto-filled-and-submitted-using-data-from-a-spreadsheet
+https://developers.google.com/apps-script/quickstart/forms-add-on
+http://www.cubemg.com/how-to-fill-out-forms-on-websites-with-applescript/
+
 ## Tips
 If shit hits the fan try .podspec file for inconsistencies
 
