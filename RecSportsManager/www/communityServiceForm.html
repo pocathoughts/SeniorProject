@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <!-- Description of page -->
+    <!-- This page is the landing page. After the splash screen this is
+    the first page users will encounter. They will either login to the
+    application or they will choose the option to make a new acccount -->
+
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+    <!-- Bootstrap -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">-->
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <title>Sign Up</title>
+
+</head>
+<!-- only took 800 tries to get his to work -->
+<body style = "background-image:url('img/splash.png')">
+
+    <div class = "container">
+        <h1 style = "font-family: 'Oswald'; color: white"> CREATE AN </h1>
+        <h1 style = "font-family: 'Oswald'; color: white"> ACCOUNT </h1>
+    </div>
+
+    <div class = "spacer"/>
+
+    <!-- each field needs a form group -->
+    <form accept-charset="UTF-8" id="form" method="get" action="https://script.google.com/macros/s/AKfycbyCiUqfi6SRylAqzff18ky0WK0nUFjDY_oVKEj81EWXN0GYJOo/exec">
+        <div class="col-md-4 col-md-offset-4"> <!-- centering the forms -->
+    	    <div class="form-group row"> <!-- Full Name field !-->
+    		    <label id = "font-style" for="full_name" class="control-label">Full Name</label>
+    		    <input type="text" class="form-control" id="between_input" name="full_name" placeholder="Full Name (users will see you as this name)">
+            </div>
+            <div class="form-group row"> <!-- Email field !-->
+                <label id = "font-style" for="email_id" class="control-label">Email</label>
+                <input type="email" class="form-control" id="between_input" name="email_name" placeholder="UFL Email Address">
+            </div>
+            <div class="form-group row"> <!-- Password field !-->
+		        <label id = "font-style" for="email_id" class="control-label">Password</label>
+		        <input type="password" class="form-control" id="between_input" name="password" placeholder="Password">
+            </div>
+            <div class="form-group row"> <!-- Confirm Password field !-->
+                <label id = "font-style" for="email_id" class="control-label">Confirm Password</label>
+    		    <input type="password" class="form-control" id="between_input" name="confirm_password" placeholder="Confirm Password">
+            </div>
+            <div class="form-group row"> <!-- Full Name field !-->
+                <label id = "font-style" for="full_name" class="control-label">First Name of Person Submitting Form</label>
+                <input type="text" class="form-control" id="between_input" name="full_name" placeholder="Full Name (users will see you as this name)">
+            </div>
+            <div class="form-group row"> <!-- Email field !-->
+                <label id = "font-style" for="email_id" class="control-label">Last Name of Person Submitting Form</label>
+                <input type="email" class="form-control" id="between_input" name="email_name" placeholder="UFL Email Address">
+            </div>
+            <div class="form-group row"> <!-- Password field !-->
+                <label id = "font-style" for="email_id" class="control-label">Email Address of Person Submitting the Form</label>
+                <input type="password" class="form-control" id="between_input" name="password" placeholder="Password">
+            </div>
+            <div class="form-group row"> <!-- Confirm Password field !-->
+                <label id = "font-style" for="email_id" class="control-label">Sports Club</label>
+                <input type="password" class="form-control" id="between_input" name="confirm_password" placeholder="Confirm Password">
+            </div>
+            <div class="form-group row"> <!-- Full Name field !-->
+                <label id = "font-style" for="full_name" class="control-label">Date of Community Service Event</label>
+                <input type="text" class="form-control" id="between_input" name="full_name" placeholder="Full Name (users will see you as this name)">
+            </div>
+            <div class="form-group row"> <!-- Email field !-->
+                <label id = "font-style" for="email_id" class="control-label">Scheduled Start Time of the Event</label>
+                <input type="email" class="form-control" id="between_input" name="email_name" placeholder="UFL Email Address">
+            </div>
+            <div class="form-group row"> <!-- Password field !-->
+                <label id = "font-style" for="email_id" class="control-label">Scheduled End Time of the Event</label>
+                <input type="password" class="form-control" id="between_input" name="password" placeholder="Password">
+            </div>
+            <h5> If this is an ongoing event with multiple dates, list all dates below: </h5>
+            <div class="form-group row"> <!-- Confirm Password field !-->
+                <label id = "font-style" for="email_id" class="control-label">Sports Club</label>
+                <input type="password" class="form-control" id="between_input" name="confirm_password" placeholder="Confirm Password">
+            </div>
+            <h5> please describe what your club did for this community service activity </h5>
+            <div class="form-group row"> <!-- Full Name field !-->
+                <label id = "font-style" for="full_name" class="control-label">First Name of Person Submitting Form</label>
+                <input type="text" class="form-control" id="between_input" name="full_name" placeholder="Full Name (users will see you as this name)">
+            </div>
+            <h5> please describe what the club learned as a result of its participation in this activity. </h5>
+            <div class="form-group row"> <!-- Email field !-->
+                <label id = "font-style" for="email_id" class="control-label">Last Name of Person Submitting Form</label>
+                <input type="email" class="form-control" id="between_input" name="email_name" placeholder="UFL Email Address">
+            </div>
+            <div class="form-group row"> <!-- Password field !-->
+                <label id = "font-style" for="email_id" class="control-label">total numbers of hours performed by the club as a group (eg if 10 people worked for 3 hours = 30 hours)</label>
+                <input type="password" class="form-control" id="between_input" name="password" placeholder="Password">
+            </div>
+            <div class="form-group row"> <!-- Confirm Password field !-->
+                <label id = "font-style" for="email_id" class="control-label">please list name of org/project for which club worked</label>
+                <input type="password" class="form-control" id="between_input" name="confirm_password" placeholder="Confirm Password">
+            </div>
+            <div class="form-group row"> <!-- Full Name field !-->
+                <label id = "font-style" for="full_name" class="control-label">name of person we can contact with the org to verify your clubs activityplease</label>
+                <input type="text" class="form-control" id="between_input" name="full_name" placeholder="Full Name (users will see you as this name)">
+            </div>
+            <div class="form-group row"> <!-- Email field !-->
+                <label id = "font-style" for="email_id" class="control-label">please provide the email and phone number of person listed above</label>
+                <input type="email" class="form-control" id="between_input" name="email_name" placeholder="UFL Email Address">
+            </div>
+            <div class="form-group row"> <!-- Password field !-->
+                <label id = "font-style" for="email_id" class="control-label">up to 25 club member fields for people who worked</label>
+                <input type="password" class="form-control" id="between_input" name="password" placeholder="Password">
+            </div>
+
+            <div class = "spacer"/>
+
+            <div class="form-group row"> <!-- Submit button !-->
+                <center><button style = "background-color:#7AAE96; border-style: none;" type="submit" class="rec-button btn btn-primary">NEXT STEP</button></center>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+    <!-- Placed at the end of the document so the pages load faster -->
+      <script src="jquery/jquery-2.0.3.min.js"></script>
+      <script src="bootstrap/bootstrap-2.3.1.min.js"></script>
+</body>
+
+</html>
