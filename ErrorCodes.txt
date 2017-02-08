@@ -1,0 +1,15 @@
+Error codes:
+-1	:	DEFAULT								If this is returned then the error code was never set, alter PHP developer.
+0 	: 	SUCCESS								set to 0 if request wen't as expected
+1	:	INVALID_HTML_FUNCTION
+2	:	phpFunction_NOT_SET
+3	:	MYSQLi_CONNECT_FAIL
+4	:	EMPTY_SIGNIN_DATA
+5	:	INVALID_EMAIL_LOGIN
+6	: 	INVALID_PASSWORD_LOGIN
+7	:	LOGIN_SQL_QUERY_ERROR\
+8	:	PASSWORD_DOESNT_MATCH_EMAIL
+9	:	EMAIL_NOT_IN_DATABASE
+10	:	MULTIPLE_ACCNT_TIED_TO_EMAIL
+11	:	ERROR_ON_SESSION_DELETE
+12	:	ERROR_ON_SESSION_INSERT
