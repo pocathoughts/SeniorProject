@@ -2,12 +2,14 @@
 //funtion inclusion
 
 include ('Login.php');
+include ('RequestClubs.php');
 //include (CreateAccount.php);
 
 //Packet data error checking/setup
 $dataContainer = $_POST;
 $returnData['errno'] = -1;      //-1 is defualt, on success it should be set to 0;
 $returnData['etrstr'] = '';
+$returnData['data'] = array();
 
 if (!isset($dataContainer)){
   $returnData['errno'] = 1;
@@ -32,32 +34,20 @@ if ( !($functionChoice == 'Login' or $functionChoice == 'CreateUserAccount') ){
   checkSession($link, $dataContainer, $returnData);
 }
 
-
+//Function Redirection
 switch ($functionChoice) {
   case 'Login':
-    LoginValidate($dataContainer);
+    LoginValidate($dataContainer, $returnData);
     Login($link, $dataContainer, $returnData);
     break;
   case 'CreateUserAccount':
-    CreateUserAccountValidate($dataContainer);
+    CreateUserAccountValidate($dataContainer, $returnData);
     CreateUserAccount($link, $dataContainer, $returnData);
     break;
-    /*if( isset($dataContainer['username']) AND isset($dataContainer['password']) AND isset($dataContainer['email']) ) {
-      $user = $dataContainer['username'];
-      $pass = $dataContainer['password'];
-      $email = $dataContainer['email'];
-      $validated = ValidateAccountDetails ($user, $pass, $email);
-      if (!$validated){
-        $returnData = "SERVER REJECT: 'Username, password, or email is invalid.'";
-      }
-      $link = connectDatabase();
-      $returnData = CreateAccount($link, $user, $pass, $email, 0, 0);
-      disconnectDatabase($link);
-      echo $returnData;
-    } else {
-      $returnData = "SERVER REJECT: 'Username, password, or email field was not set in server request.'"; 
-    }
-    break;*/
+  case 'GetAttachedClubs':
+    GetAttachedClubsValidate($dataContainer, $returnData);
+    GetAttachedClubs($link, $dataContainer, $returnData);
+    break;
   default:
     echo "shitsnacks";
     break;

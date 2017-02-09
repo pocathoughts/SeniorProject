@@ -15,11 +15,28 @@ function CheckAccount() {
       var data = newdata.data;
       str += "\nSession_id : " + data.session_id;
       alert( str );
+      $.ajax( { 
+        type : 'POST',
+        data : {phpFunction:'GetAttachedClubs',email:'asilcott@ufl.edu',password:'pass'},
+        url  : 'http://70.171.8.198:2555/PHP/Controller.php',    //'http://' is required for request. 
+        success: function ( returned ) {
+          var newdata = JSON.parse(returned);
+          var str = "Errno : " + newdata.errno;
+          str += "\nErrstr : " + newdata.errstr;
+          str += "\nData : " + JSON.stringify(newdata.data);
+          var data = newdata.data;
+          str += "\nSession_id : " + data.session_id;
+          alert( str );
+         },
+        error: function ( xhr ) {
+          alert( "errorr" );
+        }
+      });//end ajax 2
      },
     error: function ( xhr ) {
       alert( "errorr" );
     }
-  });
+  });//end ajax 1
 }
 function AddAccount() {
 $.ajax( { 

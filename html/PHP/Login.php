@@ -88,8 +88,8 @@ function CreateSession($link, $account_id, &$returnData){
   } else {
     //if sucessful set returnData w/ $returnData['data'] = session_id
     $returnData['errno'] = 0;
-    $data = array ( 'session_id' => $newSesh );
-    $returnData['data'] = $data; 
+    //$data = array ( 'session_id' => $newSesh );
+    $returnData['data']['session_id'] = $newSesh; 
   }
   
 }
