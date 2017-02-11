@@ -1,16 +1,65 @@
 /* here are the woes to this code
-function doGet() {
-  return HtmlService.createHtmlOutputFromFile('Index');
-}
-If the form is changed in format (text, dropdown, dates, etc)
-I don't know a more concise way to create fields for everything
-so each step is explicitely laid out at the moment. */
 
 function doGet() {
   return HtmlService.createHtmlOutputFromFile('TestingAppScript.html');
 }
 
-function myFunction(var1, var2) {
+
+If the form is changed in format (text, dropdown, dates, etc)
+I don't know a more concise way to create fields for everything
+so each step is explicitely laid out at the moment. */
+
+function doPost(e){
+  fillCommunityServiceForm(e);
+  //shortTest('hi', 'bye');
+}
+
+function fillCommunityServiceForm(e){
+try {
+    Logger.log(e); // the Google Script version of console.log see: Class Logger
+    var parameters = JSON.stringify(e.parameter);
+    var all_params = JSON.parse(parameters);
+
+    //somethingElse = somethingElse.toString();
+
+    // winner winner format for this
+    var f_name = all_params.first_name;
+    Logger.log(f_name);
+    var l_name = all_params.last_name;
+    Logger.log(l_name);
+    var email = all_params.email;
+    var club = all_params.club;
+    var date = all_params.date;
+    var start = all_params.start;
+    var end = all_params.end;
+    var dates = all_params.dates;
+    var we_did = all_params.did;
+    var we_learned = all_params.learn;
+    var total_hours = all_params.hours;
+    var org = all_params.org;
+    var contact = all_params.contact;
+    var contact_email = all_params.contact_email;
+    var peeps = all_params.people;
+
+
+    shortTest(f_name, l_name);
+    //record_data(e);
+    //JSON.stringify(e.parameters));
+    //return ContentService    // return json success results
+      //    .createTextOutput(
+        //    JSON.stringify({"result":"success",
+          //                  "data": JSON.stringify(e.parameters) }))
+          //.setMimeType(ContentService.MimeType.JSON);
+  } catch(error) { // if error return this
+    Logger.log(error);
+    //return ContentService
+     //     .createTextOutput(JSON.stringify({"result":"error", "error": e}))
+       //   .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function shortTest(var1, var2) {
+  Logger.log('I was called!');
   // all the variable definitions for each individual question
   // you have to pull each individual question as a variable
   // well you don't have to, but for clarity I went ahead and did it

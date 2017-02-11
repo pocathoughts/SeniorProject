@@ -144,3 +144,14 @@ h1 {
     color: white;
     font-size: 60px;
 }
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+#bg-white
+{
+  background-color: white;
+}
