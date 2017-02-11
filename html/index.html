@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type = "text/javascript">
+function CheckAccount() {
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'Login',email:'asilcott@ufl.edu',password:'pass'},
+    url  : 'http://70.171.8.198:2555/PHP/Controller.php',    //'http://' is required for request. 
+    success: function ( returned ) {
+      var newdata = JSON.parse(returned);
+      var str = "Errno : " + newdata.errno;
+      str += "\nErrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+      var data = newdata.data;
+      str += "\nSession_id : " + data.session_id;
+      alert( str );
+      $.ajax( { 
+        type : 'POST',
+        data : {phpFunction:'GetAttachedClubs',email:'asilcott@ufl.edu',password:'pass'},
+        url  : 'http://70.171.8.198:2555/PHP/Controller.php',    //'http://' is required for request. 
+        success: function ( returned ) {
+          var newdata = JSON.parse(returned);
+          var str = "Errno : " + newdata.errno;
+          str += "\nErrstr : " + newdata.errstr;
+          str += "\nData : " + JSON.stringify(newdata.data);
+          var data = newdata.data;
+          str += "\nSession_id : " + data.session_id;
+          alert( str );
+         },
+        error: function ( xhr ) {
+          alert( "errorr" );
+        }
+      });//end ajax 2
+     },
+    error: function ( xhr ) {
+      alert( "errorr" );
+    }
+  });//end ajax 1
+}
+function AddAccount() {
+$.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'CreateAccount',password:'pass',email:'kmarin@ufl.edu'},
+    url  : 'http://70.171.8.198:2555/PHP/Login.php',
+    success: function ( data ) {
+      var newdata = JSON.parse(data);
+      alert( newdata.results );
+    },
+    error: function ( xhr ) {
+      alert( "errorr" );
+    }
+  });
+}
+    </script>
+  </head>
+  <body>
+  <form>
+    <input type="text" name="email"><br>
+    <input type="text" name="password"><br>
+  </form>
+    <button onclick="CheckAccount()">check account</button> <!-- BUTTON CALL PHP FUNCTION -->
+    <button onclick="AddAccount()">add account</button> <!-- BUTTON CALL PHP FUNCTION -->
+  </body>
+</html>

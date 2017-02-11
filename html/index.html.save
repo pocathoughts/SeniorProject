@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <script src="https://checkajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type = "text/javascript">
+function myAjax () {
+$.ajax( { type : 'POST',
+          data : {phpFunction:'Login',username:'aaroniey',password:'pass'},
+          url  : 'PHP/Login.php',              // <=== CALL THE PHP FUNCTION HERE.
+          success: function ( data ) {
+            alert( data );               // <=== VALUE RETURNED FROM FUNCTION.
+          },
+          error: function ( xhr ) {
+            alert( "errorr" );
+          }
+        });
+}
+    </script>
+  </head>
+  <body>
+    <button onclick="CheckForAccount()">Check Account</button> <!-- BUTTON CALL PHP FUNCTION -->
+  </body>
+</html>
