@@ -76,11 +76,16 @@ exitfnc($returnData);
   }
   
   function checkSession($link, $data, &$returnData){
-  //todo query database 
+    //Validate that email and session are present
+    //query database for that session
+    //check the last updated feild for timestamp
+    //return if sucessful exit if not 
   }
 
   function updateSessionTimestamp(){
     //todo
+
+    mysqli_query("update `table` set date_date=now()");
   }
   
   function exitfnc($returnData){

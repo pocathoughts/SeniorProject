@@ -3,6 +3,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS club_teams;
 DROP TABLE IF EXISTS user_accounts;
 DROP TABLE IF EXISTS club_positions;
+DROP TABLE IF EXISTS recSport_positions;
 DROP TABLE IF EXISTS active_sessions;
 
 SET FOREIGN_KEY_CHECKS = 1;
@@ -38,9 +39,17 @@ CREATE TABLE club_positions (
   PRIMARY KEY (account_id, club_id)
 );
 
+CREATE TABLE recSport_position (
+  temp_permision1 BIT(1) NOT NULL DEFAULT 0,
+  account_id INT NOT NULL UNIQUE,
+  FOREIGN KEY (account_id) REFERENCES user_accounts(account_id) ON DELETE CASCADE,
+  PRIMARY KEY (account_id)
+);
+
 CREATE TABLE active_sessions (
   session_id CHAR(32) NOT NULL,
   account_id INT NOT NULL UNIQUE,
+  previous_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (account_id) REFERENCES user_accounts(account_id) ON DELETE CASCADE,
   PRIMARY KEY (session_id, account_id)
 );
