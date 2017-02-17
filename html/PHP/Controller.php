@@ -75,13 +75,82 @@ exitfnc($returnData);
     mysqli_close($link);
   }
   
-  function checkSession($link, $data, &$returnData){
-    //Validate that email and session are present
+  function checkSession($link, $data, &$returnData){    //look into removing all sessions that are not tied to requested email on success.
+    //TODO Validate that email and session are present
+	
+  
+    //Get the account_id attached to the email
+    $accountIDQuery = "SELECT * FROM active_sessions WHERE email = " . $data['email'];
+    if( ! $accountQueryResuts = mysqli_query($link,$accountIDQuery) ) {
+      $returnData['errno'] = 18;
+      $returnData['errstr'] = "Mysql account_id query error: " . mysqli_error($link);
+      exitfnc($returnData);
+    }
+    if (mysqli_num_rows($accountQueryResuts) == 0){   //no matching records
+      $returnData['errno'] = 19;
+      $returnData['errstr'] = "No account found for " . $data['email'] . ", please create one";
+      exitfnc($returnData);
+    } elseif (mysqli_num_rows($accountQueryResuts) > 1){   //multiple matching records, supposed to be Unique, Database error
+      $returnData['errno'] = 20;
+      $returnData['errstr'] = "Error, multiple accounts found.";
+      deleteSessions($link, $data);
+      //ALERT SYS ADMIN
+      exitfnc($returnData);
+    }
+    $account = mysqli_fetch_array($accountQueryResuts, MYSQLI_ASSOC);
+    $data['account_id'] = $account['account_id'];
+    
+    
     //query database for that session
-    //check the last updated feild for timestamp
-    //return if sucessful exit if not 
+    $sessionQuery = "SELECT * FROM active_sessions WHERE account_id = " . $data['account_id'];
+    if( ! $sessionQueryResuts = mysqli_query($link,$sessionQuery) ) {
+      $returnData['errno'] = 13;
+      $returnData['errstr'] = "Mysql session query error: " . mysqli_error($link);
+      exitfnc($returnData);
+    }
+    if (mysqli_num_rows($sessionQueryResuts) == 0){   //no matching records
+      $returnData['errno'] = 14;
+      $returnData['errstr'] = "No active session, please log in again";
+      exitfnc($returnData);
+    } elseif (mysqli_num_rows($sessionQueryResuts) > 1){   //multiple matching records, supposed to be Unique, Database error
+      $returnData['errno'] = 15;
+      $returnData['errstr'] = "Error, multiple sessions found.  Please log in again";
+      deleteSessions($link, $data, $returnData);
+      //ALERT SYS ADMIN
+      exitfnc($returnData);
+    }
+    
+    //check for matching session_id and valid/non-expired timestamps
+    $row = mysqli_fetch_array($sessionQueryResuts, MYSQLI_ASSOC);
+    if ($data['session_id'] != $row['session_id']){
+      $returnData['errno'] = 16;
+      $returnData['errstr'] = "Invalid session id, please log in again";
+      exitfnc($returnData);
+    }
+    
+    $currentTime = time();
+    $creationTime = strtotime($row['creation_time']) - $currentTime;
+    $recentTime = strtotime($row['recent_time']) - $currentTime;
+    if ( $creationTime > 86400 OR $recentTime > 7200 ){    //creation : 24 hours, recent : 2 hours
+      deleteSessions($link, $data, $returnData);
+      $returnData['errno'] = 17;
+      $returnData['errstr'] = "Session expired, please log in again";
+      exitfnc($returnData);
+    } else {
+      //TODO update timestamp
+      
+    }
+  } 
+  
+  function deleteSessions($link, $data, &$returnData) {
+    $sessionDeleteQuery = "DELETE FROM active_sessions WHERE account_id = " . data['account_id'];
+    if( !mysqli_query($link,$sessionDeleteQuery) ) {
+      $returnData['errno'] = 11;
+      $returnData['errstr'] = "Mysql Session delete error: " . mysqli_error($link);
+      exitfnc($returnData);
+    }
   }
-
+  
   function updateSessionTimestamp(){
     //todo
 
@@ -94,17 +163,4 @@ exitfnc($returnData);
     exit;
   }
 
-
-  function CreateAccount ($link, $username, $password, $email, $approve, $create){
-    $insertLine = "INSERT INTO user_accounts (username, password, email, request_approval, create_admin_account) VALUES ('$username', '$password', '$email', '$approve', '$create');";
-    if (mysqli_query($link, $insertLine)) {
-      $result = "New record created successfully";
-    } else {
-      $result = "Error: " . $insertLine . "\n" . mysqli_error($link);
-    }
-    return $result;
-  }
-  function ValidateAccountDetails ($username, $password, $email){
-    return true;
-  }
 ?>
