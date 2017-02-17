@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>Home Page</title>
+    <title>Approval Page</title>
 
     <!-- probably not the best way to do it but we tried -->
     <style type="text/css">
@@ -42,28 +42,37 @@
             </ul>
         </div>
 
-        <h1 style = "color: white; font-family: 'Oswald'"> BEACH VOLLEYBALL </h1>
+        <h1 style = "color: white; font-family: 'Oswald'"> ADMIN APPROVAL </h1>
     </nav> <!-- /.navbar -->
 
 
     <div class = "container">
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href = "forms.html"> <center><img class = "landing-icon" src = "img/icons/forms.png" onmouseover="hoverForm(this)" onmouseout="unhoverForm(this)"></center> </a>
-            <center><h4> forms </h4></center>
-        </div>
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href> <center><img class = "landing-icon" src = "img/icons/bar-chart.png" onmouseover="hoverTracking(this)" onmouseout="unhoverTracking(this)"></center> </a>
-            <center><h4> track status </h4></center>
-        </div>
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href> <center><img class = "landing-icon" src = "img/icons/warning.png" onmouseover="hoverWarning(this)" onmouseout="unhoverWarning(this)"></center> </a>
-            <center><h4> deadlines </h4></center>
-        </div>
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href> <center><img class = "landing-icon" src = "img/icons/man.png" onmouseover="hoverMan(this)" onmouseout="unhoverMan(this)"></center> </a>
-            <center><h4> account info </h4></center>
-        </div>
+        <h1 style = "font-family: 'Oswald'; text-align:left"> Pending Approvals </h1>
+        <hr>
+        <ul style="font-family: 'Oswald'; text-align: left; list-style-type:none; font-size: 2em">
+          <li>Person 1 </li>
+          <li>Person 2 </li>
+          <li>Person 3 </li>
+        </ul>
     </div>
+
+    <hr>
+
+    <div class = "container">
+        <h1 style = "font-family: 'Oswald'; text-align:left"> View Approved Users </h1>
+        <hr>
+        <!-- will need to be populated by database data -->
+        <ul style="font-family: 'Oswald'; text-align: left; list-style-type:none; font-size: 2em">
+          <li>Name : </li>
+          <li>Email : </li>
+          <li>Sports Club : </li>
+        </ul>
+    </div>
+
+    <div class="search-bar">
+                  <input type="text" class="sfield" name="searchterm" maxlength="30" value="Search...">
+                  <input type="image" class="searchbutton" name="search" src="http://www.spheretekk.com/bc/images/search-icon.gif" alt="Search">
+                </div>
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
