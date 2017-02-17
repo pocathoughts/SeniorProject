@@ -8,7 +8,7 @@ include ('RequestClubs.php');
 //Packet data error checking/setup
 $dataContainer = $_POST;
 $returnData['errno'] = -1;      //-1 is defualt, on success it should be set to 0;
-$returnData['etrstr'] = '';
+$returnData['errstr'] = '';
 $returnData['data'] = array();
 
 if (!isset($dataContainer)){
