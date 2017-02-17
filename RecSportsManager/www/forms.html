@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>Home Page</title>
+    <title>Beach Volleyball Forms</title>
 
     <!-- probably not the best way to do it but we tried -->
     <style type="text/css">
@@ -26,6 +26,7 @@
 
 <body>
     <!-- Start of the Navbar -->
+    <!-- Start of the Navbar -->
     <nav style = "background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
 
         <div class="dropdown">
@@ -34,53 +35,45 @@
             </a>
 
             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="landingPage.html">Home</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Account</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Track Club Progress</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Menu item 1</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Menu item 2</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Menu item 3</a></li>
               <li role="presentation" class="divider"></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Menu item 4</a></li>
             </ul>
         </div>
 
-        <h1 style = "color: white; font-family: 'Oswald'"> BEACH VOLLEYBALL </h1>
+        <h1 style = "color: white; font-family: 'Oswald'"> BEACH VOLLEYBALL FORMS</h1>
     </nav> <!-- /.navbar -->
 
-
     <div class = "container">
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href = "forms.html"> <center><img class = "landing-icon" src = "img/icons/forms.png" onmouseover="hoverForm(this)" onmouseout="unhoverForm(this)"></center> </a>
-            <center><h4> forms </h4></center>
+        <div class="col-md-6" style = "border-style: solid; border-color: black;">
+            <a href = "communityServiceForm.html"> <center><img class = "landing-icon" src = "img/icons/home.png" onmouseover="hoverHouse(this)" onmouseout="unhoverHouse(this)";></center> </a>
+            <center><h4> Community Service </h4></center>
         </div>
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href> <center><img class = "landing-icon" src = "img/icons/bar-chart.png" onmouseover="hoverTracking(this)" onmouseout="unhoverTracking(this)"></center> </a>
-            <center><h4> track status </h4></center>
+        <div class="col-md-6" style = "border-style: solid; border-color: black;">
+            <a href = "fundraisingForm.html"> <center><img class = "landing-icon" src = "img/icons/piggy-bank.png" onmouseover="hoverPig(this)" onmouseout="unhoverPig(this)"></center> </a>
+            <center><h4> Fundraising </h4></center>
         </div>
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href> <center><img class = "landing-icon" src = "img/icons/warning.png" onmouseover="hoverWarning(this)" onmouseout="unhoverWarning(this)"></center> </a>
-            <center><h4> deadlines </h4></center>
+        <div class="col-md-6" style = "border-style: solid; border-color: black;">
+            <a href = "sportsClubAttendance.html"> <center><img class = "landing-icon" src = "img/icons/shoe.png" onmouseover="hoverShoe(this)" onmouseout="unhoverShoe(this)"></center> </a>
+            <center><h4> Sports Club Attendance </h4></center>
         </div>
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href> <center><img class = "landing-icon" src = "img/icons/man.png" onmouseover="hoverMan(this)" onmouseout="unhoverMan(this)"></center> </a>
-            <center><h4> account info </h4></center>
+        <div class="col-md-6" style = "border-style: solid; border-color: black;">
+            <a href = "travelRefundForm.html"> <center><img class = "landing-icon" src = "img/icons/departures.png" onmouseover="hoverPlane(this)" onmouseout="unhoverPlane(this)"></center> </a>
+            <center><h4> Travel Refund </h4></center>
         </div>
     </div>
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript">
+    <script type="text/javascript" src="js/customScript.js"></script>
 
         app.initialize();
     </script>
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="jquery/jquery-2.0.3.min.js"></script>
     <script src="bootstrap/bootstrap-2.3.1.min.js"></script>
-    <script type="text/javascript" src="js/customScript.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('.dropdown-toggle').dropdown();
-        });
-    </script>
 
 </body>
 
