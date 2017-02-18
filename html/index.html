@@ -20,6 +20,7 @@ function CheckAccount() {
       var data = newdata.data;
       str += "\nSession_id : " + data.session_id;
       alert( str );
+      
       $.ajax( { 
         type : 'POST',
         data : {phpFunction:'GetAttachedClubs',email:'asilcott@ufl.edu',session_id:data.session_id},
@@ -37,6 +38,23 @@ function CheckAccount() {
           alert( "errorr" );
         }
       });//end ajax 2
+      $.ajax( { 
+        type : 'POST',
+        data : {phpFunction:'GetAttachedClubs',email:'asilcott@ufl.edu',session_id:'4fd7e6186069c587e3384b99a38954df'},
+        url  : 'http://70.171.8.198:2555/PHP/Controller.php',    //'http://' is required for request. 
+        success: function ( returned ) {
+          var newdata = JSON.parse(returned);
+          var str = "Errno : " + newdata.errno;
+          str += "\nErrstr : " + newdata.errstr;
+          str += "\nData : " + JSON.stringify(newdata.data);
+          var data = newdata.data;
+          str += "\ntest : " + data.test;
+          alert( str );
+        },
+        error: function ( xhr ) {
+          alert( "errorr" );
+        }
+      });//end ajax 3
      },
     error: function ( xhr ) {
       alert( "errorr" );
