@@ -37,7 +37,8 @@ function CheckAccount() {
         error: function ( xhr ) {
           alert( "errorr" );
         }
-      });//end ajax 2
+      });
+      alert('paused');
       $.ajax( { 
         type : 'POST',
         data : {phpFunction:'GetAttachedClubs',email:'asilcott@ufl.edu',session_id:'4fd7e6186069c587e3384b99a38954df'},
