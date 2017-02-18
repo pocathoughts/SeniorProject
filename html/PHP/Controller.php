@@ -80,7 +80,8 @@ exitfnc($returnData);
 	
   
     //Get the account_id attached to the email
-    $accountIDQuery = "SELECT * FROM active_sessions WHERE email = " . $data['email'];
+    $email = $data['email'];
+    $accountIDQuery = "SELECT * FROM active_sessions WHERE email = '$email'";
     if( ! $accountQueryResuts = mysqli_query($link,$accountIDQuery) ) {
       $returnData['errno'] = 18;
       $returnData['errstr'] = "Mysql account_id query error: " . mysqli_error($link);
