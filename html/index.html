@@ -3,15 +3,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type = "text/javascript">
 function CheckAccount() {
-  var localDev = true;
   var ControllerSwitch = 'http://70.171.8.198:2555/PHP/Controller.php';
-  if (localDev == true){
-    ControllerSwitch = 'http://127.0.0.1/PHP/Controller.php';
-  }
+  
   $.ajax( { 
     type : 'POST',
     data : {phpFunction:'Login',email:'asilcott@ufl.edu',password:'pass'},
-    url  : 'http://70.171.8.198:2555/PHP/Controller.php',    //'http://' is required for request. 
+    url  : ControllerSwitch,    //'http://' is required for request. 
     success: function ( returned ) {
       var newdata = JSON.parse(returned);
       var str = "Errno : " + newdata.errno;
@@ -24,7 +21,7 @@ function CheckAccount() {
       $.ajax( { 
         type : 'POST',
         data : {phpFunction:'GetAttachedClubs',email:'asilcott@ufl.edu',session_id:data.session_id},
-        url  : 'http://70.171.8.198:2555/PHP/Controller.php',    //'http://' is required for request. 
+        url  : ControllerSwitch,    //'http://' is required for request. 
         success: function ( returned ) {
           var newdata = JSON.parse(returned);
           var str = "Errno : " + newdata.errno;
@@ -42,7 +39,7 @@ function CheckAccount() {
       $.ajax( { 
         type : 'POST',
         data : {phpFunction:'GetAttachedClubs',email:'asilcott@ufl.edu',session_id:'4fd7e6186069c587e3384b99a38954df'},
-        url  : 'http://70.171.8.198:2555/PHP/Controller.php',    //'http://' is required for request. 
+        url  : ControllerSwitch,    //'http://' is required for request. 
         success: function ( returned ) {
           var newdata = JSON.parse(returned);
           var str = "Errno : " + newdata.errno;
