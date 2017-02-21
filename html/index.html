@@ -63,7 +63,7 @@ function AddAccount() {
 $.ajax( {   
     type : 'POST',
     data : {phpFunction:'CreateAccount',password:'pass',email:'kmarin@ufl.edu'},
-    url  : 'http://127.0.0.1/PHP/Login.php',
+    url  : 'http://70.171.8.198:2555/PHP/Controller.php',
     success: function ( data ) {
       var newdata = JSON.parse(data);
       alert( newdata.results );
