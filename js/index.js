@@ -11,9 +11,11 @@ function CheckAccount() {
   $.ajax( { 
     type : 'POST',
     data : {phpFunction:'Login',email:userEmail,password:userPass},
+    dataType: 'jsonp',
     url  : 'http://70.171.8.198:2555/PHP/Controller.php',    //'http://' is required for request. 
-    success: function ( returned ) {
-      var newdata = JSON.parse(returned);
+    })
+    .done(function ( data, status ) {
+      var newdata = JSON.parse(data);
       var str = "Errno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
@@ -37,11 +39,10 @@ function CheckAccount() {
       //    alert( "errorr" );
       //  }
       //});//end ajax 2
-     },
-    error: function ( xhr ) {
-      alert( "errorr" );
-      alert(xhr);
-    }
+     })
+    .fail(function ( data, status ) {
+      alert( "errorr");
+      alert(data);
   });//end ajax 1
 }
 
