@@ -6,11 +6,12 @@ function CheckAccount() {
   }
   alert ('sanity check');
   var userEmail = $('#email').val();
+  var userPass = $('#password').val();
   alert (userEmail);
   $.ajax( { 
     type : 'POST',
-    data : {phpFunction:'Login',email:userEmail,password:$('#password').val()},
-    url  : 'http://70.171.8.198:2555/PHP/controller.php',    //'http://' is required for request. 
+    data : {phpFunction:'Login',email:userEmail,password:userPass},
+    url  : 'http://70.171.8.198:2555/PHP/Controller.php',    //'http://' is required for request. 
     success: function ( returned ) {
       var newdata = JSON.parse(returned);
       var str = "Errno : " + newdata.errno;
@@ -39,6 +40,7 @@ function CheckAccount() {
      },
     error: function ( xhr ) {
       alert( "errorr" );
+      alert(xhr);
     }
   });//end ajax 1
 }
