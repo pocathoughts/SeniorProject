@@ -3,16 +3,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type = "text/javascript">
 function CheckAccount() {
-  var localDev = true;
   var ControllerSwitch = 'http://70.171.8.198:2555/PHP/Controller.php';
-  if (localDev == true){
-    ControllerSwitch = 'http://127.0.0.1/PHP/Controller.php';
-  }
-  alert ('sanity check');
+  
   $.ajax( { 
     type : 'POST',
     data : {phpFunction:'Login',email:'asilcott@ufl.edu',password:'pass'},
-    url  : 'PHP/Controller.php',    //'http://' is required for request. 
+    url  : ControllerSwitch,    //'http://' is required for request. 
     success: function ( returned ) {
       var newdata = JSON.parse(returned);
       var str = "Errno : " + newdata.errno;
@@ -21,23 +17,42 @@ function CheckAccount() {
       var data = newdata.data;
       str += "\nSession_id : " + data.session_id;
       alert( str );
-      //$.ajax( { 
-      //  type : 'POST',
-      //  data : {phpFunction:'GetAttachedClubs',email:'asilcott@ufl.edu',session_id:data.session_id},
-      //  url  : ControllerSwitch,    //'http://' is required for request. 
-      //  success: function ( returned ) {
-      //    var newdata = JSON.parse(returned);
-      //    var str = "Errno : " + newdata.errno;
-      //    str += "\nErrstr : " + newdata.errstr;
-      //    str += "\nData : " + JSON.stringify(newdata.data);
-      //    var data = newdata.data;
-      //    str += "\nSession_id : " + data.session_id;
-      //    alert( str );
-      //  },
-      //  error: function ( xhr ) {
-      //    alert( "errorr" );
-      //  }
-      //});//end ajax 2
+      
+      $.ajax( { 
+        type : 'POST',
+        data : {phpFunction:'GetAttachedClubs',email:'asilcott@ufl.edu',session_id:data.session_id},
+        url  : ControllerSwitch,    //'http://' is required for request. 
+        success: function ( returned ) {
+          var newdata = JSON.parse(returned);
+          var str = "Errno : " + newdata.errno;
+          str += "\nErrstr : " + newdata.errstr;
+          str += "\nData : " + JSON.stringify(newdata.data);
+          var data = newdata.data;
+          str += "\ntest : " + data.test;
+          alert( str );
+        },
+        error: function ( xhr ) {
+          alert( "errorr" );
+        }
+      });
+      alert('paused');
+      $.ajax( { 
+        type : 'POST',
+        data : {phpFunction:'GetAttachedClubs',email:'asilcott@ufl.edu',session_id:'4fd7e6186069c587e3384b99a38954df'},
+        url  : ControllerSwitch,    //'http://' is required for request. 
+        success: function ( returned ) {
+          var newdata = JSON.parse(returned);
+          var str = "Errno : " + newdata.errno;
+          str += "\nErrstr : " + newdata.errstr;
+          str += "\nData : " + JSON.stringify(newdata.data);
+          var data = newdata.data;
+          str += "\ntest : " + data.test;
+          alert( str );
+        },
+        error: function ( xhr ) {
+          alert( "errorr" );
+        }
+      });//end ajax 3
      },
     error: function ( xhr ) {
       alert( "errorr" );
@@ -48,7 +63,7 @@ function AddAccount() {
 $.ajax( {   
     type : 'POST',
     data : {phpFunction:'CreateAccount',password:'pass',email:'kmarin@ufl.edu'},
-    url  : 'http://127.0.0.1/PHP/Login.php',
+    url  : 'http://70.171.8.198:2555/PHP/Controller.php',
     success: function ( data ) {
       var newdata = JSON.parse(data);
       alert( newdata.results );
