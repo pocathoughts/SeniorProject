@@ -11,9 +11,12 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 /*--------------------------------------ENTITY TABLES-------------------------------------------*/
 CREATE TABLE club_teams (
-  club_name VARCHAR(40) NOT NULL UNIQUE,
+  club_name VARCHAR(40) NOT NULL,
+  year_start INT NOT NULL,
   club_id INT NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (club_id)
+  PRIMARY KEY (club_id),
+  UNIQUE KEY (club_name, year_start),
+  CHECK (year_start > 1990 AND year_start 2050)
 );
 
 CREATE TABLE user_accounts (
@@ -40,7 +43,7 @@ CREATE TABLE club_positions (
 
 CREATE TABLE club_positions_requests (
   request_id INT NOT NULL AUTOINCREMENT,
-  type TINYINT(2) NOT NULL, /*1 (NEW REQUEST), 2 (CHANGE REQUEST), 3 (REMOVAL)*/
+  --type TINYINT(2) NOT NULL, /*1 (NEW REQUEST), 2 (CHANGE REQUEST), 3 (REMOVAL)*/
   request_date TIMESTAMP NOT NULL, DEFAULT CURRENT_TIMESTAMP,
   requester_id INT NOT NULL,
 
@@ -48,15 +51,19 @@ CREATE TABLE club_positions_requests (
   account_id INT,
   club_id INT,
   position_name VARCHAR(20),
-  president_bool BIT(1)
+  president_bool BIT(1), 
 
   FOREIGN KEY (requester_id) REFERENCES user_accounts(account_id) ON DELETE CASCADE,
+  FOREIGN KEY (club_id) REFERENCES club_teams(club_id) ON DELETE CASCADE,
+  PRIMARY KEY (request_id)
+
 );
 
 CREATE TABLE recSport_position (
   temp_permision1 BIT(1) NOT NULL DEFAULT 0,
   account_id INT NOT NULL UNIQUE,
   FOREIGN KEY (account_id) REFERENCES user_accounts(account_id) ON DELETE CASCADE,
+  
   PRIMARY KEY (account_id)
 );
 
