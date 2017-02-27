@@ -4,7 +4,9 @@ function GetAttachedClubsValidate ($data, &$returnData){
 }
 
 function GetAttachedClubs ($link, $data, &$returnData){
-
+  $returnData['errno'] = 0;
+  $returnData['data']['test'] = 'successful test';
+  exitfnc($returnData);
 }
 
 ?>

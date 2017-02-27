@@ -33,10 +33,24 @@ CREATE TABLE club_positions (
   club_id INT NOT NULL,
   position_name VARCHAR(20) NOT NULL,
   president_bool BIT(1) NOT NULL DEFAULT 0,
-  approval_status TINYINT(2) NOT NULL DEFAULT 1, /*0 (APPROVED), 1(REQUEST_PENDING), 2(REJECTED), 3 (BLOCKED)*/
   FOREIGN KEY (account_id) REFERENCES user_accounts(account_id) ON DELETE CASCADE,
   FOREIGN KEY (club_id) REFERENCES club_teams(club_id) ON DELETE CASCADE,
   PRIMARY KEY (account_id, club_id)
+);
+
+CREATE TABLE club_positions_requests (
+  request_id INT NOT NULL AUTOINCREMENT,
+  type TINYINT(2) NOT NULL, /*1 (NEW REQUEST), 2 (CHANGE REQUEST), 3 (REMOVAL)*/
+  request_date TIMESTAMP NOT NULL, DEFAULT CURRENT_TIMESTAMP,
+  requester_id INT NOT NULL,
+
+  /*changed fields*/
+  account_id INT,
+  club_id INT,
+  position_name VARCHAR(20),
+  president_bool BIT(1)
+
+  FOREIGN KEY (requester_id) REFERENCES user_accounts(account_id) ON DELETE CASCADE,
 );
 
 CREATE TABLE recSport_position (
