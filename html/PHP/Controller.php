@@ -3,7 +3,8 @@
 
 include ('Login.php');
 include ('RequestClubs.php');
-//include (CreateAccount.php);
+include ('CreateAccount.php');
+header('Access-Control-Allow-Origin: *');
 
 //Packet data error checking/setup
 $dataContainer = $_POST;
