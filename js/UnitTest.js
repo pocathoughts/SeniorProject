@@ -1,4 +1,11 @@
+var mutex = 0;
 function StartTest(){
+  if (mutex > 0){
+    alert('function already running, wait for completion then try again. Mutex = ' + mutex);
+    return
+  } else {
+    mutex++;
+  }
   //remove nodes from previous run.  
   var myNode = document.getElementById("Results");
   while (myNode.firstChild) {
@@ -34,6 +41,7 @@ function StartTest(){
   };
   UnitTest.run = function(){
     for (var i = 0; i < this.send.length; i++){
+      mutex++;
       if(this.signin[i] === false){
         sendPacket(this.description[i], this.send[i], this.expect[i]);
       } else {    
@@ -54,13 +62,25 @@ function StartTest(){
     JSON.stringify({phpFunction:'Login',email:'asilcott@ufl.edu',password:'pas'}),    //send json
     JSON.stringify({errcode:'0', errno:'0', data:{}})                                 //expected json
   );
+  UnitTest.add(
+    "Sucessful Login (valid Credentials)",
+    JSON.stringify({phpFunction:'Login',email:'asilcott@ufl.edu',password:'pas'}),    //send json
+    JSON.stringify({errcode:'0', errno:'0', data:{}})                                 //expected json
+  );
+  UnitTest.add(
+    "Sucessful Login (valid Credentials)",
+    JSON.stringify({phpFunction:'Login',email:'asilcott@ufl.edu',password:'pas'}),    //send json
+    JSON.stringify({errcode:'0', errno:'0', data:{}})                                 //expected json
+  );
 
   UnitTest.run();
+  mutex--;
 } 
 
 function sendPacket(description, dataObject, ExpectedData){
   //alert("ajax func");
   var sendData = JSON.parse(dataObject);
+  
   $.ajax( { 
     type : 'POST',
     data : sendData,
@@ -152,5 +172,6 @@ function checkData(description, JSONOBJ, ExpectedDataStr){
   container.style.borderStyle = 'double';
   
   document.getElementById("Results").appendChild(container);
+  mutex--;
 }
 
