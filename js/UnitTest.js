@@ -1,5 +1,9 @@
 function StartTest(){
-  //alert('StartTest Reached');
+  //remove nodes from previous run.  
+  var myNode = document.getElementById("Results");
+  while (myNode.firstChild) {
+    myNode.removeChild(myNode.firstChild);
+  }
   //defining UnitTest object
   var UnitTest = new Object;
   UnitTest.testCount = -1;
@@ -64,30 +68,34 @@ function sendPacket(description, dataObject, ExpectedData){
     })
     .done(function ( data, status ) {
       //alert("success");
-      checkData(data, ExpectedData);
+      checkData(description, data, ExpectedData);
     })
     .fail(function ( data, status ) {
       //alert("failed");
-      checkData(data, ExpectedData);
+      checkData(description, data, ExpectedData);
   });
 }
 
-function checkData(JSONOBJ, ExpectedDataStr){
-  var ExpectedData = JSON.parse(ExpectedDataStr);
-  //var ExpectedData = ExpectedDataStr;
-  var expErrcode = ExpectedData.errcode;
-  var expErrno = ExpectedData.errno;
-  var expData = ExpectedData.data;
+function checkData(description, JSONOBJ, ExpectedDataStr){
   
+  //-----------------------------------DIV CREATION ------------------------------------------
   var container = document.createElement("div");
   var expContainer = document.createElement("div");
   var retContainer = document.createElement("div");
+  var descContainer = document.createElement("div");
   
-  var returnedPacket = JSON.parse(JSONOBJ);
-  var returnedData = returnedPacket.data;
+  //-----------------------DESCRIPTION BOX CREATION ------------------------------------------
+  var descText = document.createTextNode("Test Description: " + description);
+  var descNode = document.createElement("p");
+  descNode.appendChild(descText);
+  descContainer.appendChild(descNode);
 
-  var expErrcodeText = document.createTextNode("Expected Error Code: " + expErrcode);
-  var expErrnoText = document.createTextNode("Expected Error Number: " + expErrno);
+  //-----------------------EXPECTED DATA BOX CREATION ------------------------------------------
+  var ExpectedData = JSON.parse(ExpectedDataStr);
+  var expData = ExpectedData.data;
+
+  var expErrcodeText = document.createTextNode("Expected Error Code: " + ExpectedData.errcode);
+  var expErrnoText = document.createTextNode("Expected Error Number: " + ExpectedData.errno);
   var expDataText = document.createTextNode("Expected Data: " + JSON.stringify(expData));
   var expErrcodeNode = document.createElement("p");
   var expErrnoNode = document.createElement("p");
@@ -100,6 +108,10 @@ function checkData(JSONOBJ, ExpectedDataStr){
   expContainer.appendChild(expErrcodeNode);
   expContainer.appendChild(expErrnoNode);
   expContainer.appendChild(expDataNode);
+
+  //-----------------------RETURNED DATA BOX CREATION -------------------------------------------
+  var returnedPacket = JSON.parse(JSONOBJ);
+  var returnedData = returnedPacket.data;
 
   var retErrcodeText = document.createTextNode("Returned Error Code: " + returnedPacket.errcode);
   var retErrnoText = document.createTextNode("Returned Error Number: " + returnedPacket.errno);
@@ -116,15 +128,28 @@ function checkData(JSONOBJ, ExpectedDataStr){
   retContainer.appendChild(retErrnoNode);
   retContainer.appendChild(retDataNode);
   
+  //-----------------------DIV CSS STYLING AND ORGANIZING ------------------------------------------
   retContainer.style.display = 'inline-block';
   expContainer.style.display = 'inline-block';
-  retContainer.style.width = '50%';
-  expContainer.style.width = '50%';
+  retContainer.style.width = '47%';
+  expContainer.style.width = '47%';
 
+  descContainer.style.margin = '1%';
+  descContainer.style.borderStyle = 'solid';
+  descContainer.style.backgroundColor = 'yellow';
+  expContainer.style.margin = '1%';
+  expContainer.style.borderStyle = 'solid';
+  retContainer.style.margin = '1%';
+  retContainer.style.borderStyle = 'solid';
+
+  container.appendChild(descContainer);
   container.appendChild(expContainer);
   container.appendChild(retContainer);
 
-  container.style.display = 'block'; 
+  container.style.display = 'block';
+  container.style.backgroundColor = 'lime'; 
+  container.style.margin = '15px 5px';
+  container.style.borderStyle = 'double';
   
   document.getElementById("Results").appendChild(container);
 }
