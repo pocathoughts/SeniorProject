@@ -28,7 +28,7 @@ CREATE TABLE user_account (
   creation_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   recSport_acc BIT(1) NOT NULL DEFAULT 0,
   account_id INT NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (account_ID)
+  PRIMARY KEY (account_id)
 ); 
 
 /*-------------------------------------RELATION TABLES-------------------------------------------*/
@@ -66,7 +66,7 @@ CREATE TABLE club_position_request_response (
   response_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   decision BIT(1) NOT NULL, /*0 REJECTED, 1 ACCEPTED*/
   
-  FOREIGN KEY (request_id) REFERENCES club_positions_request(request_id) ON DELETE CASCADE,
+  FOREIGN KEY (request_id) REFERENCES club_position_request(request_id) ON DELETE CASCADE,
   FOREIGN KEY (responder) REFERENCES user_account(account_id) ON DELETE CASCADE,
   PRIMARY KEY (response_id) 
 );
