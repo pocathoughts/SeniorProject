@@ -11,7 +11,6 @@ function CheckAccount() {
   $.ajax( { 
     type : 'POST',
     data : {phpFunction:'Login',email:userEmail,password:userPass},
-    dataType: 'jsonp',
     url  : 'http://70.171.8.198:2555/PHP/Controller.php',    //'http://' is required for request. 
     })
     .done(function ( data, status ) {
@@ -42,7 +41,8 @@ function CheckAccount() {
      })
     .fail(function ( data, status ) {
       alert( "errorr");
-      alert(data);
+      alert("WTF");
+      alert(data.values());
   });//end ajax 1
 }
 

@@ -3,7 +3,8 @@
 
 include ('Login.php');
 include ('RequestClubs.php');
-//include (CreateAccount.php);
+include ('CreateAccount.php');
+
 
 //Packet data error checking/setup
 $dataContainer = $_POST;
