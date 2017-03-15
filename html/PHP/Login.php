@@ -2,7 +2,8 @@
 function LoginValidate($data, &$returnData){
   //check for null
   if ( !(isset($data['email']) and isset ($data['password']) ) ){
-    $returnData['errno'] = 4;
+    $returnData['errcode'] = 1;  
+    $returnData['errno'] = 1004;
     $returnData['errstr'] = 'Email or password are not set';
     exitfnc($returnData);
   }
@@ -13,7 +14,8 @@ function LoginValidate($data, &$returnData){
     $validEmail = false;
   }
   if (!$validEmail){
-    $returnData['errno'] = 5;
+    $returnData['errcode'] = 3;  
+    $returnData['errno'] = 3000;
     $returnData['errstr'] = 'Email is malformed based off server requirnments';
     exitfnc($returnData);
   }
@@ -24,28 +26,33 @@ function LoginValidate($data, &$returnData){
     $validPassword = false;
   } 
   if (!$validPassword){
-    $returnData['errno'] = 6;
+    $returnData['errcode'] = 3;  
+    $returnData['errno'] = 3001;
     $returnData['errstr'] = 'Password is malformed based off server requirnments';
     exitfnc($returnData);
   }
 } 
 
 function Login($link, $data, &$returnData){
+  //LoginPermissionCheck($dataContainer, $returnData);
+  LoginValidate($dataContainer, $returnData);  
   $email = $data['email'];
   //query building  
   $query = "SELECT * FROM user_accounts WHERE email = '$email'";
   
   //perform the query and verify no error in query
   if( ! $result = mysqli_query($link,$query) ) {
-    $returnData['errno'] = 7;
+    $returnData['errcode'] = 5;  
+    $returnData['errno'] = 5005;
     $returnData['errstr'] = "Mysql login query error: " . mysqli_error($link);
     exitfnc($returnData);
   }
   
   //verify size of result:
   if (mysqli_num_rows($result) == 0){   //no matching records
-    $returnData['errno'] = 9;
-    $returnData['errstr'] = "$email account doesn't exist";
+      $returnData['errcode'] = 2;
+      $returnData['errno'] = 2000;
+      $returnData['errstr'] = "No account found for " . $data['email'] . ", please create one";
     exitfnc($returnData);
   } elseif (mysqli_num_rows($result) > 1){   //multiple matching records, supposed to be Unique, Database error
     $returnData['errno'] = 10;

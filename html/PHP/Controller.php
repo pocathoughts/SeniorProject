@@ -1,19 +1,21 @@
 <?php
 //funtion inclusion
-
-include ('Login.php');
-include ('RequestClubs.php');
-include ('CreateAccount.php');
 header('Access-Control-Allow-Origin: *');
+include ('Login.php');
+include ('CreateAccount.php');
+include ('RequestClubs.php');
+
 
 //Packet data error checking/setup
 $dataContainer = $_POST;
+$returnData['errcode'] = -1;      //-1 is defualt, on success it should be set to 0;
 $returnData['errno'] = -1;      //-1 is defualt, on success it should be set to 0;
 $returnData['errstr'] = '';
 $returnData['data'] = array();
 
 if (!isset($dataContainer)){
-  $returnData['errno'] = 1;
+  $returnData['errcode'] = 1;  
+  $returnData['errno'] = 1000;
   $returnData['errstr'] = 'Incorrect HTTP Function used or no data passed';
   exitfnc($returnData);
 }
@@ -21,7 +23,8 @@ if (!isset($dataContainer)){
 //Function Detection
 $functionChoice = $dataContainer['phpFunction'];
 if (!isset($functionChoice)){
-  $returnData['errno'] = 2;
+  $returnData['errcode'] = 1;
+  $returnData['errno'] = 1001;
   $returnData['errstr'] = 'phpFunction Not Set';
   exitfnc($returnData);
 }
@@ -38,7 +41,7 @@ if ( !($functionChoice == 'Login' or $functionChoice == 'CreateUserAccount') ){
 //Function Redirection
 switch ($functionChoice) {
   case 'Login':
-    LoginValidate($dataContainer, $returnData);
+    
     Login($link, $dataContainer, $returnData);
     break;
   case 'CreateUserAccount':
@@ -50,7 +53,10 @@ switch ($functionChoice) {
     GetAttachedClubs($link, $dataContainer, $returnData);
     break;
   default:
-    echo "shitsnacks";
+    $returnData['errcode'] = 1;
+    $returnData['errno'] = 1003;
+    $returnData['errstr'] = 'phpFunction value is unknown';
+    exitfnc($returnData);
     break;
 }
 
@@ -63,7 +69,8 @@ exitfnc($returnData);
   function connectDatabase(&$returnData){
     $link = mysqli_connect("127.0.0.1", "root", "user1", "LoginSys");
     if (!$link) {
-      $returnData['errno'] = 3;
+      $returnData['errcode'] = 5;
+      $returnData['errno'] = 5000;
       $returnData['errstr'] = "Error: Unable to connect to MySQL." . PHP_EOL;
       $returnData['errstr'] += "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
       $returnData['errstr'] += "Debugging error: " . mysqli_connect_error() . PHP_EOL;
@@ -78,22 +85,27 @@ exitfnc($returnData);
   
   function checkSession($link, $data, &$returnData){    //look into removing all sessions that are not tied to requested email on success.
     //TODO Validate that email and session are present
-	
+	  
+      //$returnData['errcode'] = 1;
+      //$returnData['errno'] = 1002;
   
     //Get the account_id attached to the email
     $email = $data['email'];
     $accountIDQuery = "SELECT * FROM user_accounts WHERE email = '$email'";
     if( ! $accountQueryResuts = mysqli_query($link,$accountIDQuery) ) {
-      $returnData['errno'] = 18;
+      $returnData['errcode'] = 5;
+      $returnData['errno'] = 5001;
       $returnData['errstr'] = "Mysql account_id query error: " . mysqli_error($link);
       exitfnc($returnData);
     }
     if (mysqli_num_rows($accountQueryResuts) == 0){   //no matching records
-      $returnData['errno'] = 19;
+      $returnData['errcode'] = 2;
+      $returnData['errno'] = 2000;
       $returnData['errstr'] = "No account found for " . $data['email'] . ", please create one";
       exitfnc($returnData);
     } elseif (mysqli_num_rows($accountQueryResuts) > 1){   //multiple matching records, supposed to be Unique, Database error
-      $returnData['errno'] = 20;
+      $returnData['errcode'] = 5;
+      $returnData['errno'] = 5002;
       $returnData['errstr'] = "Error, multiple accounts found.";
       deleteSessions($link, $data);
       //ALERT SYS ADMIN
@@ -101,21 +113,24 @@ exitfnc($returnData);
     }
     $account = mysqli_fetch_array($accountQueryResuts, MYSQLI_ASSOC);
     $data['account_id'] = $account['account_id'];
-    
+    //TODO attach admin admin recsports permissions? and possibly clubs
     
     //query database for that session
     $sessionQuery = "SELECT * FROM active_sessions WHERE account_id = " . $data['account_id'];
     if( ! $sessionQueryResuts = mysqli_query($link,$sessionQuery) ) {
-      $returnData['errno'] = 13;
+      $returnData['errcode'] = 5;
+      $returnData['errno'] = 5003;
       $returnData['errstr'] = "Mysql session query error: " . mysqli_error($link);
       exitfnc($returnData);
     }
     if (mysqli_num_rows($sessionQueryResuts) == 0){   //no matching records
-      $returnData['errno'] = 14;
+      $returnData['errcode'] = 2;
+      $returnData['errno'] = 2001;
       $returnData['errstr'] = "No active session, please log in again";
       exitfnc($returnData);
     } elseif (mysqli_num_rows($sessionQueryResuts) > 1){   //multiple matching records, supposed to be Unique, Database error
-      $returnData['errno'] = 15;
+      $returnData['errcode'] = 2;
+      $returnData['errno'] = 2002;
       $returnData['errstr'] = "Error, multiple sessions found.  Please log in again";
       deleteSessions($link, $data, $returnData);
       //ALERT SYS ADMIN
@@ -125,7 +140,8 @@ exitfnc($returnData);
     //check for matching session_id and valid/non-expired timestamps
     $row = mysqli_fetch_array($sessionQueryResuts, MYSQLI_ASSOC);
     if ($data['session_id'] != $row['session_id']){
-      $returnData['errno'] = 16;
+      $returnData['errcode'] = 2;
+      $returnData['errno'] = 2003;
       $returnData['errstr'] = "Invalid session id, please log in again";
       exitfnc($returnData);
     }
@@ -135,7 +151,8 @@ exitfnc($returnData);
     $recentTime = strtotime($row['recent_time']) - $currentTime;
     if ( $creationTime > 86400 OR $recentTime > 7200 ){    //creation : 24 hours, recent : 2 hours
       deleteSessions($link, $data, $returnData);
-      $returnData['errno'] = 17;
+      $returnData['errcode'] = 2;
+      $returnData['errno'] = 2004;
       $returnData['errstr'] = "Session expired, please log in again";
       exitfnc($returnData);
     } else {
@@ -147,7 +164,8 @@ exitfnc($returnData);
   function deleteSessions($link, $data, &$returnData) {
     $sessionDeleteQuery = "DELETE FROM active_sessions WHERE account_id = " . data['account_id'];
     if( !mysqli_query($link,$sessionDeleteQuery) ) {
-      $returnData['errno'] = 11;
+      $returnData['errcode'] = 5;
+      $returnData['errno'] = 5004;
       $returnData['errstr'] = "Mysql Session delete error: " . mysqli_error($link);
       exitfnc($returnData);
     }
@@ -157,6 +175,9 @@ exitfnc($returnData);
     //todo
 
     mysqli_query("update `table` set date_date=now()");
+    
+      //$returnData['errcode'] = 5;
+      //$returnData['errno'] = 5005;
   }
   
   function exitfnc($returnData){
