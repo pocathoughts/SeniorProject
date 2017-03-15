@@ -2,8 +2,8 @@
 //funtion inclusion
 header('Access-Control-Allow-Origin: *');
 include ('Login.php');
-include ('RequestClubs.php');
 include ('CreateAccount.php');
+include ('RequestClubs.php');
 
 
 //Packet data error checking/setup
@@ -41,7 +41,7 @@ if ( !($functionChoice == 'Login' or $functionChoice == 'CreateUserAccount') ){
 //Function Redirection
 switch ($functionChoice) {
   case 'Login':
-    LoginValidate($dataContainer, $returnData);
+    
     Login($link, $dataContainer, $returnData);
     break;
   case 'CreateUserAccount':
@@ -113,7 +113,7 @@ exitfnc($returnData);
     }
     $account = mysqli_fetch_array($accountQueryResuts, MYSQLI_ASSOC);
     $data['account_id'] = $account['account_id'];
-    
+    //TODO attach admin admin recsports permissions? and possibly clubs
     
     //query database for that session
     $sessionQuery = "SELECT * FROM active_sessions WHERE account_id = " . $data['account_id'];
