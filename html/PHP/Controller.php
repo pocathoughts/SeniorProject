@@ -3,7 +3,8 @@
 header('Access-Control-Allow-Origin: *');
 include ('Login.php');
 include ('CreateAccount.php');
-include ('RequestClubs.php');
+include ('JoinClubRequest.php');
+include ('ClubTeam.php');
 
 
 //Packet data error checking/setup
@@ -41,16 +42,33 @@ if ( !($functionChoice == 'Login' or $functionChoice == 'CreateUserAccount') ){
 //Function Redirection
 switch ($functionChoice) {
   case 'Login':
-    
     Login($link, $dataContainer, $returnData);
     break;
   case 'CreateUserAccount':
-    CreateUserAccountValidate($dataContainer, $returnData);
     CreateUserAccount($link, $dataContainer, $returnData);
     break;
-  case 'GetAttachedClubs':
-    GetAttachedClubsValidate($dataContainer, $returnData);
-    GetAttachedClubs($link, $dataContainer, $returnData);
+//--------------------------------JoinClubRequest-----------------------------------
+  case 'CreateJoinClubRequest':
+    CreateJoinClubRequest($link, $dataContainer, $returnData);
+    break;
+  case 'RespondJoinClubRequest':
+    RespondJoinClubRequest($link, $dataContainer, $returnData);
+    break;
+  case 'DeleteJoinClubRequest':
+    DeleteJoinClubRequest($link, $dataContainer, $returnData);
+    break;
+  case 'GetJoinClubRequestByEmail':
+    GetJoinClubRequestByEmail($link, $dataContainer, $returnData);
+    break;
+  case 'GetJoinClubRequestByClub':
+    GetJoinClubRequestByClub($link, $dataContainer, $returnData);
+    break;
+//-------------------------------ClubTeamRequest------------------------------------
+  case 'GetAttachedClubsByUser':
+    GetAttachedClubsByUser($link, $dataContainer, $returnData);
+    break;
+  case 'GetAllClubs':
+    GetAllClubs($link, $dataContainer, $returnData);
     break;
   default:
     $returnData['errcode'] = 1;
@@ -91,7 +109,7 @@ exitfnc($returnData);
   
     //Get the account_id attached to the email
     $email = $data['email'];
-    $accountIDQuery = "SELECT * FROM user_accounts WHERE email = '$email'";
+    $accountIDQuery = "SELECT * FROM user_account WHERE email = '$email'";
     if( ! $accountQueryResuts = mysqli_query($link,$accountIDQuery) ) {
       $returnData['errcode'] = 5;
       $returnData['errno'] = 5001;
@@ -116,7 +134,7 @@ exitfnc($returnData);
     //TODO attach admin admin recsports permissions? and possibly clubs
     
     //query database for that session
-    $sessionQuery = "SELECT * FROM active_sessions WHERE account_id = " . $data['account_id'];
+    $sessionQuery = "SELECT * FROM active_session WHERE account_id = " . $data['account_id'];
     if( ! $sessionQueryResuts = mysqli_query($link,$sessionQuery) ) {
       $returnData['errcode'] = 5;
       $returnData['errno'] = 5003;
@@ -162,7 +180,7 @@ exitfnc($returnData);
   } 
   
   function deleteSessions($link, $data, &$returnData) {
-    $sessionDeleteQuery = "DELETE FROM active_sessions WHERE account_id = " . data['account_id'];
+    $sessionDeleteQuery = "DELETE FROM active_session WHERE account_id = " . data['account_id'];
     if( !mysqli_query($link,$sessionDeleteQuery) ) {
       $returnData['errcode'] = 5;
       $returnData['errno'] = 5004;
@@ -172,7 +190,7 @@ exitfnc($returnData);
   }
   
   function updateSessionTimestamp(){
-    //todo
+    //TODO
 
     mysqli_query("update `table` set date_date=now()");
     
