@@ -1,5 +1,8 @@
 var mutex = 0;
-function StartTest(){
+var serverAddress = '';
+function StartTest(serAdd){
+  serverAddress = serAdd;
+  //alert(serverAddress);
   if (mutex > 0){
     alert('function already running, wait for completion then try again. Mutex = ' + mutex);
     return
@@ -58,18 +61,18 @@ function StartTest(){
   );
   //Unit Test 2: Invalid Credentials
   UnitTest.add(
-    "Sucessful Login (valid Credentials)",
+    "Fail Login (wrong pass)",
     JSON.stringify({phpFunction:'Login',email:'asilcott@ufl.edu',password:'pas'}),    //send json
     JSON.stringify({errcode:'0', errno:'0', data:{}})                                 //expected json
   );
   UnitTest.add(
-    "Sucessful Login (valid Credentials)",
-    JSON.stringify({phpFunction:'Login',email:'asilcott@ufl.edu',password:'pas'}),    //send json
+    "Fail Login (no pass)",
+    JSON.stringify({phpFunction:'Login',email:'asilcott@ufl.edu'}),    //send json
     JSON.stringify({errcode:'0', errno:'0', data:{}})                                 //expected json
   );
   UnitTest.add(
-    "Sucessful Login (valid Credentials)",
-    JSON.stringify({phpFunction:'Login',email:'asilcott@ufl.edu',password:'pas'}),    //send json
+    "Fail Login (no email)",
+    JSON.stringify({phpFunction:'Login',password:'pas'}),    //send json
     JSON.stringify({errcode:'0', errno:'0', data:{}})                                 //expected json
   );
 
@@ -84,15 +87,17 @@ function sendPacket(description, dataObject, ExpectedData){
   $.ajax( { 
     type : 'POST',
     data : sendData,
-    url  : 'http://70.171.8.198:2555/PHP/Controller.php',    //'http://' is required for request. 
+    url  : 'http://' + serverAddress + '/PHP/Controller.php',    //'http://' is required for request. 
     })
     .done(function ( data, status ) {
       //alert("success");
       checkData(description, data, ExpectedData);
+      mutex--;
     })
     .fail(function ( data, status ) {
       //alert("failed");
       checkData(description, data, ExpectedData);
+      mutex--;
   });
 }
 
@@ -172,6 +177,5 @@ function checkData(description, JSONOBJ, ExpectedDataStr){
   container.style.borderStyle = 'double';
   
   document.getElementById("Results").appendChild(container);
-  mutex--;
 }
 

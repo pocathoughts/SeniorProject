@@ -55,7 +55,6 @@ CREATE TABLE club_operating_year (
 
   FOREIGN KEY (club_id) REFERENCES club_team(club_id) ON DELETE CASCADE,
   FOREIGN KEY (year_id) REFERENCES operating_year(year_id) ON DELETE CASCADE,
-  UNIQUE KEY (club_id, year_id),
   PRIMARY KEY (club_year_id)
 );
 

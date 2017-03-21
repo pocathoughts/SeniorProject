@@ -35,10 +35,10 @@ function LoginValidate($data, &$returnData){
 
 function Login($link, $data, &$returnData){
   //LoginPermissionCheck($dataContainer, $returnData);
-  LoginValidate($dataContainer, $returnData);  
+  LoginValidate($data, $returnData);  
   $email = $data['email'];
   //query building  
-  $query = "SELECT * FROM user_accounts WHERE email = '$email'";
+  $query = "SELECT * FROM user_account WHERE email = '$email'";
   
   //perform the query and verify no error in query
   if( ! $result = mysqli_query($link,$query) ) {
@@ -55,7 +55,8 @@ function Login($link, $data, &$returnData){
       $returnData['errstr'] = "No account found for " . $data['email'] . ", please create one";
     exitfnc($returnData);
   } elseif (mysqli_num_rows($result) > 1){   //multiple matching records, supposed to be Unique, Database error
-    $returnData['errno'] = 10;
+    $returnData['errcode'] = 5;
+    $returnData['errno'] = 5006;
     $returnData['errstr'] = "multiple accounts tied to email";
     //ALERT SYS ADMIN
     exitfnc($returnData);
@@ -68,7 +69,8 @@ function Login($link, $data, &$returnData){
     createSession ($link, $row['account_id'], $returnData);
   } else {      
     //password doesn't match, return.
-    $returnData['errno'] = 8;
+    $returnData['errcode'] = 3;
+    $returnData['errno'] = 3002;
     $returnData['errstr'] = 'Email or password is inncorrect';
     exitfnc($returnData);
   }
@@ -76,9 +78,10 @@ function Login($link, $data, &$returnData){
 
 function CreateSession($link, $account_id, &$returnData){
   //delete if exists
-  $delete = "DELETE FROM active_sessions WHERE account_id = '$account_id'";
+  $delete = "DELETE FROM active_session WHERE account_id = '$account_id'";
   if( !mysqli_query($link,$delete) ) {
-    $returnData['errno'] = 11;
+    $returnData['errcode'] = 5;
+    $returnData['errno'] = 5007;
     $returnData['errstr'] = "Mysql Session delete error: " . mysqli_error($link);
     exitfnc($returnData);
   }
@@ -87,15 +90,16 @@ function CreateSession($link, $account_id, &$returnData){
   $newSesh = md5(rand());
 
   //insert new session id
-  $insert = "INSERT INTO active_sessions (account_id, session_id) VALUES ('$account_id', '$newSesh')";
+  $insert = "INSERT INTO active_session (account_id, session_id) VALUES ('$account_id', '$newSesh')";
   if( !mysqli_query($link,$insert) ) {
-    $returnData['errno'] = 12;
+    $returnData['errcode'] = 5;
+    $returnData['errno'] = 5008;
     $returnData['errstr'] = "Mysql Session insert error: " . mysqli_error($link);
     exitfnc($returnData);
   } else {
     //if sucessful set returnData w/ $returnData['data'] = session_id
+    $returnData['errcode'] = 0;
     $returnData['errno'] = 0;
-    //$data = array ( 'session_id' => $newSesh );
     $returnData['data']['session_id'] = $newSesh; 
   }
   
