@@ -37,7 +37,6 @@ $link = ConnectDatabase($returnData);
 if ( !($functionChoice == 'Login' or $functionChoice == 'CreateUserAccount') ){
   //Login and CreateUserAccount are the only functions that don't require and active session  
   checkSession($link, $dataContainer, $returnData);
-  InjectPermissions($link, $dataContainer, $returnData);
 }
 
 //Function Redirection
@@ -102,7 +101,7 @@ exitfnc($returnData);
     mysqli_close($link);
   }
   
-  function checkSession($link, &$data, &$returnData){    //look into removing all sessions that are not tied to requested email on success.
+  function checkSession($link, $data, &$returnData){    //look into removing all sessions that are not tied to requested email on success.
     //TODO Validate that email and session are present
 	  
       //$returnData['errcode'] = 1;
@@ -132,7 +131,6 @@ exitfnc($returnData);
     }
     $account = mysqli_fetch_array($accountQueryResuts, MYSQLI_ASSOC);
     $data['account_id'] = $account['account_id'];
-    $data['admin'] = $account['recSport_acc'];
     //TODO attach admin admin recsports permissions? and possibly clubs
     
     //query database for that session
@@ -189,43 +187,6 @@ exitfnc($returnData);
       $returnData['errstr'] = "Mysql Session delete error: " . mysqli_error($link);
       exitfnc($returnData);
     }
-  }
-  
-  function injectPermissions($link, &$data, &$returnData){
-    //add clubs
-    
-    $data['permissions']['club_year_id_array'] = array();
-    $query = "SELECT club_year_id FROM club_position WHERE account_id = ". $data['account_id'];
-    if( ! $result = mysqli_query($link,$query) ) {
-      $returnData['errcode'] = 5;  
-      $returnData['errno'] = 5000;
-      $returnData['errstr'] = "Mysql associated clubs query error: " . mysqli_error($link);
-      exitfnc($returnData);
-    }
-  
-    while ($row = mysqli_fetch_array($result)){
-      $rows[] = $row; 
-    }
-    for ($i = 0; $i < sizeof($rows); $i++){
-      $data['permissions']['club_year_id_array'][$i] = $rows[$i][0];
-    }
-    //add amdin permissions
-    if ($data['admin'] == 1) {
-      $data['permissions']['commServ'] = 1;
-      $data['permissions']['fundRaise'] = 1;
-      $data['permissions']['positions'] = 1;
-      //$data['commServ'] = 1;
-      //$data['commServ'] = 1;
-    } else {
-      $data['permissions']['commServ'] = 0;
-      $data['permissions']['fundRaise'] = 0;
-      $data['permissions']['positions'] = 0;
-      //$data['commServ'] = 0;
-      //$data['commServ'] = 0;
-    }
-    //temp lines
-    /*$returnData['data'] = $data;
-    exitfnc($returnData);*/
   }
   
   function updateSessionTimestamp(){

@@ -11,6 +11,5 @@
   </form>
     <button onclick="CheckAccount()">check account</button> <!-- BUTTON CALL PHP FUNCTION -->
     <button onclick="AddAccount()">add account</button> <!-- BUTTON CALL PHP FUNCTION -->
-    <button onclick="CreateRequest()">Create request account</button> <!-- BUTTON CALL PHP FUNCTION -->
   </body>
 </html>
