@@ -195,20 +195,22 @@ exitfnc($returnData);
     //add clubs
     
     $data['permissions']['club_year_id_array'] = array();
-    $query = "SELECT club_year_id FROM club_position WHERE account_id = ". $data['account_id'];
+    $data['permissions']['president_bool_array'] = array();
+    $query = "SELECT club_year_id, president_bool FROM club_position WHERE account_id = ". $data['account_id'];
     if( ! $result = mysqli_query($link,$query) ) {
       $returnData['errcode'] = 5;  
       $returnData['errno'] = 5000;
       $returnData['errstr'] = "Mysql associated clubs query error: " . mysqli_error($link);
       exitfnc($returnData);
     }
-  
     while ($row = mysqli_fetch_array($result)){
       $rows[] = $row; 
     }
     for ($i = 0; $i < sizeof($rows); $i++){
       $data['permissions']['club_year_id_array'][$i] = $rows[$i][0];
+      $data['permissions']['president_bool_array'][$i] = $rows[$i][1];
     }
+
     //add amdin permissions
     if ($data['admin'] == 1) {
       $data['permissions']['commServ'] = 1;

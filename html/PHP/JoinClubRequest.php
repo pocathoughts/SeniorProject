@@ -2,10 +2,36 @@
 
 //--------------------------------------Permission Check --------------------------------------------
 function CreateJoinClubRequestPermissionCheck ($data, &$returnData){
-  //null, nothing to do here
+  //null, nothing to do here any valid user can request
+  //IDEA blocked users?  no plans on implementing
 }
 
 function RespondJoinClubRequestPermissionCheck ($data, &$returnData){
+  //IF ADMIN, ACCEPT
+  if ($data['admin'] == 1){
+    echo 'allowed';
+    return;
+  }
+  //IF PRESIDENT OF ATTACHED CLUB
+  $index = array_search ($data['club_year_id'], $data['permissions']['club_year_id_array']);
+  if ( $index === FALSE  ){
+    $returnData['errcode'] = 4;
+      //TODO proper code
+      $returnData['errno'] = 4000;
+      $returnData['errstr'] = "User is not associated with Club";
+      exitfnc($returnData);
+  } else {
+    if($data['permissions']['president_bool_array'][$index] == 1){
+      echo 'allowed';
+      return;
+    } else {
+      $returnData['errcode'] = 4;
+      //TODO proper code
+      $returnData['errno'] = 4000;
+      $returnData['errstr'] = "User does not have adaquate permission to accept that request";
+      exitfnc($returnData);
+    }
+  }
 }
 
 function DeleteJoinClubRequestPermissionCheck ($data, &$returnData){
@@ -75,7 +101,7 @@ function GetJoinClubRequestByClubValidate ($link, &$data, &$returnData){
 
 //---------------------------------------Calling Function --------------------------------------------
 function CreateJoinClubRequest ($link, $data, &$returnData){
-  InjectClubYearId($link, $data, $returnData);
+  InjectClubYearIdByClubYear($link, $data, $returnData);
   CreateJoinClubRequestPermissionCheck($data, $returnData);
   CreateJoinClubRequestValidate($link, $data, $returnData);
   //add request to the table
@@ -95,6 +121,7 @@ function CreateJoinClubRequest ($link, $data, &$returnData){
 }
 
 function RespondJoinClubRequest ($link, $data, &$returnData){
+  InjectClubYearIdByRequest($link, $data, $returnData);
   RespondJoinClubRequestPermissionCheck($data, $returnData);
   RespondJoinClubRequestValidate($link, $data, $returnData);
 }
@@ -115,7 +142,7 @@ function GetJoinClubRequestByClub ($link, $data, &$returnData){
 }
 
 //---------------------------------------Helper Function --------------------------------------------
-function InjectClubYearId ($link, &$data, &$returnData){
+function InjectClubYearIdByClubYear ($link, &$data, &$returnData){
   $query = "SELECT club_year_id FROM club_operating_year WHERE club_id IN (SELECT club_id FROM club_team WHERE club_name = '". $data['club_name'] ."') AND year_id IN (SELECT year_id FROM operating_year WHERE beginning_year = '". $data['year'] ."')";
   
   //perform the query and verify no error in query
@@ -139,6 +166,38 @@ function InjectClubYearId ($link, &$data, &$returnData){
     //TODO proper code
     $returnData['errno'] = 5000;
     $returnData['errstr'] = "multiple records tied to club/year";
+    //ALERT SYS ADMIN
+    exitfnc($returnData);
+  } else {
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $data['club_year_id'] = $row['club_year_id'];
+  }
+}
+
+function InjectClubYearIdByRequest ($link, &$data, &$returnData){
+  $query = "SELECT club_year_id FROM club_position_request WHERE request_id = " . $data['request_id'];
+  
+  //perform the query and verify no error in query
+  if( ! $result = mysqli_query($link,$query) ) {
+    $returnData['errcode'] = 5;  
+    //TODO proper code
+    $returnData['errno'] = 5000;
+    $returnData['errstr'] = "Mysql club_operating_year from club_position_request query error: " . mysqli_error($link);
+    exitfnc($returnData);
+  }
+  
+  //verify size of result:
+  if (mysqli_num_rows($result) == 0){   //no matching records
+      $returnData['errcode'] = 3;
+      //TODO proper code
+      $returnData['errno'] = 3000;
+      $returnData['errstr'] = "invalid request id";
+    exitfnc($returnData);
+  } elseif (mysqli_num_rows($result) > 1){   //multiple matching records, supposed to be Unique, Database error
+    $returnData['errcode'] = 5;
+    //TODO proper code
+    $returnData['errno'] = 5000;
+    $returnData['errstr'] = "multiple records tied to request";
     //ALERT SYS ADMIN
     exitfnc($returnData);
   } else {
