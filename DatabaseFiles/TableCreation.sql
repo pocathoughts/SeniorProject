@@ -61,6 +61,7 @@ CREATE TABLE club_operating_year (
 
 CREATE TABLE club_position (
   club_position_id INT NOT NULL AUTO_INCREMENT,
+  active_bool BIT(1) NOT NULL DEFAULT 1,
   
   account_id INT NOT NULL,
   club_year_id INT NOT NULL,
@@ -69,7 +70,6 @@ CREATE TABLE club_position (
   
   FOREIGN KEY (account_id) REFERENCES user_account(account_id) ON DELETE CASCADE,
   FOREIGN KEY (club_year_id) REFERENCES club_operating_year(club_year_id) ON DELETE CASCADE,
-  UNIQUE KEY (account_id, club_year_id),
   PRIMARY KEY (club_position_id)
 );
 
@@ -77,6 +77,7 @@ CREATE TABLE club_position_request (
   request_id INT NOT NULL AUTO_INCREMENT,
   request_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   status BIT(1) NOT NULL DEFAULT 0, /*0 pending, 1 responded*/
+  club_position_id INT, /*this is the position id once the posision is created*/
   
   account_id INT NOT NULL,
   club_year_id INT NOT NULL,
