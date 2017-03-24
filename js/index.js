@@ -109,7 +109,7 @@ function RespondRequest() {
     alert( str );
     $.ajax( { 
       type : 'POST',
-      data : {phpFunction:'RespondJoinClubRequest', email:userEmail, session_id:data.session_id, request_id:Request, decision:'yes'},
+      data : {phpFunction:'RespondJoinClubRequest', email:userEmail, session_id:data.session_id, request_id:Request, decision:'1'},
       url  : serverAddress,    //'http://' is required for request. 
     })
     .done(function ( data, status ) {

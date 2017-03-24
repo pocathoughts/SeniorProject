@@ -154,6 +154,7 @@ function CreateJoinClubRequest ($link, $data, &$returnData){
     $returnData['errcode'] = 0;
     $returnData['errno'] = 0;
     $returnData['data']['status'] = 'successful'; 
+    exitfnc($returnData);
   }
 }
 
@@ -163,14 +164,24 @@ function RespondJoinClubRequest ($link, $data, &$returnData){
   
 //-----Actual Functionality--------//
   //Add response to audit table
+  $insertAudit = "INSERT INTO club_position_request_response (request_id, responder_id, decision) VALUES (" . $data['request_id'] . ", " . $data['account_id'] . ", " . $data['decision'] . ")";
+  nonQuery($link, $insertAudit, "Insert Request Decison Audit", 5000);
+  
   //update request to no longer be pending
-  //if decision is 1 add club position 
-  /*INSERT INTO club_position (account_id, club_year_id, position_name, president_bool)
-    SELECT account_id, club_year_id, position_name, president_bool
-    FROM club_position_request
-    WHERE request_id = " . $data['request_id'] . "
-  */
-  $insert = "INSERT INTO club_position (account_id, club_year_id, position_name, president_bool) SELECT account_id, club_year_id, position_name, president_bool FROM club_position_request WHERE request_id = " . $data['request_id'];
+  $clubPositionId = 0;
+  if ($data['decision']){
+    $insertClubPosition = "INSERT INTO club_position (account_id, club_year_id, position_name, president_bool) SELECT account_id, club_year_id, position_name, president_bool FROM club_position_request WHERE request_id = " . $data['request_id'];
+    nonQuery($link, $insertClubPosition, "Insert New Position from Request", 5000);
+    //query for club_position_id
+  } 
+  
+  $updateRequest = "UPDATE club_position_request SET status = 1, club_position_id = '" . $clubPositionId . "' WHERE request_id = " . $data['request_id'];
+  if (nonQuery($link, $updateRequest, "UPDATE Request to non-pending", 5000)){
+    $returnData['errcode'] = 0;
+    $returnData['errno'] = 0;
+    $returnData['data']['status'] = 'successful';
+    exitfnc($returnData);
+  }
 }
 
 function DeleteJoinClubRequest ($link, $data, &$returnData){
