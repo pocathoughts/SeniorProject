@@ -21,7 +21,7 @@ function CheckAccount() {
     alert( str );
     $.ajax( { 
       type : 'POST',
-      data : {phpFunction:'GetAllClubs',email:userEmail,session_id:data.session_id},
+      data : {phpFunction:'GetAttachedClubsByUser',email:userEmail,session_id:data.session_id},
       url  : serverAddress,    //'http://' is required for request. 
     })
     .done(function ( data, status ) {
@@ -32,11 +32,11 @@ function CheckAccount() {
       str += "\nData : " + JSON.stringify(newdata.data);
       alert( str );
     })
-    .fail(function ( data, status ) {
-      alert( "errorr" );
+    .fail(function ( data, status, third ) {
+      alert( data  + "\n" + status + "\n" + third);
     });
    })
-  .fail(function ( data, status ) {
+  .fail(function ( data, status  ) {
     alert( "errorr");
     alert(data);
   });//end ajax 1

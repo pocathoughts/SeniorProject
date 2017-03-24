@@ -37,7 +37,7 @@ $link = ConnectDatabase($returnData);
 if ( !($functionChoice == 'Login' or $functionChoice == 'CreateUserAccount') ){
   //Login and CreateUserAccount are the only functions that don't require and active session  
   checkSession($link, $dataContainer, $returnData);
-  InjectPermissions($link, $dataContainer, $returnData);
+  InjectPermissions($link, $dataContainer);
 }
 
 //Function Redirection
@@ -102,47 +102,29 @@ exitfnc($returnData);
     mysqli_close($link);
   }
   
-  function checkSession($link, &$data, &$returnData){    //look into removing all sessions that are not tied to requested email on success.
+  function checkSession($link, &$data, &$returnData){
     //TODO Validate that email and session are present
-	  
-      //$returnData['errcode'] = 1;
-      //$returnData['errno'] = 1002;
-  
+	  $data['email'] = strtolower($data['email']);
     //Get the account_id attached to the email
     $email = $data['email'];
-    $accountIDQuery = "SELECT * FROM user_account WHERE email = '$email'";
-    if( ! $accountQueryResuts = mysqli_query($link,$accountIDQuery) ) {
-      $returnData['errcode'] = 5;
-      $returnData['errno'] = 5001;
-      $returnData['errstr'] = "Mysql account_id query error: " . mysqli_error($link);
-      exitfnc($returnData);
-    }
+    $accountQuery = "SELECT * FROM user_account WHERE email = '" . $email . "'";
+    $accountQueryResuts = querySingle($link, $accountQuery, "Account Query", 5001, 5, 5000, "Error, Multiple Accounts Found");
+    
     if (mysqli_num_rows($accountQueryResuts) == 0){   //no matching records
       $returnData['errcode'] = 2;
       $returnData['errno'] = 2000;
       $returnData['errstr'] = "No account found for " . $data['email'] . ", please create one";
       exitfnc($returnData);
-    } elseif (mysqli_num_rows($accountQueryResuts) > 1){   //multiple matching records, supposed to be Unique, Database error
-      $returnData['errcode'] = 5;
-      $returnData['errno'] = 5002;
-      $returnData['errstr'] = "Error, multiple accounts found.";
-      deleteSessions($link, $data);
-      //ALERT SYS ADMIN
-      exitfnc($returnData);
-    }
+    } 
+    
     $account = mysqli_fetch_array($accountQueryResuts, MYSQLI_ASSOC);
     $data['account_id'] = $account['account_id'];
     $data['admin'] = $account['recSport_acc'];
-    //TODO attach admin admin recsports permissions? and possibly clubs
     
     //query database for that session
     $sessionQuery = "SELECT * FROM active_session WHERE account_id = " . $data['account_id'];
-    if( ! $sessionQueryResuts = mysqli_query($link,$sessionQuery) ) {
-      $returnData['errcode'] = 5;
-      $returnData['errno'] = 5003;
-      $returnData['errstr'] = "Mysql session query error: " . mysqli_error($link);
-      exitfnc($returnData);
-    }
+    $sessionQueryResuts = queryMultiple($link, $sessionQuery, "Session id Query", 5000);
+    
     if (mysqli_num_rows($sessionQueryResuts) == 0){   //no matching records
       $returnData['errcode'] = 2;
       $returnData['errno'] = 2001;
@@ -167,42 +149,33 @@ exitfnc($returnData);
     }
     
     $currentTime = time();
-    $creationTime = strtotime($row['creation_time']) - $currentTime;
-    $recentTime = strtotime($row['recent_time']) - $currentTime;
+    $creationTime = $currentTime - strtotime($row['creation_time']);
+    $recentTime = $currentTime - strtotime($row['last_updated_time']);
+    
     if ( $creationTime > 86400 OR $recentTime > 7200 ){    //creation : 24 hours, recent : 2 hours
-      deleteSessions($link, $data, $returnData);
+      deleteSessions($link, $data);
       $returnData['errcode'] = 2;
       $returnData['errno'] = 2004;
       $returnData['errstr'] = "Session expired, please log in again";
       exitfnc($returnData);
     } else {
-      //TODO update timestamp
-      
+      updateSessionTimestamp($link, $data);
     }
   } 
   
-  function deleteSessions($link, $data, &$returnData) {
-    $sessionDeleteQuery = "DELETE FROM active_session WHERE account_id = " . data['account_id'];
-    if( !mysqli_query($link,$sessionDeleteQuery) ) {
-      $returnData['errcode'] = 5;
-      $returnData['errno'] = 5004;
-      $returnData['errstr'] = "Mysql Session delete error: " . mysqli_error($link);
-      exitfnc($returnData);
-    }
+  function deleteSessions($link, $data) {
+    $delete = "DELETE FROM active_session WHERE account_id = " . $data['account_id'];
+    nonQuery($link, $delete, "Session Deletion", 5000);
   }
   
-  function injectPermissions($link, &$data, &$returnData){
-    //add clubs
-    
+  function injectPermissions($link, &$data){
+    //add attached club_year_ids to the requester
     $data['permissions']['club_year_id_array'] = array();
     $data['permissions']['president_bool_array'] = array();
-    $query = "SELECT club_year_id, president_bool FROM club_position WHERE account_id = ". $data['account_id'];
-    if( ! $result = mysqli_query($link,$query) ) {
-      $returnData['errcode'] = 5;  
-      $returnData['errno'] = 5000;
-      $returnData['errstr'] = "Mysql associated clubs query error: " . mysqli_error($link);
-      exitfnc($returnData);
-    }
+    
+    $query = "SELECT club_year_id, president_bool FROM club_position WHERE active_bool = 1 AND account_id = ". $data['account_id'];
+    $result = queryMultiple($link, $query, "Fetch Clubs Attached to User", 5000);
+    
     while ($row = mysqli_fetch_array($result)){
       $rows[] = $row; 
     }
@@ -225,24 +198,74 @@ exitfnc($returnData);
       //$data['commServ'] = 0;
       //$data['commServ'] = 0;
     }
-    //temp lines
-    /*$returnData['data'] = $data;
-    exitfnc($returnData);*/
   }
   
-  function updateSessionTimestamp(){
-    //TODO
-
-    mysqli_query("update `table` set date_date=now()");
-    
-      //$returnData['errcode'] = 5;
-      //$returnData['errno'] = 5005;
+  function updateSessionTimestamp($link, $data){
+    $update = "UPDATE active_session SET last_updated_time=now() WHERE account_id = " . $data['account_id'];
+    nonQuery($link, $update, "Session last_updated_time Update", 5000);
   }
   
   function exitfnc($returnData){
     $result = json_encode($returnData);
     echo $result;
     exit;
+  }
+  
+  /*
+  $link - database
+  $query - query performed
+  $title - description string
+  $errorNo - failed query errorNo
+  */
+  function queryMultiple($link, $query, $title, $errorNo){
+    if( !$results = mysqli_query($link,$query) ) {
+      $returnData['errcode'] = 5;
+      $returnData['errno'] = $errorNo;
+      $returnData['errstr'] = "Mysql " . $title . " error: " . mysqli_error($link);
+      exitfnc($returnData);
+    }
+    return $results;
+  }
+  
+  /*
+  $link - database
+  $query - query performed
+  $title - description string
+  $errorNo - failed query errorNo
+  $moreThanOneErrorNo - More than one result errno
+  $moreThanOneErrorCode - More than one result errco
+  $moreThanOneErrorString - More than one result errstr
+  */
+  function querySingle($link, $query, $title, $errorNo,$moreThanOneErrorCode, $moreThanOneErrorNo , $moreThanOneErrorString){
+    if( !$results = mysqli_query($link,$query) ) {
+      $returnData['errcode'] = 5;
+      $returnData['errno'] = $errorNo;
+      $returnData['errstr'] = "Mysql " . $title . " error: " . mysqli_error($link);
+      exitfnc($returnData);
+    }
+    if (mysqli_num_rows($results) > 1){
+      $returnData['errcode'] = $moreThanOneErrorCode;
+      $returnData['errno'] = $moreThanOneErrorNo;
+      $returnData['errstr'] = $moreThanOneErrorString;
+      exitfnc($returnData);
+    }
+    return $results;
+  }
+  /*
+  $link - database
+  $query - query performed
+  $title - description string
+  $errorNo - failed query errorNo
+  */
+  function nonQuery($link, $nonQuery, $title, $errorNo){
+    if( !mysqli_query($link,$nonQuery) ) {
+      $returnData['errcode'] = 5;
+      $returnData['errno'] = $errorNo;
+      $returnData['errstr'] = "Mysql " . $title . " error: " . mysqli_error($link);
+      exitfnc($returnData);
+    } else {
+      return true;
+    }
   }
 
 ?>

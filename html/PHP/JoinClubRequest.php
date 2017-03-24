@@ -45,13 +45,17 @@ function GetJoinClubRequestByClubPermissionCheck ($data, &$returnData){
 
 //--------------------------------------Validation Methods -----------------------------------------
 function CreateJoinClubRequestValidate ($link, &$data, &$returnData){
-  //TODO validate data (inject club_year_id)
+  
+//TODO validate data (inject club_year_id)
   if ( strtolower($data['position']) == 'president'){
     $data['president_bool'] = 1;
   } else {
     $data['president_bool'] = 0;
   }
-  //check account doesnt already have a position for that year/club
+  InjectClubYearIdByClubYear($link, $data, $returnData);
+  CreateJoinClubRequestPermissionCheck($data, $returnData);
+  
+//check account doesnt already have a position for that year/club
   //the user can have multiple deleted accounts. 
   $existingQuery = "SELECT * FROM club_position WHERE account_id = " . $data['account_id'] . " AND club_year_id = " . $data['club_year_id'] . " AND active_bool != 0";
   //echo $query;
@@ -70,7 +74,8 @@ function CreateJoinClubRequestValidate ($link, &$data, &$returnData){
     $returnData['errstr'] = "User already has a position in that club";
     exitfnc($returnData);
   }
-  //check account doesnt already have a pending request for that year/club
+  
+//check account doesnt already have a pending request for that year/club
   $query = "SELECT * FROM club_position_request WHERE account_id = ".$data['account_id']. " and club_year_id = ".$data['club_year_id']." and status = 0";
   if (!$results = mysqli_query($link,$query)){
     $returnData['errcode'] = 5;
@@ -89,9 +94,12 @@ function CreateJoinClubRequestValidate ($link, &$data, &$returnData){
 }
 
 function RespondJoinClubRequestValidate ($link, &$data, &$returnData){
-  //TODO valdite inputs
-  
-  //check account doesnt already have a position for that year/club
+//TODO valdite inputs
+  //translate decision into 1 or 0 (yes, no)
+  //
+  InjectClubYearIdByRequest($link, $data, $returnData);
+  RespondJoinClubRequestPermissionCheck($data, $returnData);
+//check account doesnt already have a position for that year/club
   //the user can have multiple deleted accounts. 
   $existingQuery = "SELECT * FROM club_position WHERE account_id IN (SELECT account_id FROM club_position_request WHERE request_id = " . $data['request_id'] . ") AND club_year_id = " . $data['club_year_id'] . " AND active_bool != 0";
   //echo $query;
@@ -113,19 +121,26 @@ function RespondJoinClubRequestValidate ($link, &$data, &$returnData){
 }
 
 function DeleteJoinClubRequestValidate ($link, &$data, &$returnData){
+  //only delete pending requests.  responded requests stay.
+  DeleteJoinClubRequestPermissionCheck($data, $returnData);
 }
 
 function GetJoinClubRequestByEmailValidate ($link, &$data, &$returnData){
+  
+  GetJoinClubRequestByEmailPermissionCheck($data, $returnData);
 }
 
 function GetJoinClubRequestByClubValidate ($link, &$data, &$returnData){
+  
+  GetJoinClubRequestByClubPermissionCheck($data, $returnData);
 }
 
 //---------------------------------------Calling Function --------------------------------------------
 function CreateJoinClubRequest ($link, $data, &$returnData){
-  InjectClubYearIdByClubYear($link, $data, $returnData);
-  CreateJoinClubRequestPermissionCheck($data, $returnData);
+  
   CreateJoinClubRequestValidate($link, $data, $returnData);
+  
+//-----Actual Functionality--------//
   //add request to the table
   $insert = "INSERT INTO club_position_request (account_id, club_year_id, position_name, president_bool) VALUES ('" . $data['account_id'] . "', '" . $data['club_year_id'] . "', '" . strtolower($data['position']) . "', " . $data['president_bool'] . ")";
   if( !mysqli_query($link,$insert) ) {
@@ -143,24 +158,40 @@ function CreateJoinClubRequest ($link, $data, &$returnData){
 }
 
 function RespondJoinClubRequest ($link, $data, &$returnData){
-  InjectClubYearIdByRequest($link, $data, $returnData);
-  RespondJoinClubRequestPermissionCheck($data, $returnData);
+
   RespondJoinClubRequestValidate($link, $data, $returnData);
+  
+//-----Actual Functionality--------//
+  //Add response to audit table
+  //update request to no longer be pending
+  //if decision is 1 add club position 
+  /*INSERT INTO club_position (account_id, club_year_id, position_name, president_bool)
+    SELECT account_id, club_year_id, position_name, president_bool
+    FROM club_position_request
+    WHERE request_id = " . $data['request_id'] . "
+  */
+  $insert = "INSERT INTO club_position (account_id, club_year_id, position_name, president_bool) SELECT account_id, club_year_id, position_name, president_bool FROM club_position_request WHERE request_id = " . $data['request_id'];
 }
 
 function DeleteJoinClubRequest ($link, $data, &$returnData){
-  DeleteJoinClubRequestPermissionCheck($data, $returnData);
+  
   DeleteJoinClubRequestValidate($link, $data, $returnData);
+  
+//-----Actual Functionality--------//
 }
 
 function GetJoinClubRequestByEmail ($link, $data, &$returnData){
-  GetJoinClubRequestByEmailPermissionCheck($data, $returnData);
+  
   GetJoinClubRequestByEmailValidate($link, $data, $returnData);
+  
+//-----Actual Functionality--------//
 }
 
 function GetJoinClubRequestByClub ($link, $data, &$returnData){
-  GetJoinClubRequestByClubPermissionCheck($data, $returnData);
+  
   GetJoinClubRequestByClubValidate($link, $data, $returnData);
+  
+//-----Actual Functionality--------//
 }
 
 //---------------------------------------Helper Function --------------------------------------------
