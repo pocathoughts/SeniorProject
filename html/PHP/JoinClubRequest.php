@@ -37,6 +37,9 @@ function RespondJoinClubRequestPermissionCheck ($data, &$returnData){
 function DeleteJoinClubRequestPermissionCheck ($data, &$returnData){
 }
 
+function GetJoinClubRequestByUserPermissionCheck ($data, &$returnData){
+}
+
 function GetJoinClubRequestByEmailPermissionCheck ($data, &$returnData){
 }
 
@@ -99,7 +102,19 @@ function RespondJoinClubRequestValidate ($link, &$data, &$returnData){
   //
   InjectClubYearIdByRequest($link, $data, $returnData);
   RespondJoinClubRequestPermissionCheck($data, $returnData);
-//check account doesnt already have a position for that year/club
+  
+   //TODO check that the request exists no longer pending!
+  $queryStatus = "SELECT status FROM club_position_request WHERE request_id = " . $data['request_id'];
+  $statusResults = querySingle($link, $queryStatus, "Request Status Query", 5000, 5, 5001, "Multiple entries by request_id, contact admin");
+  $row = mysqli_fetch_array($statusResults);
+  if ($row['status'] == 1){
+    $returnData['errcode'] = 2;
+    //TODO proper code
+    $returnData['errno'] = 2000;
+    $returnData['errstr'] = "Request has already been responded too, response rejected";
+    exitfnc($returnData);
+  }
+  //check account doesnt already have a position for that year/club
   //the user can have multiple deleted accounts. 
   $existingQuery = "SELECT * FROM club_position WHERE account_id IN (SELECT account_id FROM club_position_request WHERE request_id = " . $data['request_id'] . ") AND club_year_id = " . $data['club_year_id'] . " AND active_bool != 0";
   //echo $query;
@@ -125,14 +140,24 @@ function DeleteJoinClubRequestValidate ($link, &$data, &$returnData){
   DeleteJoinClubRequestPermissionCheck($data, $returnData);
 }
 
+function GetJoinClubRequestByUserValidate ($link, &$data, &$returnData){
+  
+  //InjectClubYearIdByClubYear($link, $data, $returnData);
+  GetJoinClubRequestByUserPermissionCheck($data, $returnData);
+}
+
 function GetJoinClubRequestByEmailValidate ($link, &$data, &$returnData){
   
+  //InjectClubYearIdByClubYear($link, $data, $returnData);
   GetJoinClubRequestByEmailPermissionCheck($data, $returnData);
 }
 
 function GetJoinClubRequestByClubValidate ($link, &$data, &$returnData){
-  
+  //do this one
+  InjectClubYearIdByClubYear($link, $data, $returnData);
   GetJoinClubRequestByClubPermissionCheck($data, $returnData);
+  
+  
 }
 
 //---------------------------------------Calling Function --------------------------------------------
@@ -191,18 +216,140 @@ function DeleteJoinClubRequest ($link, $data, &$returnData){
 //-----Actual Functionality--------//
 }
 
+function GetJoinClubRequestByUser ($link, $data, &$returnData){
+  
+  GetJoinClubRequestByUserValidate($link, $data, $returnData);
+  //query
+  $monsterQuery = "SELECT club_position_request.request_id, user_account.name, user_account.email, CONCAT(club_team.club_name, ', ', operating_year.year_string) AS club_display, club_position_request.position_name, club_position_request.status, club_position_request_response.decision
+FROM club_position_request
+LEFT OUTER JOIN club_position_request_response ON club_position_request.request_id = club_position_request_response.request_id
+INNER JOIN user_account ON user_account.account_id = club_position_request.account_id
+INNER JOIN club_operating_year ON club_position_request.club_year_id = club_operating_year.club_year_id
+INNER JOIN club_team ON club_operating_year.club_id = club_team.club_id
+INNER JOIN operating_year ON club_operating_year.year_id = operating_year.year_id
+WHERE user_account.account_id =" . $data ['account_id'];
+  $results = queryMultiple($link, $monsterQuery, "gathering request information query", 5000);
+  while ($row = mysqli_fetch_array($results)){
+    $rows[] = $row; 
+  }
+  if (sizeof($rows) == 0){
+    $returnData['errcode'] = 2;
+    $returnData['errno'] = 2000;
+    $returnData['errstr'] = "User " . $data['email'] . " Has No Requests";
+    exitfnc($returnData);
+  } else {
+    $returnData['data']['requests'] = array();
+    for ($i = 0; $i < sizeof($rows); $i++){
+      $returnData['data']['requests'][$i]['request_id'] = $rows[$i]['request_id'];
+      $returnData['data']['requests'][$i]['name'] = $rows[$i]['name'];
+      $returnData['data']['requests'][$i]['email'] = $rows[$i]['email'];
+      $returnData['data']['requests'][$i]['club_name'] = $rows[$i]['club_display'];
+      $returnData['data']['requests'][$i]['position'] = $rows[$i]['position_name'];
+      if($rows[$i]['status'] == 0){
+        $returnData['data']['requests'][$i]['status'] = 'Pending';
+      } else {
+        if ($rows[$i]['decision'] == 0){
+          $returnData['data']['requests'][$i]['status'] = 'Rejected';
+        } else {
+          $returnData['data']['requests'][$i]['status'] = 'Accepted';
+        }
+      }
+    }
+    $returnData['errcode'] = 0;
+    $returnData['errno'] = 0;
+    exitfnc($returnData);
+  }
+}
+
 function GetJoinClubRequestByEmail ($link, $data, &$returnData){
   
   GetJoinClubRequestByEmailValidate($link, $data, $returnData);
-  
-//-----Actual Functionality--------//
+  //query
+  $email = $data ['request_email'];
+  $monsterQuery = "SELECT club_position_request.request_id, user_account.name, user_account.email, CONCAT(club_team.club_name, ', ', operating_year.year_string) AS club_display, club_position_request.position_name, club_position_request.status, club_position_request_response.decision
+FROM club_position_request
+LEFT OUTER JOIN club_position_request_response ON club_position_request.request_id = club_position_request_response.request_id
+INNER JOIN user_account ON user_account.account_id = club_position_request.account_id
+INNER JOIN club_operating_year ON club_position_request.club_year_id = club_operating_year.club_year_id
+INNER JOIN club_team ON club_operating_year.club_id = club_team.club_id
+INNER JOIN operating_year ON club_operating_year.year_id = operating_year.year_id
+WHERE user_account.email = '" . $email . "'";
+  $results = queryMultiple($link, $monsterQuery, "gathering request information query", 5000);
+  while ($row = mysqli_fetch_array($results)){
+    $rows[] = $row; 
+  }
+  if (sizeof($rows) == 0){
+    $returnData['errcode'] = 2;
+    $returnData['errno'] = 2000;
+    $returnData['errstr'] = "user " . $email . " Has No Requests";
+    exitfnc($returnData);
+  } else {
+    $returnData['data']['requests'] = array();
+    for ($i = 0; $i < sizeof($rows); $i++){
+      $returnData['data']['requests'][$i]['request_id'] = $rows[$i]['request_id'];
+      $returnData['data']['requests'][$i]['name'] = $rows[$i]['name'];
+      $returnData['data']['requests'][$i]['email'] = $rows[$i]['email'];
+      $returnData['data']['requests'][$i]['club_name'] = $rows[$i]['club_display'];
+      $returnData['data']['requests'][$i]['position'] = $rows[$i]['position_name'];
+      if($rows[$i]['status'] == 0){
+        $returnData['data']['requests'][$i]['status'] = 'Pending';
+      } else {
+        if ($rows[$i]['decision'] == 0){
+          $returnData['data']['requests'][$i]['status'] = 'Rejected';
+        } else {
+          $returnData['data']['requests'][$i]['status'] = 'Accepted';
+        }
+      }
+    }
+    $returnData['errcode'] = 0;
+    $returnData['errno'] = 0;
+    exitfnc($returnData);
+  }
 }
 
 function GetJoinClubRequestByClub ($link, $data, &$returnData){
   
   GetJoinClubRequestByClubValidate($link, $data, $returnData);
-  
-//-----Actual Functionality--------//
+  //query
+  $monsterQuery = "SELECT club_position_request.request_id, user_account.name, user_account.email, CONCAT(club_team.club_name, ', ', operating_year.year_string) AS club_display, club_position_request.position_name, club_position_request.status, club_position_request_response.decision
+FROM club_position_request
+LEFT OUTER JOIN club_position_request_response ON club_position_request.request_id = club_position_request_response.request_id
+INNER JOIN user_account ON user_account.account_id = club_position_request.account_id
+INNER JOIN club_operating_year ON club_position_request.club_year_id = club_operating_year.club_year_id
+INNER JOIN club_team ON club_operating_year.club_id = club_team.club_id
+INNER JOIN operating_year ON club_operating_year.year_id = operating_year.year_id
+WHERE club_position_request.club_year_id =" . $data ['club_year_id'];
+  $results = queryMultiple($link, $monsterQuery, "gathering request information query", 5000);
+  while ($row = mysqli_fetch_array($results)){
+    $rows[] = $row; 
+  }
+  if (sizeof($rows) == 0){
+    $returnData['errcode'] = 2;
+    $returnData['errno'] = 2000;
+    $returnData['errstr'] = "Club " . $data['club_year_id'] . " Has No Requests";
+    exitfnc($returnData);
+  } else {
+    $returnData['data']['requests'] = array();
+    for ($i = 0; $i < sizeof($rows); $i++){
+      $returnData['data']['requests'][$i]['request_id'] = $rows[$i]['request_id'];
+      $returnData['data']['requests'][$i]['name'] = $rows[$i]['name'];
+      $returnData['data']['requests'][$i]['email'] = $rows[$i]['email'];
+      $returnData['data']['requests'][$i]['club_name'] = $rows[$i]['club_display'];
+      $returnData['data']['requests'][$i]['position'] = $rows[$i]['position_name'];
+      if($rows[$i]['status'] == 0){
+        $returnData['data']['requests'][$i]['status'] = 'Pending';
+      } else {
+        if ($rows[$i]['decision'] == 0){
+          $returnData['data']['requests'][$i]['status'] = 'Rejected';
+        } else {
+          $returnData['data']['requests'][$i]['status'] = 'Accepted';
+        }
+      }
+    }
+    $returnData['errcode'] = 0;
+    $returnData['errno'] = 0;
+    exitfnc($returnData);
+  }
 }
 
 //---------------------------------------Helper Function --------------------------------------------
