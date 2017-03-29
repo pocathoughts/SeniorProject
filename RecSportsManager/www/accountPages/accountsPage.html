@@ -10,13 +10,13 @@
     <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>Home Page</title>
+    <title>Accounts Page</title>
 
     <!-- probably not the best way to do it but we tried -->
     <style type="text/css">
@@ -34,35 +34,51 @@
             </a>
 
             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="landingPage.html">Home</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Account</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Track Club Progress</a></li>
-              <li role="presentation" class="divider"></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/landingPage.html">Home</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Account</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="trackingRequirements.html">Track Club Progress</a></li>
+              <li class = "menuDropdownSize" role="presentation" class="divider"></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/creditPage.html">Icon Credits</a></li>
             </ul>
         </div>
 
-        <h1 style = "color: white; font-family: 'Oswald'"> BEACH VOLLEYBALL </h1>
+        <h1 style = "color: white; font-family: 'Oswald'"> BEACH VOLLEYBALL ACCOUNTS</h1>
     </nav> <!-- /.navbar -->
 
+    <div class = "container">
+        <div class="col-md-6" style = "border-style: solid; border-color: black;">
+            <a href = "personalAccountPage.html"> <center><img class = "landing-icon" src = "../img/icons/forms.png" onmouseover="hoverForm(this)" onmouseout="unhoverForm(this)"></center> </a>
+            <center><h4> Your Account </h4></center>
+        </div>
+        <div class="col-md-6" style = "border-style: solid; border-color: black;">
+            <a href = "editAccountPage.html"> <center><img class = "landing-icon" src = "../img/icons/account.png" onmouseover="hoverAccountMod(this)" onmouseout="unhoverAccountMod(this)"></center> </a>
+            <center><h4> Manage Club Accounts </h4></center>
+        </div>
+    </div>
+
+    <div class="spacer">
+    <hr>
 
     <div class = "container">
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href = "forms.html"> <center><img class = "landing-icon" src = "img/icons/forms.png" onmouseover="hoverForm(this)" onmouseout="unhoverForm(this)"></center> </a>
-            <center><h4> forms </h4></center>
+
+        <h2 style = "font-family: 'Oswald'"> Executive Board Accounts </h2>
+
+        <div class = "spacer">
+        <div class="search-bar">
+            <input type="text" display = "inline-block" class="sfield" name="searchterm" value="Search...">
+            <input type="image" class="searchbutton" name="search" src="../img/icons/search.png" alt="Search">
         </div>
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href> <center><img class = "landing-icon" src = "img/icons/bar-chart.png" onmouseover="hoverTracking(this)" onmouseout="unhoverTracking(this)"></center> </a>
-            <center><h4> track status </h4></center>
-        </div>
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href> <center><img class = "landing-icon" src = "img/icons/warning.png" onmouseover="hoverWarning(this)" onmouseout="unhoverWarning(this)"></center> </a>
-            <center><h4> deadlines </h4></center>
-        </div>
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href> <center><img class = "landing-icon" src = "img/icons/man.png" onmouseover="hoverMan(this)" onmouseout="unhoverMan(this)"></center> </a>
-            <center><h4> account info </h4></center>
-        </div>
+
+        <ul class = "biggerList" style="list-style: none;">
+            <div>
+              <li> Thomas Turner </li>
+              <li> Kira Lowell </li>
+              <li> Shannon Domfort</li>
+              <li> Craig Gaver </li>
+          </div>
+        </ul>
+
     </div>
 
     <script type="text/javascript" src="cordova.js"></script>

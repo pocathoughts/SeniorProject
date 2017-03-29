@@ -36,7 +36,7 @@ function LoginValidate($data, &$returnData){
 function Login($link, $data, &$returnData){
   //LoginPermissionCheck($dataContainer, $returnData);
   LoginValidate($data, $returnData);  
-  $email = strtolower($data['email']);
+  $email = $data['email'];
   //query building  
   $query = "SELECT * FROM user_account WHERE email = '$email'";
   

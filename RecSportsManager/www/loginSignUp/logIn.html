@@ -44,50 +44,62 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
     <!-- Bootstrap -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">-->
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-    <title>Sign Up</title>
+    <title>Log In</title>
 
 </head>
-<!-- only took 800 tries to get his to work -->
-<body style = "background-image:url('img/splash.png')">
+
+<body style = "background-image:url('../img/splash.png')" >
+
+    <div class = "spacer"/>
 
     <div class = "container">
-        <h1 style = "font-family: 'Oswald'; color: white"> CREATE AN </h1>
-        <h1 style = "font-family: 'Oswald'; color: white"> ACCOUNT </h1>
+        <div class="col-md-4 col-md-offset-4" style = "border-style: solid; border-color: orange; border-width: 8px;">
+            <h1 id = "big-font-style">UF</h1>
+            <h1 id = "font-style"> CLUB SPORT </h1>
+            <h1 id = "font-style"> MANAGER </h1>
+        </div>
     </div>
 
     <div class = "spacer"/>
 
-    <!-- each field needs a form group -->
-    <form accept-charset="UTF-8" id="form" method="get" action="https://script.google.com/macros/s/AKfycbyCiUqfi6SRylAqzff18ky0WK0nUFjDY_oVKEj81EWXN0GYJOo/exec">
-        <div class="col-md-4 col-md-offset-4"> <!-- centering the forms -->
-    	    <div class="form-group row"> <!-- Full Name field !-->
-    		    <label id = "font-style" for="full_name" class="control-label">Full Name</label>
-    		    <input type="text" class="form-control" id="between_input" name="full_name" placeholder="Full Name (users will see you as this name)">
-            </div>
-            <div class="form-group row"> <!-- Email field !-->
-                <label id = "font-style" for="email_id" class="control-label">Email</label>
-                <input type="email" class="form-control" id="between_input" name="email_name" placeholder="UFL Email Address">
-            </div>
-            <div class="form-group row"> <!-- Password field !-->
-		        <label id = "font-style" for="email_id" class="control-label">Password</label>
-		        <input type="password" class="form-control" id="between_input" name="password" placeholder="Password">
-            </div>
-            <div class="form-group row"> <!-- Confirm Password field !-->
-                <label id = "font-style" for="email_id" class="control-label">Confirm Password</label>
-    		    <input type="password" class="form-control" id="between_input" name="confirm_password" placeholder="Confirm Password">
-            </div>
+    <div class = "container">
+        <!-- <form method="POST" action = "login"> -->
+        <form method="POST" >
+            <div class="col-md-4 col-md-offset-4"> <!-- centering the forms -->
+                <div class = "row">
+                    <div class="form-group"> <!-- Email field !-->
+                        <label id = "font-style" for="email_id" class="control-label">Email</label>
+                        <input type="email" class="form-control" id="between_input" name="email_name" placeholder="UFL Email Address">
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class="form-group"> <!-- Password field !-->
+    		            <label id = "font-style" for="email_id" class="control-label">Password</label>
+    		            <input type="password" class="form-control" id="between_input" name="password" placeholder="Password">
+                    </div>
+                </div>
 
-            <div class = "spacer"/>
 
-    	    <div class="form-group row"> <!-- Submit button !-->
-    		    <center><button style = "background-color:#7AAE96; border-style: none;" type="submit" class="rec-button btn btn-primary">NEXT STEP</button></center>
-    	    </div>
+                <div class = "row">
+    	            <div class="form-group"> <!-- Submit button !-->
+    		            <center><button style = "background-color:#7AAE96; border-style: none;" type="submit" class="rec-button btn btn-primary">LOGIN</button></center>
+    	            </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class = "container">
+        <div class="col-md-4 col-md-offset-4">
+            <center>
+                <h5 id = "font-style"> Need An Account? </h5>
+                <h5 id = "font-style" style = "color: blue"> Sign Up Here </h5>
+            </center>
         </div>
-    </form>
+    </div>
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>

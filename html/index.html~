@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type = "text/javascript" src="../js/index.js"></script>
+    <!--<script type = "text/javascript" src="../js/index.js"></script>-->	
+  </head>
+  <body>
+  <form>
+    <input type="text" id="email" name="email"><br>
+    <input type="text" id="password" name="password"><br>
+  </form>
+    <button onclick="CheckAccount()">check account</button> <!-- BUTTON CALL PHP FUNCTION -->
+    <button onclick="AddAccount()">add account</button> <!-- BUTTON CALL PHP FUNCTION -->
+  </body>
+</html>
