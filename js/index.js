@@ -144,10 +144,19 @@ var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
   });
 });
 
-function createUserAccount() {
-  var userEmail = $('#CreateAccountEmail').val();
-  var userPass = $('#CreateAccountPass').val();
-  var userName = $('#CreateAccountName').val();
+//function createUserAccount() {
+$("#create_account_form").submit(function(e){
+  e.preventDefault();
+  alert('inside createAccount')
+  var values = $(this).serializeArray();
+  var userName = values[0].value;
+  var userEmail = values[1].value;
+    if(values[2].value == values[3].value)
+      var userPass = values[2].value;
+    else{
+      alert("Passwords do not match!!");
+      return
+    }
   $.ajax( {   
     type : 'POST',
     data : {phpFunction:'CreateUserAccount',email:userEmail, password:userPass,name:userName},
@@ -162,14 +171,16 @@ function createUserAccount() {
       str += "\nErrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
-    } else {
+    } 
+    else {
       alert('success');
+      window.location.href = "signUpAdditionalInfo.html"
     }
   })
   .fail(function ( data, status ) {
     alert( "errorr" );
   });
-}
+}); 
 
 function getAllClubs(){
   var userEmail = $('#GetAllClubsEmail').val();
