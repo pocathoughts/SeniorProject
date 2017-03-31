@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 //Shit from christines index.js
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -94,10 +94,16 @@
 
 
 var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
-function login(){
+//function login(){
+   
+  $("#login_form").submit(function(e){
+  e.preventDefault();
   alert('inside login')
-  var userEmail = $('#LoginEmail').val();
-  var userPass = $('#LoginPass').val();
+  var values = $(this).serializeArray();
+  var userEmail = values[0].value;
+  var userPass = values[1].value;
+  //var userEmail = $('#LoginEmail').val();
+  //var userPass = $('#LoginPass').val();
   //alert("here");
   $.ajax( { 
     type : 'POST',
@@ -113,9 +119,10 @@ function login(){
       str += "\nErrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
+      //window.location.href ="";
       return;
     }
-<<<<<<< HEAD
+
 
     var str = "User Email" + userEmail.toLowerCase();
     str += "\nSession_id = " + JSON.stringify(results.session_id);
@@ -135,7 +142,7 @@ function login(){
   .fail(function (xhr, data, status) {
     alert( "errorr");
   });
-}
+});
 
 function createUserAccount() {
   var userEmail = $('#CreateAccountEmail').val();
