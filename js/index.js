@@ -3,10 +3,10 @@ function login(){
   var userEmail = $('#LoginEmail').val();
   var userPass = $('#LoginPass').val();
   //alert("here");
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'Login',email:userEmail,password:userPass},
-    url  : serverAddress,    //'http://' is required for request. 
+    url  : serverAddress,    //'http://' is required for request.
   })
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
@@ -40,7 +40,7 @@ function createUserAccount() {
   var userEmail = $('#CreateAccountEmail').val();
   var userPass = $('#CreateAccountPass').val();
   var userName = $('#CreateAccountName').val();
-  $.ajax( {   
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'CreateUserAccount',email:userEmail, password:userPass,name:userName},
     url  : serverAddress,
@@ -91,6 +91,38 @@ function getAllClubs(){
   });
 }
 
+function populateDropDownWithClubSports(){
+    var userEmail = $('#GetAllClubsEmail').val();
+    var userSession = $('#GetAllClubsSession').val();
+    $.ajax( {
+      type : 'POST',
+      data : {phpFunction:'GetAllClubs', email:userEmail, session_id:userSession},
+      url : serverAddress,
+    }).done(function (data, status) {
+      var newdata = JSON.parse(data);
+      var results = newdata.data;
+      if(newdata.errcode != 0){
+        var str = "Errcode : " + newdata.errcode;
+        str += "\nErrno : " + newdata.errno;
+        str += "\nErrstr : " + newdata.errstr;
+        str += "\nData : " + JSON.stringify(newdata.data);
+        alert(str);
+      } else {
+        results = results.club_team;
+        document.getElementById("additionalInfoDropdown").innerHTML += "<option>Sports Club Name</option>";
+        for (i = 0; i < results.length; i++){}
+            document.getElementById("additionalInfoDropdown").innerHTML += "<option>" + results[i] + "</option>";
+        }
+      }
+    }).fail(function (data, status) {
+      alert('errorr');
+    });
+}
+
+window.onload = function(){
+    populateDropDownWithClubSports();
+}
+
 function getAttachedClubsByUser(){
   var userEmail = $('#GetAttachedClubsByUserEmail').val();
   var userSession = $('#GetAttachedClubsByUserPass').val();
@@ -125,7 +157,7 @@ function CreateJoinClubRequest() {
   var clubName = $('#CreateRequestClubName').val();
   var clubYear = $('#CreateRequestClubYear').val();
   var userPosition = $('#CreateRequestPosition').val();
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'CreateJoinClubRequest', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear, position:userPosition},
     url  : serverAddress,
@@ -154,7 +186,7 @@ function getClubRequestByClub() {
   var userSess = $('#GetClubRequestByClubSession').val();
   var clubName = $('#GetClubRequestByClubClubName').val();
   var clubYear = $('#GetClubRequestByClubYear').val();
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'GetJoinClubRequestByClub', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear},
     url  : serverAddress,
@@ -191,7 +223,7 @@ function getClubRequestByEmail() {
   var userEmail = $('#GetClubRequestByEmailEmail').val();
   var userSess = $('#GetClubRequestByEmailSession').val();
   var requestEmail = $('#GetClubRequestByEmailRequestEmail').val();
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'GetJoinClubRequestByEmail', email:userEmail, session_id:userSess, request_email:requestEmail},
     url  : serverAddress,
@@ -227,7 +259,7 @@ function getClubRequestByEmail() {
 function getClubRequestByUser() {
   var userEmail = $('#GetClubRequestByUserEmail').val();
   var userSess = $('#GetClubRequestByUserSession').val();
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'GetJoinClubRequestByUser', email:userEmail, session_id:userSess},
     url  : serverAddress,
@@ -267,10 +299,10 @@ function getClubRequestByUser() {
   var userPass = $('#password').val();
   //alert (userEmail);
   //alert (userPass);
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'Login',email:userEmail,password:userPass},
-    url  : serverAddress,    //'http://' is required for request. 
+    url  : serverAddress,    //'http://' is required for request.
   })
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
@@ -281,10 +313,10 @@ function getClubRequestByUser() {
     var data = newdata.data;
     str += "\nSession_id : " + data.session_id;
     alert( str );
-    $.ajax( { 
+    $.ajax( {
       type : 'POST',
       data : {phpFunction:'GetAttachedClubsByUser',email:userEmail,session_id:data.session_id},
-      url  : serverAddress,    //'http://' is required for request. 
+      url  : serverAddress,    //'http://' is required for request.
     })
     .done(function ( data, status ) {
       var newdata = JSON.parse(data);
@@ -312,11 +344,11 @@ function CreateRequest() {
   var clubYear = $('#CreateRequestClubYear').val();
   //lert (userEmail);
   //alert (userPass);
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'Login',email:userEmail,password:userPass},
     //dataType: 'jsonp',
-    url  : serverAddress,    //'http://' is required for request. 
+    url  : serverAddress,    //'http://' is required for request.
   })
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
@@ -327,10 +359,10 @@ function CreateRequest() {
     var data = newdata.data;
     str += "\nSession_id : " + data.session_id;
     alert( str );
-    $.ajax( { 
+    $.ajax( {
       type : 'POST',
       data : {phpFunction:'CreateJoinClubRequest', email:userEmail, session_id:data.session_id, club_name:clubName, year:clubYear, position:'president'},
-      url  : serverAddress,    //'http://' is required for request. 
+      url  : serverAddress,    //'http://' is required for request.
     })
     .done(function ( data, status ) {
       var newdata = JSON.parse(data);
@@ -356,11 +388,11 @@ function RespondRequest() {
   var Request = $('#requestNumber').val();
   //lert (userEmail);
   //alert (userPass);
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'Login',email:userEmail,password:userPass},
     //dataType: 'jsonp',
-    url  : serverAddress,    //'http://' is required for request. 
+    url  : serverAddress,    //'http://' is required for request.
   })
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
@@ -371,10 +403,10 @@ function RespondRequest() {
     var data = newdata.data;
     str += "\nSession_id : " + data.session_id;
     alert( str );
-    $.ajax( { 
+    $.ajax( {
       type : 'POST',
       data : {phpFunction:'RespondJoinClubRequest', email:userEmail, session_id:data.session_id, request_id:Request, decision:'0'},
-      url  : serverAddress,    //'http://' is required for request. 
+      url  : serverAddress,    //'http://' is required for request.
     })
     .done(function ( data, status ) {
       var newdata = JSON.parse(data);
@@ -402,11 +434,11 @@ function getClubRequestByClub(dataObject) {
   var clubYear = $('#clubYear').val();
   //lert (userEmail);
   //alert (userPass);
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'Login',email:userEmail,password:userPass},
     //dataType: 'jsonp',
-    url  : serverAddress,    //'http://' is required for request. 
+    url  : serverAddress,    //'http://' is required for request.
   })
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
@@ -417,10 +449,10 @@ function getClubRequestByClub(dataObject) {
     var data = newdata.data;
     str += "\nSession_id : " + data.session_id;
     alert( str );
-    $.ajax( { 
+    $.ajax( {
       type : 'POST',
       data : {phpFunction:'GetJoinClubRequestByClub', email:userEmail, session_id:data.session_id, club_name:clubName, year:clubYear},
-      url  : serverAddress,    //'http://' is required for request. 
+      url  : serverAddress,    //'http://' is required for request.
     })
     .done(function ( data, status ) {
       var newdata = JSON.parse(data);
@@ -453,11 +485,11 @@ function getClubRequestByUser(dataObject) {
   var clubYear = $('#clubYear').val();
   //lert (userEmail);
   //alert (userPass);
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'Login',email:userEmail,password:userPass},
     //dataType: 'jsonp',
-    url  : serverAddress,    //'http://' is required for request. 
+    url  : serverAddress,    //'http://' is required for request.
   })
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
@@ -468,10 +500,10 @@ function getClubRequestByUser(dataObject) {
     var data = newdata.data;
     str += "\nSession_id : " + data.session_id;
     alert( str );
-    $.ajax( { 
+    $.ajax( {
       type : 'POST',
       data : {phpFunction:'GetJoinClubRequestByUser', email:userEmail, session_id:data.session_id},
-      url  : serverAddress,    //'http://' is required for request. 
+      url  : serverAddress,    //'http://' is required for request.
     })
     .done(function ( data, status ) {
       var newdata = JSON.parse(data);
@@ -504,11 +536,11 @@ function getClubRequestByEmail(dataObject) {
   var requestEmail = $('getClubRequestByEmail_RequestEmail').val();
   //lert (userEmail);
   //alert (userPass);
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'Login',email:userEmail,password:userPass},
     //dataType: 'jsonp',
-    url  : serverAddress,    //'http://' is required for request. 
+    url  : serverAddress,    //'http://' is required for request.
   })
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
@@ -519,10 +551,10 @@ function getClubRequestByEmail(dataObject) {
     var data = newdata.data;
     str += "\nSession_id : " + data.session_id;
     alert( str );
-    $.ajax( { 
+    $.ajax( {
       type : 'POST',
       data : {phpFunction:'GetJoinClubRequestByEmail', email:userEmail, session_id:data.session_id, request_email:requestEmail},
-      url  : serverAddress,    //'http://' is required for request. 
+      url  : serverAddress,    //'http://' is required for request.
     })
     .done(function ( data, status ) {
       var newdata = JSON.parse(data);
