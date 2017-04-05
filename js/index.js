@@ -248,12 +248,11 @@ function formatClubString(sportsClubs){
     return trimmedClubs;
 }
 
+function GetAccountsNamesFromClub(){
+    var clubName = $('#GetClubSportName').val();
 
-/*
-window.onload = function(){
-    populateDropDownWithClubSports();
 }
-*/
+
 
 function getAttachedClubsByUser(){
   var userEmail = $('#GetAttachedClubsByUserEmail').val();
