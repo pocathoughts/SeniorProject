@@ -26,6 +26,9 @@
     <!-- This page is the landing page. After the splash screen this is
     the first page users will encounter. They will either login to the
     application or they will choose the option to make a new acccount -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type = "text/javascript" src="../js/index.js"></script>
+
 
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
@@ -50,6 +53,9 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <title>More Info</title>
 
+    <script>
+        window.onload = populateDropDownWithClubSports();
+    </script>
 </head>
 <!-- only took 800 tries to get his to work -->
 <body style = "background-image:url('../img/splash.png')">
@@ -66,56 +72,8 @@
         <div class="col-md-4 col-md-offset-4"> <!-- centering the forms -->
             <div class="form-group row"> <!-- Password field !-->
 		        <label id = "font-style" for="email_id" class="control-label">Select Your Sports Club</label>
-		        <select class="form-control">
+                <select id = "sports-club-list" class="form-control">
                     <option value = "default" selected> Sports Club Name </option>
-                    <option value = "archery"> Archery </option>
-                    <option value = "badminton"> Badminton </option>
-                    <option value = "baseball"> Baseball </option>
-                    <option value = "beach_volleyball"> Beach Volleyball </option>
-                    <option value = "bowling"> Bowling </option>
-                    <option value = "competitive_cheerleading"> Competitive Cheerleading </option>
-                    <option value = "crew"> Crew </option>
-                    <option value = "cricket"> Cricket </option>
-                    <option value = "cross_country_track"> Cross Country and Track </option>
-                    <option value = "cuong_nhu"> Cuong Nhu Martial Arts </option>
-                    <option value = "cycling"> Cycling </option>
-                    <option value = "equestrian"> Equestrian </option>
-                    <option value = "fencing"> Fencing </option>
-                    <option value = "field_hockey"> Field Hockey </option>
-                    <option value = "golf"> Golf </option>
-                    <option value = "gymnastics"> Gymnastics </option>
-                    <option value = "ice_hockey"> Ice Hockey </option>
-                    <option value = "kickboxing"> Kickboxing </option>
-                    <option value = "lacrosse_men"> Lacrosse (M) </option>
-                    <option value = "lacrosse_women"> Lacrosse (W) </option>
-                    <option value = "paintball"> Paintball </option>
-                    <option value = "quidditch"> Quidditch </option>
-                    <option value = "raquetball"> Raquetball </option>
-                    <option value = "rock_climbing"> Rock Climbing </option>
-                    <option value = "roller_hockey"> Roller Hockey </option>
-                    <option value = "rugby_men"> Rugby (M)</option>
-                    <option value = "rugby_women"> Rugby (W) </option>
-                    <option value = "sailing"> Sailing </option>
-                    <option value = "soccer_men"> Soccer (M) </option>
-                    <option value = "soccer_women"> Soccer (W) </option>
-                    <option value = "softball"> Softball </option>
-                    <option value = "surf_skim"> Surfing and Skimboarding </option>
-                    <option value = "swim_dive"> Swimming and Diving</option>
-                    <option value = "synchro"> Synchronized Swimming</option>
-                    <option value = "table_tennis"> Table Tennis </option>
-                    <option value = "tae_kwon_do"> Tae Kwon Do </option>
-                    <option value = "tennis"> Tennis </option>
-                    <option value = "triathlon"> Triathlon </option>
-                    <option value = "ultimate_frisbee_men"> Ultimate Frisbee (M) </option>
-                    <option value = "ultimate_frisbee_women"> Ultimate Frisbee (W) </option>
-                    <option value = "underwater_hockey"> Underwater Hockey </option>
-                    <option value = "volleyball_men"> Volleyball (M) </option>
-                    <option value = "volleyball_women"> Volleyball (W) </option>
-                    <option value = "wakeboard"> Wakeboard </option>
-                    <option value = "water_polo_men"> Water Polo (M) </option>
-                    <option value = "water_polo_women"> Water Polo (W) </option>
-                    <option value = "weightlifting"> Weightlifting </option>
-                    <option value = "wrestling"> Wrestling </option>
                 </select>
             </div>
             <div class="form-group row"> <!-- Confirm Password field !-->
