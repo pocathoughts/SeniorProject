@@ -1,46 +1,121 @@
 <?php
 
 //--------------------------------------Permission Check --------------------------------------------
-function RemoveClubPositionByUserPermissionCheck($link, $data){}
-function RemoveClubPositionByEmailPermissionCheck($link, $data){}
-function GetClubPositionByUserPermissionCheck($link, $data){}
-function GetClubPositionByEmailPermissionCheck($link, $data){}
-function GetClubPositionByClubPermissionCheck($link, $data){}
+function RemoveClubPositionByUserPermissionCheck($link, $data){
+  //null sumbitting user is allowed
+}
+function RemoveClubPositionByEmailPermissionCheck($link, $data){
+  //IF ADMIN, ACCEPT
+  if ($data['admin'] == 1){
+    //echo 'allowed';
+    return;
+  }
+  //IF PRESIDENT OF ATTACHED CLUB
+  $index = array_search ($data['club_year_id'], $data['permissions']['club_year_id_array']);
+  if ( $index === FALSE  ){
+    $returnData['errcode'] = 4;
+      //TODO proper code
+      $returnData['errno'] = 4000;
+      $returnData['errstr'] = "User is not associated with Club";
+      exitfnc($returnData);
+  } else {
+    if($data['permissions']['president_bool_array'][$index] == 1){
+      //echo 'allowed';
+      return;
+    } else {
+      $returnData['errcode'] = 4;
+      //TODO proper code
+      $returnData['errno'] = 4000;
+      $returnData['errstr'] = "User does not have adaquate permission to accept that request";
+      exitfnc($returnData);
+    }
+  }
+}
+function GetClubPositionByUserPermissionCheck($link, $data){
+  //null submitting user is allowed
+}
+function GetClubPositionByEmailPermissionCheck($link, $data){
+  //IF ADMIN, ACCEPT
+  if ($data['admin'] == 1){
+    //echo 'allowed';
+    return;
+  }
+}
+function GetClubPositionByClubPermissionCheck($link, $data){
+  //IF ADMIN, ACCEPT
+  if ($data['admin'] == 1){
+    //echo 'allowed';
+    return;
+  }
+  //IF PRESIDENT OF ATTACHED CLUB
+  $index = array_search ($data['club_year_id'], $data['permissions']['club_year_id_array']);
+  if ( $index === FALSE  ){
+    $returnData['errcode'] = 4;
+      //TODO proper code
+      $returnData['errno'] = 4000;
+      $returnData['errstr'] = "User is not associated with Club";
+      exitfnc($returnData);
+  } else {
+    if($data['permissions']['president_bool_array'][$index] == 1){
+      //echo 'allowed';
+      return;
+    } else {
+      $returnData['errcode'] = 4;
+      //TODO proper code
+      $returnData['errno'] = 4000;
+      $returnData['errstr'] = "User does not have adaquate permission to accept that request";
+      exitfnc($returnData);
+    }
+  }
+}
 
 function GetAttachedClubsByUserPermissionCheck($link, $data){
-  //Null?
+  //null submitting user is allowed
 }
 function GetAllClubsPermissionCheck($link, $data){
-  //null?
+  //no permission check required for this one.
 }
 
 //--------------------------------------Validation Methods -----------------------------------------
-function RemoveClubPositionByUserValidate($link, $data){
+function RemoveClubPositionByUserValidate($link, &$data){
+  InjectClubYearIdByClubYear($link, $data);
   RemoveClubPositionByUserPermissionCheck($link, $data);
+  //TODO VALIDATE INPUT FEILDS
+  //TODO CHECK IF ACTIVE POSITION STILL EXISTS
 }
 
-function RemoveClubPositionByEmailValidate($link, $data){
+function RemoveClubPositionByEmailValidate($link, &$data){
+  InjectClubYearIdByClubYear($link, $data);
   RemoveClubPositionByEmailPermissionCheck($link, $data);
+  //TODO VALIDATE INPUT FEILDS
+  //TODO CHECK IF ACTIVE POSITION STILL EXISTS
 }
 
 function GetClubPositionByUserValidate($link, $data){
   GetClubPositionByUserPermissionCheck($link, $data);
+  //TODO VALIDATE INPUT FEILDS
+  //TODO CHECK IF ACTIVE POSITION STILL EXISTS
 }
 
 function GetClubPositionByEmailValidate($link, $data){
   GetClubPositionByEmailPermissionCheck($link, $data);
+  //TODO VALIDATE INPUT FEILDS
+  //TODO CHECK THAT EMAIL IS VALID ACCOUNT
 }
 
 function GetClubPositionByClubValidate($link, &$data){
   InjectClubYearIdByClubYear($link, $data);
   GetClubPositionByClubPermissionCheck($link, $data);
+  //TODO VALIDATE INPUT FEILDS
 }
 
 function GetAttachedClubsByUserValidate($link, $data){
   GetAttachedClubsByUserPermissionCheck($link, $data);
+  //TODO VALIDATE INPUT FEILDS
 }
 function GetAllClubsValidate($link, $data){
   GetAllClubsPermissionCheck($link, $data);
+  //null, nothing to validate
 }
 
 //---------------------------------------Calling Function --------------------------------------------
@@ -50,11 +125,17 @@ function RemoveClubPositionByUser($link, $data){
 SELECT club_position_id, 101
 FROM club_position
 WHERE active_bool = 1 and account_id = " . $data['account_id'] . " and club_year_id = " . $data['club_year_id'] . " and position_name = '" . $data['position'] . "'";
+  echo $insert;
+  nonQuery($link, $insert, "Insert Removal Audit", 5000);
 
   $update = "UPDATE club_position
 SET active_bool = 0
 WHERE active_bool = 1 and account_id = " . $data['account_id'] . " and club_year_id = " . $data['club_year_id'] . " and position_name = '" . $data['position'] . "'";
-
+  nonQuery($link, $update, "update position active status", 5000);
+  $returnData['errcode'] = 0;
+  $returnData['errno'] = 0;
+  $returnData['data']['status'] = 'successful'; 
+  exitfnc($returnData);
 }
 function RemoveClubPositionByEmail($link, $data){
   RemoveClubPositionByEmailValidate($link, $data);
@@ -64,11 +145,17 @@ SELECT club_position.club_position_id, 101
 FROM club_position
 INNER JOIN user_account ON user_account.account_id = club_position.account_id
 WHERE active_bool = 1 and email = '" . $email . "' and club_year_id = " . $data['club_year_id'] . " and position_name = '" . $data['position'] . "'";
+  nonQuery($link, $insert, "Insert Removal Audit", 5000);
 
   $update = "UPDATE club_position
 INNER JOIN user_account ON user_account.account_id = club_position.account_id
 SET active_bool = 0
 WHERE active_bool = 1 and email = '" . $email . "' and club_year_id = " . $data['club_year_id'] . " and position_name = '" . $data['position'] . "'";
+  nonQuery($link, $update, "update position active status", 5000);
+  $returnData['errcode'] = 0;
+  $returnData['errno'] = 0;
+  $returnData['data']['status'] = 'successful'; 
+  exitfnc($returnData);
 
 }
 function GetClubPositionByUser($link, $data){

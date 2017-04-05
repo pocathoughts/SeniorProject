@@ -362,6 +362,32 @@ function GetClubPositionByUser(){
   });
 }
 
+function RemoveClubPositionByUser(){
+  var userEmail = $('#RemoveClubPositionByUserEmail').val();
+  var userSess = $('#RemoveClubPositionByUserSession').val();
+  var clubName = $('#RemoveClubPositionByUserClubName').val();
+  var clubYear = $('#RemoveClubPositionByUserYear').val();
+  var clubPosition = $('#RemoveClubPositionByUserPosition').val();
+  alert(userEmail + " | " + userSess + " | " + clubName + " | " + clubYear + " | " + clubPosition);
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'RemoveClubPositionByUser', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear, position:clubPosition},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    var str = "Errcode : " + newdata.errcode;
+    str += "\nErrno : " + newdata.errno;
+    str += "\nErrstr : " + newdata.errstr;
+    str += "\nData : " + JSON.stringify(newdata.data);
+    alert(str);
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
+
 //old functions  This includes the login, new functions wont
 /*function CheckAccount() {
   //alert ('CheckAccount');
