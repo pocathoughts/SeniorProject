@@ -2,9 +2,11 @@
 //funtion inclusion
 header('Access-Control-Allow-Origin: *');
 include ('Login.php');
+
 include ('CreateAccount.php');
 include ('JoinClubRequest.php');
 include ('ClubTeam.php');
+
 
 
 //Packet data error checking/setup
