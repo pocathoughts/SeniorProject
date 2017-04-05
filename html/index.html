@@ -15,9 +15,9 @@
       }
       .divRow {
           clear:both;
-          border-style: solid; 
+          border-style: solid;
       }
-      
+
       .item {
           float: left;
           width: 45%;
@@ -36,7 +36,7 @@
       <div class='divRow'>
         <div class='item'>
           <h1>Login</h1>
-          <form> 
+          <form>
             <p>Email</p>
             <input type="text" id="LoginEmail" name="email"><br>
             <p>Password</p>
@@ -46,7 +46,7 @@
         </div>
         <div class='item'>
           <h1>Create Account</h1>
-          <form> 
+          <form>
             <p>Email</p>
             <input type="text" id="CreateAccountEmail" name="email"><br>
             <p>Password</p>
@@ -60,7 +60,7 @@
       <div class='divRow'>
         <div class='item'>
           <h1>Get All Clubs</h1>
-          <form> 
+          <form>
             <p>Email</p>
             <input type="text" id="GetAllClubsEmail" name="email"><br>
             <p>Session_id</p>
@@ -71,7 +71,7 @@
         </div>
         <div class='item'>
           <h1>Get Attached Clubs By User</h1>
-          <form> 
+          <form>
             <p>Email</p>
             <input type="text" id="GetAttachedClubsByUserEmail" name="email"><br>
             <p>Session_id</p>
@@ -83,7 +83,7 @@
       <div class='divRow'>
         <div class='item'>
           <h1>Create Request</h1>
-          <form> 
+          <form>
             <p>Email</p>
             <input type="text" id="CreateRequestEmail" name="email"><br>
             <p>Session_id</p>
@@ -99,7 +99,7 @@
         </div>
         <div class='item'>
           <h1>Get Requests By Club</h1>
-          <form> 
+          <form>
             <p>Email</p>
             <input type="text" id="GetClubRequestByClubEmail" name="email"><br>
             <p>Session_id</p>
@@ -115,7 +115,7 @@
       <div class='divRow'>
         <div class='item'>
           <h1>Get Request By Email</h1>
-          <form> 
+          <form>
             <p>Email</p>
             <input type="text" id="GetClubRequestByEmailEmail" name="email"><br>
             <p>Session_id</p>
@@ -127,13 +127,24 @@
         </div>
         <div class='item'>
           <h1>Get Request By User</h1>
-          <form> 
+          <form>
             <p>Email</p>
             <input type="text" id="GetClubRequestByUserEmail" name="email"><br>
             <p>Session_id</p>
             <input type="text" id="GetClubRequestByUserSession" name="session"><br>
           </form>
           <button onclick="getClubRequestByUser()">Get Request By User</button>
+        </div>
+        <div class = "divRow">
+        <div class = 'item'>
+            <h1> populate dropdown </h1>
+            <select id = "sports-club-list" class="form-control">
+                <option value = "default" selected> Sports Club Name </option>
+            </select>
+        </div>
+        <div class = 'item'>
+            <h1> pcheck all clubs </h1>
+            <button onclick="getAllClubsTrimmedName()">get all clubs</button>
         </div>
       </div>
     </div>
