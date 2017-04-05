@@ -174,11 +174,37 @@ $("#create_account_form").submit(function(e){
     } 
     else {
       alert('success');
-      window.location.href = "signUpAdditionalInfo.html"
+
+
+      $.ajax( { 
+        type : 'POST',
+        data : {phpFunction:'Login',email:userEmail,password:userPass},
+        url  : serverAddress,    //'http://' is required for request. 
+      })
+      .done(function ( data, status ) {
+        var newdata = JSON.parse(data);
+        var results = newdata.data;
+        if(newdata.errcode != 0){
+          var str = "Errcode : " + newdata.errcode;
+          str += "\nErrno : " + newdata.errno;
+          str += "\nErrstr : " + newdata.errstr;
+          str += "\nData : " + JSON.stringify(newdata.data);
+          alert(str);
+          //window.location.href ="";
+          return;
+        }
+        sessionStorage.userEmail = userEmail;
+        sessionStorage.session_id = results.session_id;
+        alert(sessionStorage.userEmail + "  " + sessionStorage.session_id)
+        window.location.href = "signUpAdditionalInfo.html"
+      })
+      .fail(function (xhr, data, status) {
+        alert( "errorr in logging in");
+      });
     }
   })
   .fail(function ( data, status ) {
-    alert( "errorr" );
+    alert( "errorr in creating" );
   });
 }); 
 
@@ -377,6 +403,10 @@ function getClubRequestByUser() {
   .fail(function ( data, status ) {
     alert("errorr");
   });
+}
+
+function getUserLoginInfo(){
+  alert(sessionStorage.userEmail + "  " + sessionStorage.session_id);
 }
 
 //old functions  This includes the login, new functions wont
