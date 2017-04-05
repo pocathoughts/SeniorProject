@@ -34,7 +34,7 @@ if (!isset($functionChoice)){
 $link = ConnectDatabase($returnData);
 
 //Check Session Status
-if ( !($functionChoice == 'Login' or $functionChoice == 'CreateUserAccount') ){
+if ( !($functionChoice == 'Login' or $functionChoice == 'CreateUserAccount' or $functionChoice == 'GetAllClubs') ){
   //Login and CreateUserAccount are the only functions that don't require and active session  
   checkSession($link, $dataContainer, $returnData);
   InjectPermissions($link, $dataContainer);
@@ -48,7 +48,7 @@ switch ($functionChoice) {
   case 'CreateUserAccount':
     CreateUserAccount($link, $dataContainer, $returnData);
     break;
-//--------------------------------JoinClubRequest-----------------------------------
+//--------------------------------JoinClubRequest------------------------------
   case 'CreateJoinClubRequest':
     CreateJoinClubRequest($link, $dataContainer, $returnData);
     break;
@@ -67,12 +67,28 @@ switch ($functionChoice) {
   case 'GetJoinClubRequestByClub':
     GetJoinClubRequestByClub($link, $dataContainer, $returnData);
     break;
-//-------------------------------ClubTeamRequest------------------------------------
+//-------------------------------ClubTeamAndPositionFunctions-------------------------
+  case 'RemoveClubPositionByUser':
+    RemoveClubPositionByUser($link, $dataContainer);
+    break;
+  case 'RemoveClubPositionByEmail':
+    RemoveClubPositionByEmail($link, $dataContainer);
+    break;
+  case 'GetClubPositionByUser':
+    GetClubPositionByUser($link, $dataContainer);
+    break;
+  case 'GetClubPositionByEmail':
+    GetClubPositionByEmail($link, $dataContainer);
+    break;
+  case 'GetClubPositionByClub':
+    GetClubPositionByClub($link, $dataContainer);
+    break;
+  //getattachedclubsbyuser is depriciated and will be removed
   case 'GetAttachedClubsByUser':
-    GetAttachedClubsByUser($link, $dataContainer, $returnData);
+    GetAttachedClubsByUser($link, $dataContainer);
     break;
   case 'GetAllClubs':
-    GetAllClubs($link, $dataContainer, $returnData);
+    GetAllClubs($link, $dataContainer);
     break;
   default:
     $returnData['errcode'] = 1;
