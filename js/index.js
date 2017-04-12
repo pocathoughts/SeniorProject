@@ -342,7 +342,6 @@ $("#club_request_form").submit(function(e){
 });
 
 function getClubRequestByClub() {
-  //alert ('sanity check');
   var userEmail = $('#GetClubRequestByClubEmail').val();
   var userSess = $('#GetClubRequestByClubSession').val();
   var clubName = $('#GetClubRequestByClubClubName').val();
@@ -436,7 +435,7 @@ function getClubRequestByUser() {
       alert(str);
     } else {
       var requestsArray = newdata.data.requests;
-      document.getElementById("ClubRequests").innerHTML = "<h3>Requests Attached to " + requestEmail + ")</h3>";
+      document.getElementById("ClubRequests").innerHTML = "<h3>Requests Attached to " + userEmail + ")</h3>";
       for (i = 0; i < requestsArray.length; i++){
         var printString = "<p>Name : " + requestsArray[i].name + "<br>";
         printString += "Email : " + requestsArray[i].email + "<br>";
@@ -453,8 +452,134 @@ function getClubRequestByUser() {
   });
 }
 
-function getUserLoginInfo(){
-  alert(sessionStorage.userEmail + "  " + sessionStorage.session_id);
+function GetClubPositionByClub(){
+  var userEmail = $('#GetClubPositionByClubEmail').val();
+  var userSess = $('#GetClubPositionByClubSession').val();
+  var clubName = $('#GetClubPositionByClubClubName').val();
+  var clubYear = $('#GetClubPositionByClubYear').val();
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'GetClubPositionByClub', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode != 0){
+      var str = "Errcode : " + newdata.errcode;
+      str += "\nErrno : " + newdata.errno;
+      str += "\nErrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+      alert(str);
+    } else {
+      var positionsArray = newdata.data.positions;
+      document.getElementById("ClubPositions").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + "-" + (clubYear+1) + ")</h3>";
+      for (i = 0; i < positionsArray.length; i++){
+        var printString = "<p>Name : " + positionsArray[i].name + "<br>";
+        printString += "Email : " + positionsArray[i].email + "<br>";
+        printString += "Club Name : " + positionsArray[i].club_name + "<br>";
+        printString += "Position : " + positionsArray[i].position + "<br>";
+        document.getElementById("ClubPositions").innerHTML += printString;
+      }
+    }
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
+function GetClubPositionByEmail(){
+  var userEmail = $('#GetClubPositionByEmailEmail').val();
+  var userSess = $('#GetClubPositionByEmailSession').val();
+  var positionEmail = $('#GetClubPositionByEmailPositionEmail').val();
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'GetClubPositionByEmail', email:userEmail, session_id:userSess, position_email:positionEmail},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode != 0){
+      var str = "Errcode : " + newdata.errcode;
+      str += "\nErrno : " + newdata.errno;
+      str += "\nErrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+      alert(str);
+    } else {
+      var positionsArray = newdata.data.positions;
+      document.getElementById("ClubPositions").innerHTML = "<h3>Positions Attached to " + positionEmail + ")</h3>";
+      for (i = 0; i < positionsArray.length; i++){
+        var printString = "<p>Name : " + positionsArray[i].name + "<br>";
+        printString += "Email : " + positionsArray[i].email + "<br>";
+        printString += "Club Name : " + positionsArray[i].club_name + "<br>";
+        printString += "Position : " + positionsArray[i].position + "<br>";
+        document.getElementById("ClubPositions").innerHTML += printString;
+      }
+    }
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
+function GetClubPositionByUser(){
+  var userEmail = $('#GetClubPositionByUserEmail').val();
+  var userSess = $('#GetClubPositionByUserSession').val();
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'GetClubPositionByUser', email:userEmail, session_id:userSess},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode != 0){
+      var str = "Errcode : " + newdata.errcode;
+      str += "\nErrno : " + newdata.errno;
+      str += "\nErrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+      alert(str);
+    } else {
+      var positionsArray = newdata.data.positions;
+      document.getElementById("ClubPositions").innerHTML = "<h3>Positions Attached to " + userEmail + ")</h3>";
+      for (i = 0; i < positionsArray.length; i++){
+        var printString = "<p>Name : " + positionsArray[i].name + "<br>";
+        printString += "Email : " + positionsArray[i].email + "<br>";
+        printString += "Club Name : " + positionsArray[i].club_name + "<br>";
+        printString += "Position : " + positionsArray[i].position + "<br>";
+        document.getElementById("ClubPositions").innerHTML += printString;
+      }
+    }
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
+
+function RemoveClubPositionByUser(){
+  var userEmail = $('#RemoveClubPositionByUserEmail').val();
+  var userSess = $('#RemoveClubPositionByUserSession').val();
+  var clubName = $('#RemoveClubPositionByUserClubName').val();
+  var clubYear = $('#RemoveClubPositionByUserYear').val();
+  var clubPosition = $('#RemoveClubPositionByUserPosition').val();
+  alert(userEmail + " | " + userSess + " | " + clubName + " | " + clubYear + " | " + clubPosition);
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'RemoveClubPositionByUser', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear, position:clubPosition},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    var str = "Errcode : " + newdata.errcode;
+    str += "\nErrno : " + newdata.errno;
+    str += "\nErrstr : " + newdata.errstr;
+    str += "\nData : " + JSON.stringify(newdata.data);
+    alert(str);
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+
 }
 
 //old functions  This includes the login, new functions wont
