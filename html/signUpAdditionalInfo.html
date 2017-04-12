@@ -68,7 +68,7 @@
     <div class = "spacer"/>
 
     <!-- each field needs a form group -->
-    <form>
+    <form id="club_request_form">
         <div class="col-md-4 col-md-offset-4"> <!-- centering the forms -->
             <div class="form-group row"> <!-- Password field !-->
 		        <label id = "font-style" for="email_id" class="control-label">Select Your Sports Club</label>
@@ -78,7 +78,7 @@
             </div>
             <div class="form-group row"> <!-- Confirm Password field !-->
                 <label id = "font-style" for="email_id" class="control-label">Executive Board Position</label>
-                <select class="form-control">
+                <select id = "selected_position" class="form-control">
                     <option value = "default" selected> Executive Board Position </option>
                     <option value = "president"> President </option>
                     <option value = "vice_president"> Vice President </option>
@@ -91,8 +91,7 @@
            <div class = "spacer"/>
 
     	    <div class="form-group row"> <!-- Submit button !-->
-    		    <center><button style = "background-color:#7AAE96; border-style: none;" type="submit" class="rec-button btn btn-primary">CREATE ACCOUNT</button></center>
-                <center><button onClick = "getUserLoginInfo();" style = "background-color:#7AAE96; border-style: none;" type="submit" class="rec-button btn btn-primary">TEST</button></center>
+    		    <center><button id="additional_info" style = "background-color:#7AAE96; border-style: none;" type="submit" class="rec-button btn btn-primary">CREATE ACCOUNT</button></center>
     	    </div>
         </div>
     </form>

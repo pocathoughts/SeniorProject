@@ -126,6 +126,8 @@ var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
 
     var str = "User Email" + userEmail.toLowerCase();
     str += "\nSession_id = " + JSON.stringify(results.session_id);
+    sessionStorage.userEmail = userEmail;
+    sessionStorage.session_id = results.session_id;
     alert(str);
     // var idString = userEmail.toLowerCase()  + "ID";
     // var node = document.getElementById(idString);
@@ -308,12 +310,14 @@ function getAttachedClubsByUser(){
   });
 }
 
-function CreateJoinClubRequest() {
-  var userEmail = $('#CreateRequestEmail').val();
-  var userSess = $('#CreateRequestSession').val();
-  var clubName = $('#CreateRequestClubName').val();
-  var clubYear = $('#CreateRequestClubYear').val();
-  var userPosition = $('#CreateRequestPosition').val();
+$("#club_request_form").submit(function(e){
+  e.preventDefault();
+  var values = $(this).serializeArray();
+  var userEmail = sessionStorage.userEmail;
+  var userSess = sessionStorage.session_id;
+  var clubName = $('#sports-club-list').val();
+  var clubYear = '2016-2017';
+  var userPosition = $('#selected_position').val();
   $.ajax( {
     type : 'POST',
     data : {phpFunction:'CreateJoinClubRequest', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear, position:userPosition},
@@ -335,7 +339,7 @@ function CreateJoinClubRequest() {
   .fail(function ( data, status ) {
     alert("errorr");
   });
-}
+});
 
 function getClubRequestByClub() {
   //alert ('sanity check');
