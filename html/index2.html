@@ -1,37 +1,302 @@
-
 <html>
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type = "text/javascript" src="../js/index.js"></script>
+    <!--<script type = "text/javascript" src="../js/index.js"></script>-->
+    <style>
+      .functions {
+        width:66%;
+        float: right;
+        border-style: solid;
+      }
+      .results {
+        width:33%;
+        float: left;
+      }
+      .divRow {
+          clear:both;
+          border-style: solid;
+      }
+
+      .item {
+          float: left;
+          width: 45%;
+          padding:10px;
+      }
+    </style>
+
+    <script>
+        window.onload = populateDropDownWithClubSports();
+    </script>
   </head>
   <body>
-<div class = "container">
-        <!--form method="POST" action = "login"-->
-        <form>
-            <div class="col-md-4 col-md-offset-4"> <!-- centering the forms -->
-                <div class = "row">
-                    <div class="form-group"> <!-- Email field !-->
-                        <label id = "font-style" for="email_id" class="control-label">Email</label>
-                        <input type="email" class="form-control" id="LoginEmail" name="email_name" placeholder="UFL Email Address">
-                    </div>
-                </div>
-                <div class = "row">
-                    <div class="form-group"> <!-- Password field !-->
-                    <label id = "font-style" for="email_id" class="control-label">Password</label>
-                    <input type="password" class="form-control" id="LoginPass" name="password" placeholder="Password">
-                    </div>
-                </div>
-
-
-
-            </div>
-        </form>
-                        <div class = "row">
-                  <div class="form-group"> <!-- Submit button !-->
-                    <center><button onclick="login()" style = "background-color:#7AAE96; border-style: none;" type="submit" class="rec-button btn btn-primary">LOGIN</button></center>
-                  </div>
-                </div>
+    <div class="results" style="position:fixed">
+      <h1>Results:</h1>
+      <button onclick=clearHeading('Sessions','Active Sessions')>Clear Sessions</button>
+      <button onclick=clearHeading('ClubTeams','Club Teams')>Clear ClubTeams</button>
+      <button onclick=clearHeading('ClubRequests','Club Requests')>Clear ClubRequests</button>
+      <button onclick=clearHeading('ClubPositions','Club Positions')>Clear ClubPositions</button>
+      <div id="Sessions"><h3>Active Sessions</h3></div>
+      <div id="ClubTeams"><h3>Club Teams</h3></div>
+      <div id="ClubRequests"><h3>Club Requests</h3></div>
+      <div id="ClubPositions"><h3>Club Positions</h3></div>
     </div>
-    
+    <div class="functions">
+      <div class='divRow'>
+        <div class='item'>
+          <h1>Login</h1>
+          <form id="login_form">
+          <form>
+            <p>Email</p>
+            <input type="text" id="LoginEmail" name="email_name"><br>
+            <p>Password</p>
+            <input type="text" id="LoginPass" name="password"><br>
+            <button id="login_button" type="submit">Login</button>
+          </form>
+        </div>
+        <div class='item'>
+          <h1>Create Account</h1>
+          <form>
+            <p>Email</p>
+            <input type="text" id="CreateAccountEmail" name="email"><br>
+            <p>Password</p>
+            <input type="text" id="CreateAccountPass" name="password"><br>
+            <p>Name</p>
+            <input type="text" id="CreateAccountName" name="name"><br>
+          </form>
+          <button onclick="createUserAccount()">Create User Account</button>
+        </div>
+      </div>
+      <div class='divRow'>
+        <div class='item'>
+          <h1>Get All Clubs</h1>
+          <form>
+            <p>Email</p>
+            <input type="text" id="GetAllClubsEmail" name="email"><br>
+            <p>Session_id</p>
+            <input type="text" id="GetAllClubsSession" name="session"><br>
+          </form>
+          <button onclick="getAllClubs()">Get All Clubs</button>
+          <div id="Sessions"></div>
+        </div>
+        <div class='item'>
+          <h1>Get Attached Clubs By User</h1>
+          <form>
+            <p>Email</p>
+            <input type="text" id="GetAttachedClubsByUserEmail" name="email"><br>
+            <p>Session_id</p>
+            <input type="text" id="GetAttachedClubsByUserPass" name="password"><br>
+          </form>
+          <button onclick="getAttachedClubsByUser()">Get Attached Clubs By User</button>
+        </div>
+      </div>
+      <div class='divRow'>
+        <div class='item'>
+          <h1>Create Request</h1>
+          <form>
+            <p>Email</p>
+            <input type="text" id="CreateRequestEmail" name="email"><br>
+            <p>Session_id</p>
+            <input type="text" id="CreateRequestSession" name="session"><br>
+            <p>Club Name</p>
+            <input type="text" id="CreateRequestClubName" name="club name"><br>
+            <p>Club Year</p>
+            <input type="text" id="CreateRequestClubYear" name="club year"><br>
+            <p>Position</p>
+            <input type="text" id="CreateRequestPosition" name="position"><br>
+          </form>
+          <button onclick="CreateJoinClubRequest()">Create JoinClub Request</button>
+        </div>
+        <div class='item'>
+          <h1>Get Requests By Club</h1>
+          <form>
+            <p>Email</p>
+            <input type="text" id="GetClubRequestByClubEmail" name="email"><br>
+            <p>Session_id</p>
+            <input type="text" id="GetClubRequestByClubSession" name="Session_id"><br>
+            <p>Club Name</p>
+            <input type="text" id="GetClubRequestByClubClubName" name="club name"><br>
+            <p>Club Year</p>
+            <input type="text" id="GetClubRequestByClubYear" name="club year"><br>
+          </form>
+          <button onclick="getClubRequestByClub()">Get Requests By Club</button>
+        </div>
+      </div>
+      <div class='divRow'>
+        <div class='item'>
+          <h1>Get Request By Email</h1>
+          <form>
+            <p>Email</p>
+            <input type="text" id="GetClubRequestByEmailEmail" name="email"><br>
+            <p>Session_id</p>
+            <input type="text" id="GetClubRequestByEmailSession" name="session"><br>
+            <p>Request Email</p>
+            <input type="text" id="GetClubRequestByEmailRequestEmail" name="request_email"><br>
+          </form>
+          <button onclick="getClubRequestByEmail()">Get Request By Email</button>
+        </div>
+        <div class='item'>
+          <h1>Get Request By User</h1>
+          <form>
+            <p>Email</p>
+            <input type="text" id="GetClubRequestByUserEmail" name="email"><br>
+            <p>Session_id</p>
+            <input type="text" id="GetClubRequestByUserSession" name="session"><br>
+          </form>
+          <button onclick="getClubRequestByUser()">Get Request By User</button>
+        </div>
+        <div class = "divRow">
+        <div class = 'item'>
+            <h1> populate dropdown </h1>
+            <select id = "sports-club-list" class="form-control">
+                <option value = "default" selected> Sports Club Name </option>
+            </select>
+        </div>
+        <div class = 'item'>
+            <h1> pcheck all clubs </h1>
+            <button onclick="getAllClubs()">get all clubs</button>
+        </div>
+        <div class = "divRow">
+        <div class = 'item'>
+            <h1> get accounts by club sport </h1>
+            <form>
+              <p>Club Sport you want to pull accounts from</p>
+              <input type="text" id="GetClubSportName" name="club_sport_name"><br>
+            </form>
+        </div>
+      </div>
+      <div class='divRow'>
+        <div class='item'>
+          <h1>Get Positions By Email</h1>
+          <form> 
+            <p>Email</p>
+            <input type="text" id="GetClubPositionByEmailEmail" name="email"><br>
+            <p>Session_id</p>
+            <input type="text" id="GetClubPositionByEmailSession" name="session"><br>
+            <p>Position Email</p>
+            <input type="text" id="GetClubPositionByEmailPositionEmail" name="request_email"><br>
+          </form>
+          <button onclick="GetClubPositionByEmail()">Get Positions By Email</button>
+        </div>
+        <div class='item'>
+          <h1>Get Positions By User</h1>
+          <form> 
+            <p>Email</p>
+            <input type="text" id="GetClubPositionByUserEmail" name="email"><br>
+            <p>Session_id</p>
+            <input type="text" id="GetClubPositionByUserSession" name="session"><br>
+          </form>
+          <button onclick="GetClubPositionByUser()">Get Positions By User</button>
+        </div>
+      </div>
+      <div class='divRow'>
+        <div class='item'>
+          <h1>Get Positions By Club</h1>
+          <form> 
+            <p>Email</p>
+            <input type="text" id="GetClubPositionByClubEmail" name="email"><br>
+            <p>Session_id</p>
+            <input type="text" id="GetClubPositionByClubSession" name="Session_id"><br>
+            <p>Club Name</p>
+            <input type="text" id="GetClubPositionByClubClubName" name="club name"><br>
+            <p>Club Year</p>
+            <input type="text" id="GetClubPositionByClubYear" name="club year"><br>
+          </form>
+          <button onclick="GetClubPositionByClub()">Get Positions By Club</button>
+        </div>
+        <div class='item'>
+          <h1>Remove Position by User</h1>
+          <form> 
+            <p>Email</p>
+            <input type="text" id="RemoveClubPositionByUserEmail" name="email"><br>
+            <p>Session_id</p>
+            <input type="text" id="RemoveClubPositionByUserSession" name="session_id"><br>
+            <p>Club Name</p>
+            <input type="text" id="RemoveClubPositionByUserClubName" name="club name"><br>
+            <p>Club Year</p>
+            <input type="text" id="RemoveClubPositionByUserYear" name="club year"><br>
+            <p>Position</p>
+            <input type="text" id="RemoveClubPositionByUserPosition" name="club year"><br>
+          </form>
+          <button onclick="RemoveClubPositionByUser()">Remove Position by User</button>
+        </div>
+      </div>
+      <div class='divRow'>
+        <div class='item'>
+          <h1>Get Positions By Email</h1>
+          <form> 
+            <p>Email</p>
+            <input type="text" id="GetClubPositionByEmailEmail" name="email"><br>
+            <p>Session_id</p>
+            <input type="text" id="GetClubPositionByEmailSession" name="session"><br>
+            <p>Position Email</p>
+            <input type="text" id="GetClubPositionByEmailPositionEmail" name="request_email"><br>
+          </form>
+          <button onclick="GetClubPositionByEmail()">Get Positions By Email</button>
+        </div>
+        <div class='item'>
+          <h1>Get Positions By User</h1>
+          <form> 
+            <p>Email</p>
+            <input type="text" id="GetClubPositionByUserEmail" name="email"><br>
+            <p>Session_id</p>
+            <input type="text" id="GetClubPositionByUserSession" name="session"><br>
+          </form>
+          <button onclick="GetClubPositionByUser()">Get Positions By User</button>
+        </div>
+      </div>
+      <div class='divRow'>
+        <div class='item'>
+          <h1>Get Positions By Club</h1>
+          <form> 
+            <p>Email</p>
+            <input type="text" id="GetClubPositionByClubEmail" name="email"><br>
+            <p>Session_id</p>
+            <input type="text" id="GetClubPositionByClubSession" name="Session_id"><br>
+            <p>Club Name</p>
+            <input type="text" id="GetClubPositionByClubClubName" name="club name"><br>
+            <p>Club Year</p>
+            <input type="text" id="GetClubPositionByClubYear" name="club year"><br>
+          </form>
+          <button onclick="GetClubPositionByClub()">Get Positions By Club</button>
+        </div>
+        <div class='item'>
+          <h1>Remove Position by User</h1>
+          <form> 
+            <p>Email</p>
+            <input type="text" id="RemoveClubPositionByUserEmail" name="email"><br>
+            <p>Session_id</p>
+            <input type="text" id="RemoveClubPositionByUserSession" name="session_id"><br>
+            <p>Club Name</p>
+            <input type="text" id="RemoveClubPositionByUserClubName" name="club name"><br>
+            <p>Club Year</p>
+            <input type="text" id="RemoveClubPositionByUserYear" name="club year"><br>
+            <p>Position</p>
+            <input type="text" id="RemoveClubPositionByUserPosition" name="club year"><br>
+          </form>
+          <button onclick="RemoveClubPositionByUser()">Remove Position by User</button>
+        </div>
+      </div>
+    </div>
+  <!---<form>
+    <input type="text" id="email" name="email"><br>
+    <p>email</p>
+    <input type="text" id="password" name="password"><br>
+    <p>password</p>
+    <input type="text" id="requestNumber" name="requestNumber"><br>
+    <p>requestNumber</p>
+    <input type="text" id="clubName" name="clubName"><br>
+    <p>clubName</p>
+    <input type="text" id="clubYear" name="clubYear"><br>
+    <p>clubYear</p>
+  </form>
+  <button onclick="CheckAccount()">check account</button>
+  <button onclick="AddAccount()">add account</button>
+  <button onclick="CreateRequest()">Create request account</button>
+  <button onclick="RespondRequest()">RespondRequest</button>
+  <button onclick="getClubRequestByClub()">clubRequest</button>
+  <button onclick="getClubRequestByUser()">clubRequest</button>
+  <button onclick="getClubRequestByEmail()">clubRequest</button>
+  <p id='results'></p>--->
   </body>
 </html>
