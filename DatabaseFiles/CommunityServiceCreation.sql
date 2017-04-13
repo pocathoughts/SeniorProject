@@ -1,85 +1,42 @@
-/*--------------------------------------ENTITY TABLES-------------------------------------------*/
-CREATE TABLE club_team (
-  club_id INT NOT NULL AUTO_INCREMENT,
-
-  club_name VARCHAR(40) NOT NULL,
-  year_start INT,
-
-  PRIMARY KEY (club_id),
-  UNIQUE KEY (club_name)
-);
-
-CREATE TABLE operating_year (
-  year_id INT NOT NULL AUTO_INCREMENT,
-  
-  year_string CHAR(11) NOT NULL, /*(YEARSTART-YEAREND) ex. (2016-2017)*/
-  beginning_year INT NOT NULL,
-  
-  PRIMARY KEY (year_id)
-);
-
-CREATE TABLE user_account (
-  creation_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-  account_id INT NOT NULL AUTO_INCREMENT,
-  
-  email VARCHAR(255) NOT NULL UNIQUE,     /*RFC states that 254 characters are legal as an email*/
-  password VARCHAR(20) NOT NULL,
-  name VARCHAR(60),
-  recSport_acc BIT(1) NOT NULL DEFAULT 0,
-  
-  PRIMARY KEY (account_id)
-); 
-
 /*-------------------------------------RELATION TABLES-------------------------------------------*/
-
-CREATE TABLE club_operating_year (
-  club_year_id INT NOT NULL AUTO_INCREMENT,
-
-  club_id INT NOT NULL,
-  year_id INT NOT NULL,
-
-  FOREIGN KEY (club_id) REFERENCES club_team(club_id) ON DELETE CASCADE,
-  FOREIGN KEY (year_id) REFERENCES operating_year(year_id) ON DELETE CASCADE,
-  UNIQUE KEY (club_id, year_id),
-  PRIMARY KEY (club_year_id)
-);
-
-CREATE TABLE ITEM(
-  ITEM_id INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE community_service(
+  community_service_id INT NOT NULL AUTO_INCREMENT,
   active_bool BIT(1) NOT NULL DEFAULT 1,
   
-  /*DATA GOES HERE*/
+  /*TODO data fields*/
   club_year_id INT NOT NULL,
   
   FOREIGN KEY (club_year_id) REFERENCES club_operating_year(club_year_id) ON DELETE CASCADE,
-  PRIMARY KEY (ITEM_id)
+  PRIMARY KEY (community_service_id)
 );
 
-CREATE TABLE ITEM_removal(
+CREATE TABLE community_service_removal(
   removal_id INT NOT NULL AUTO_INCREMENT,
   removal_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   
   remover_id INT NOT NULL,
-  ITEM_id INT NOT NULL,
+  community_service_id INT NOT NULL,
   
   FOREIGN KEY (remover_id) REFERENCES user_account(account_id) ON DELETE CASCADE,
-  FOREIGN KEY (ITEM_id) REFERENCES ITEM(ITEM_id) ON DELETE CASCADE,
+  FOREIGN KEY (community_service_id) REFERENCES community_service(community_service_id) ON DELETE CASCADE,
   PRIMARY KEY (removal_id) 
 );
-CREATE TABLE ITEM_change_request(
+
+CREATE TABLE community_service_change_request(
   request_id INT NOT NULL AUTO_INCREMENT,
   request_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   active_bool BIT(1) NOT NULL DEFAULT 1,
   
-  ITEM_id INT NOT NULL,
+  community_service_id INT NOT NULL,
   attribute_name VARCHAR(60) NOT NULL,
   new_value VARCHAR(400) NOT NULL, 
   old_value VARCHAR(400) NOT NULL,
   
-  FOREIGN KEY (ITEM_id) REFERENCES ITEM(ITEM_id) ON DELETE CASCADE,
+  FOREIGN KEY (community_service_id) REFERENCES community_service(community_service_id) ON DELETE CASCADE,
   PRIMARY KEY (request_id) 
 );
-CREATE TABLE ITEM_change_request_response(
+
+CREATE TABLE community_service_change_request_response(
   response_id INT NOT NULL AUTO_INCREMENT,
   response_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   
@@ -87,17 +44,18 @@ CREATE TABLE ITEM_change_request_response(
   responder_id INT NOT NULL,
   decision BIT(1) NOT NULL, /*0 REJECTED, 1 ACCEPTED*/
   
-  FOREIGN KEY (request_id) REFERENCES ITEM_change_request(request_id) ON DELETE CASCADE,
+  FOREIGN KEY (request_id) REFERENCES community_service_change_request(request_id) ON DELETE CASCADE,
   FOREIGN KEY (responder_id) REFERENCES user_account(account_id) ON DELETE CASCADE,
   PRIMARY KEY (response_id) 
 );
-CREATE TABLE ITEM_request(
+
+CREATE TABLE community_service_request(
   request_id INT NOT NULL AUTO_INCREMENT,
   request_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   active_bool BIT(1) NOT NULL DEFAULT 1, /*1 pending, 0 responded*/
-  ITEM_id INT, /*this is the ITEM id once the posision is created*/
+  community_service_id INT, /*this is the community_service id once the posision is created*/
   
-  /*DATA*/
+  /*TODO data fields*/
   club_year_id INT NOT NULL,
   requester_id INT NOT NULL,
 
@@ -105,7 +63,8 @@ CREATE TABLE ITEM_request(
   FOREIGN KEY (club_year_id) REFERENCES club_operating_year(club_year_id) ON DELETE CASCADE,
   PRIMARY KEY (request_id) 
 );
-CREATE TABLE ITEM_request_response(
+
+CREATE TABLE community_service_request_response(
   response_id INT NOT NULL AUTO_INCREMENT,
   response_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   
@@ -113,11 +72,12 @@ CREATE TABLE ITEM_request_response(
   responder_id INT NOT NULL,
   decision BIT(1) NOT NULL, /*0 REJECTED, 1 ACCEPTED*/
   
-  FOREIGN KEY (request_id) REFERENCES ITEM_request(request_id) ON DELETE CASCADE,
+  FOREIGN KEY (request_id) REFERENCES community_service_request(request_id) ON DELETE CASCADE,
   FOREIGN KEY (responder_id) REFERENCES user_account(account_id) ON DELETE CASCADE,
   PRIMARY KEY (response_id) 
 );
-CREATE TABLE ITEM_request_change(
+
+CREATE TABLE community_service_request_change_request(
   request_change_id INT NOT NULL AUTO_INCREMENT,
   request_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   active_bool BIT(1) NOT NULL DEFAULT 1,
@@ -127,10 +87,11 @@ CREATE TABLE ITEM_request_change(
   new_value VARCHAR(400) NOT NULL, 
   old_value VARCHAR(400) NOT NULL,
   
-  FOREIGN KEY (request_id) REFERENCES ITEM_request(request_id) ON DELETE CASCADE,
+  FOREIGN KEY (request_id) REFERENCES community_service_request(request_id) ON DELETE CASCADE,
   PRIMARY KEY (request_change_id)
 );
-CREATE TABLE ITEM_request_change_response(
+
+CREATE TABLE community_service_request_change_request_response(
   response_id INT NOT NULL AUTO_INCREMENT,
   response_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   
@@ -138,7 +99,7 @@ CREATE TABLE ITEM_request_change_response(
   responder_id INT NOT NULL,
   decision BIT(1) NOT NULL, /*0 REJECTED, 1 ACCEPTED*/
   
-  FOREIGN KEY (request_change_id) REFERENCES ITEM_request_change(request_change_id) ON DELETE CASCADE,
+  FOREIGN KEY (request_change_id) REFERENCES community_service_request_change(request_change_id) ON DELETE CASCADE,
   FOREIGN KEY (responder_id) REFERENCES user_account(account_id) ON DELETE CASCADE,
   PRIMARY KEY (response_id) 
 );
