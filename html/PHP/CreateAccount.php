@@ -8,7 +8,7 @@ function CreateUserAccount ($link, $data, &$returnData){
   CreateUserAccountValidate($data, $returnData);
   //no permission check as anyone can create an account
   //add to database
-  $email = $data['email'];
+  $email = strtolower($data['email']);
   $insert = "INSERT INTO user_account ( email, password, name, recSport_acc) VALUES ('" . $email . "', '" . $data['password'] . "', '" . $data['name'] . "', 0)";
   if( !mysqli_query($link,$insert) ) {
     $returnData['errcode'] = 5;
