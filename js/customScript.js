@@ -1,59 +1,66 @@
 ////////////////////////Setting the Hover Functions/////////////////////////////
 
 function hoverHouse(element) {
-    element.setAttribute('src', 'img/icons/home-blue.png');
+    element.setAttribute('src', '../img/icons/home-blue.png');
 }
 function unhoverHouse(element) {
-    element.setAttribute('src', 'img/icons/home.png');
+    element.setAttribute('src', '../img/icons/home.png');
 }
 
 function hoverPig(element) {
-    element.setAttribute('src', 'img/icons/piggy-bank-blue.png');
+    element.setAttribute('src', '../img/icons/piggy-bank-blue.png');
 }
 function unhoverPig(element) {
-    element.setAttribute('src', 'img/icons/piggy-bank.png');
+    element.setAttribute('src', '../img/icons/piggy-bank.png');
 }
 
 function hoverShoe(element) {
-    element.setAttribute('src', 'img/icons/shoe-blue.png');
+    element.setAttribute('src', '../img/icons/shoe-blue.png');
 }
 function unhoverShoe(element) {
-    element.setAttribute('src', 'img/icons/shoe.png');
+    element.setAttribute('src', '../img/icons/shoe.png');
 }
 
 function hoverPlane(element) {
-    element.setAttribute('src', 'img/icons/departures-blue.png');
+    element.setAttribute('src', '../img/icons/departures-blue.png');
 }
 function unhoverPlane(element) {
-    element.setAttribute('src', 'img/icons/departures.png');
+    element.setAttribute('src', '../img/icons/departures.png');
 }
 
 function hoverForm(element) {
-    element.setAttribute('src', 'img/icons/forms-blue.png');
+    element.setAttribute('src', '../img/icons/forms-blue.png');
 }
 function unhoverForm(element) {
-    element.setAttribute('src', 'img/icons/forms.png');
+    element.setAttribute('src', '../img/icons/forms.png');
 }
 
 function hoverWarning(element) {
-    element.setAttribute('src', 'img/icons/warning-blue.png');
+    element.setAttribute('src', '../img/icons/warning-blue.png');
 }
 function unhoverWarning(element) {
-    element.setAttribute('src', 'img/icons/warning.png');
+    element.setAttribute('src', '../img/icons/warning.png');
 }
 
 function hoverTracking(element) {
-    element.setAttribute('src', 'img/icons/bar-chart-blue.png');
+    element.setAttribute('src', '../img/icons/bar-chart-blue.png');
 }
 function unhoverTracking(element) {
-    element.setAttribute('src', 'img/icons/bar-chart.png');
+    element.setAttribute('src', '../img/icons/bar-chart.png');
 }
 
 function hoverMan(element) {
-    element.setAttribute('src', 'img/icons/man-blue.png');
+    element.setAttribute('src', '../img/icons/man-blue.png');
 }
 function unhoverMan(element) {
-    element.setAttribute('src', 'img/icons/man.png');
+    element.setAttribute('src', '../img/icons/man.png');
+}
+
+function hoverContact(element) {
+    element.setAttribute('src', '../img/icons/agenda-blue.png');
+}
+function unhoverContact(element) {
+    element.setAttribute('src', '../img/icons/agenda.png');
 }
 
 ///////////Adding new input forms to the community service form/////////////////

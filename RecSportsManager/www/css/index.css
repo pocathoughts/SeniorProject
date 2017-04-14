@@ -276,6 +276,9 @@ ul.colorful li:nth-child(5) {
 }
 
 
+.sign_up { background:none;border:none; }
+
+
 /*button values */
 
 .btn.outline {

@@ -1,110 +1,10 @@
-
-//Shit from christines index.js
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-// var app = {
-//     // Application Constructor
-//     initialize: function() {
-//         this.bindEvents();
-//     },
-//     // Bind Event Listeners
-//     //
-//     // Bind any events that are required on startup. Common events are:
-//     // 'load', 'deviceready', 'offline', and 'online'.
-//     bindEvents: function() {
-//         document.addEventListener('deviceready', this.onDeviceReady, false);
-//     },
-//     // deviceready Event Handler
-//     //
-//     // The scope of 'this' is the event. In order to call the 'receivedEvent'
-//     // function, we must explicitly call 'app.receivedEvent(...);'
-//     onDeviceReady: function() {
-//         console.log('Received Device Ready Event');
-//         console.log('calling setup push');
-//         app.setupPush();
-//     },
-//     setupPush: function() {
-//         console.log('calling push init');
-//         var push = PushNotification.init({
-//             "android": {
-//                 "senderID": "XXXXXXXX"
-//             },
-//             "browser": {},
-//             "ios": {
-//                 "sound": true,
-//                 "vibration": true,
-//                 "badge": true
-//             },
-//             "windows": {}
-//         });
-//         console.log('after init');
-
-//         push.on('registration', function(data) {
-//             console.log('registration event: ' + data.registrationId);
-
-//             var oldRegId = localStorage.getItem('registrationId');
-//             if (oldRegId !== data.registrationId) {
-//                 // Save new registration ID
-//                 localStorage.setItem('registrationId', data.registrationId);
-//                 // Post registrationId to your app server as the value has changed
-//             }
-
-//             var parentElement = document.getElementById('registration');
-//             var listeningElement = parentElement.querySelector('.waiting');
-//             var receivedElement = parentElement.querySelector('.received');
-
-//             listeningElement.setAttribute('style', 'display:none;');
-//             receivedElement.setAttribute('style', 'display:block;');
-//         });
-
-//         push.on('error', function(e) {
-//             console.log("push error = " + e.message);
-//         });
-
-//         push.on('notification', function(data) {
-//             console.log('notification event');
-//             navigator.notification.alert(
-//                 data.message,         // message
-//                 null,                 // callback
-//                 data.title,           // title
-//                 'Ok'                  // buttonName
-//             );
-//        });
-//     }
-// };
-
-
-
-
-
 var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
-//function login(){
-
   $("#login_form").submit(function(e){
   e.preventDefault();
   alert('inside login')
   var values = $(this).serializeArray();
   var userEmail = values[0].value;
   var userPass = values[1].value;
-  //var userEmail = $('#LoginEmail').val();
-  //var userPass = $('#LoginPass').val();
-  //alert("here");
   $.ajax( {
     type : 'POST',
     data : {phpFunction:'Login',email:userEmail,password:userPass},
@@ -119,7 +19,6 @@ var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
       str += "\nErrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
-      //window.location.href ="";
       return;
     }
 
@@ -129,17 +28,7 @@ var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
     sessionStorage.userEmail = userEmail;
     sessionStorage.session_id = results.session_id;
     alert(str);
-    // var idString = userEmail.toLowerCase()  + "ID";
-    // var node = document.getElementById(idString);
-    // if (node == null){
-    //   var textNode = document.createElement("p");
-    //   //textNode.id = idSting;
-    //   textNode.setAttribute('id', idString);
-    //   textNode.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
-    //   document.getElementById("Sessions").appendChild(textNode);
-    // } else {
-    //   node.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
-    // }
+    window.location.href ="landingPage.html";
   })
   .fail(function (xhr, data, status) {
     alert( "errorr");
@@ -579,6 +468,10 @@ function RemoveClubPositionByUser(){
   .fail(function ( data, status ) {
     alert("errorr");
   });
+}
+
+function displayLoggedInUser(){
+  document.getElementById("logged_in").innerHTML = sessionStorage.userEmail;
 }
 
 //old functions  This includes the login, new functions wont

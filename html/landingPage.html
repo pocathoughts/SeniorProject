@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Sans">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/index.js"></script>
+    <title>Home Page</title>
+
+    <style>
+      body {
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 48px;
+      }
+    </style>
+    <!-- probably not the best way to do it but we tried -->
+    <style type="text/css">
+        body { background: white !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+    </style>
+</head>
+
+<body>
+    <!-- Start of the Navbar -->
+    <nav style = "border-color: none; background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
+        <div class="dropdown">
+            <a href="#" class="btn navbar-brand dropdown-toggle special-button" data-toggle="dropdown">
+                 <span class="glyphicon glyphicon-th-list" style="color:white"></span>
+            </a>
+
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Account</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="trackingRequirements.html">Track Club Progress</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Deadlines</a></li>
+              <li class = "menuDropdownSize" role="presentation" class="divider"></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/creditPage.html">Icon Credits</a></li>
+            </ul>
+        </div>
+
+        <h1 style = "color: white; font-family: 'Oswald'"> BEACH VOLLEYBALL </h1>
+
+        <h3 style = "color: white; font-family: 'Oswald'; text-align: right" id = "logged_in"> Default
+            <script>
+                displayLoggedInUser();
+            </script>
+        </h3>
+
+    </nav> <!-- /.navbar -->
+
+
+    <div class = "container">
+        <div class="col-md-3" style = "border-style: solid; border-color: black;">
+            <a href = "../mainPages/forms.html"> <center><img class = "landing-icon" src = "../img/icons/forms.png" onmouseover="hoverForm(this)" onmouseout="unhoverForm(this)"></center> </a>
+            <center><h4> forms </h4></center>
+        </div>
+        <div class="col-md-3" style = "border-style: solid; border-color: black;">
+            <a href = "../trackingPages/trackingRequirements.html"> <center><img class = "landing-icon" src = "../img/icons/bar-chart.png" onmouseover="hoverTracking(this)" onmouseout="unhoverTracking(this)"></center> </a>
+            <center><h4> track status </h4></center>
+        </div>
+        <div class="col-md-3" style = "border-style: solid; border-color: black;">
+            <a href = "contactPage.html"> <center><img class = "landing-icon" src = "../img/icons/agenda.png" onmouseover="hoverContact(this)" onmouseout="unhoverContact(this)"></center> </a>
+            <center><h4> Important Contacts </h4></center>
+        </div>
+        <div class="col-md-3" style = "border-style: solid; border-color: black;">
+            <a href = "../accountPages/accountsPage.html"> <center><img class = "landing-icon" src = "../img/icons/man.png" onmouseover="hoverMan(this)" onmouseout="unhoverMan(this)"></center> </a>
+            <center><h4> accounts </h4></center>
+        </div>
+    </div>
+
+    <div class="spacer"/>
+    <hr>
+
+    <div class = "container">
+        <h2 style = "font-family: 'Oswald'"> Important Dates Coming Up </h2>
+        <ul class = "colorful biggerList" style="list-style: none;">
+            <div>
+              <li>February 28th - Leadership Seminar</li>
+              <li> Home Tournament - March 4rd </li>
+              <li> Budget Proposal </li>
+              <li> Tournamnet this weekend </li>
+          </div>
+        </ul>
+    </div>
+
+    <script type="text/javascript" src="../js/index.js"></script>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="../js/customScript.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.dropdown-toggle').dropdown();
+        });
+    </script>
+
+
+
+</body>
+
+</html>
