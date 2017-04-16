@@ -26,71 +26,67 @@
 
 <body>
     <!-- Start of the Navbar -->
-    <nav style = "border: 0; border-color: none; background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
+    <nav style = "background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
+
         <div class="dropdown">
             <a href="#" class="btn navbar-brand dropdown-toggle special-button" data-toggle="dropdown">
                  <span class="glyphicon glyphicon-th-list" style="color:white"></span>
             </a>
 
-            <ul class="dropdown-menu recsports-dropdown" role="menu" aria-labelledby="menu1">
-              <li class="menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href = "landingPage.html"> Home </a></li>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/landingPage.html">Home</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Account</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="trackingRequirements.html">Track Club Progress</a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Deadlines</a></li>
-              <hr>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="logOutPage.html">Log Out</a></li>
+              <li class = "menuDropdownSize" role="presentation" class="divider"></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/creditPage.html">Icon Credits</a></li>
             </ul>
         </div>
 
-        <h1 style = "color: white; font-family: 'Oswald'; display: inline" id = "user_club">
-            <script>
-                displayLoggedInUserClub();
-            </script>
-        </h1>
-
-        <h3 class = "navbar-username" id = "logged_in">
-            <script>
-                displayLoggedInUser();
-            </script>
-        </h3>
-
+        <h1 style = "color: white; font-family: 'Oswald'"> BEACH VOLLEYBALL ACCOUNTS</h1>
     </nav> <!-- /.navbar -->
 
 
     <div class = "container">
-        <div class="col-md-6" style = "border-style: solid; border-color: black;">
-            <a href = "personalAccountPage.html"> <center><img class = "landing-icon" src = "../img/icons/forms.png" onmouseover="hoverForm(this)" onmouseout="unhoverForm(this)"></center> </a>
-            <center><h4> Your Account </h4></center>
-        </div>
-        <div class="col-md-6" style = "border-style: solid; border-color: black;">
-            <a href = "editAccountPage.html"> <center><img class = "landing-icon" src = "../img/icons/account.png" onmouseover="hoverAccountMod(this)" onmouseout="unhoverAccountMod(this)"></center> </a>
-            <center><h4> Manage Club Accounts </h4></center>
-        </div>
-    </div>
+        <div class = "spacer">
 
-    <div class="spacer">
-    <hr>
-
-    <div class = "container">
-
-        <h2 style = "font-family: 'Oswald'"> Executive Board Accounts </h2>
+        <center><h2 style = "font-family: 'Oswald'"> Edit Your Account </h2></center>
 
         <div class = "spacer">
-        <div class="search-bar">
-            <input type="text" display = "inline-block" class="sfield" name="searchterm" value="Search...">
-            <input type="image" class="searchbutton" name="search" src="../img/icons/search.png" alt="Search">
+        <hr>
+
+        <div class="col-md-4 col-md-offset-4"> <!-- centering the forms -->
+            <div class = "form-group">
+                <div class="row"> <!-- Full Name field !-->
+                    <label id = "font-style" for="first_name" class="control-label">Name</label>
+                    <input type="text" class="form-control" id="between_input" name="first_name" placeholder="Full Name">
+                </div>
+                <div class="row"> <!-- Email field !-->
+                    <label id = "font-style" for="last_name" class="control-label">Position</label>
+                    <input type="email" class="form-control" id="between_input" name="last_name" placeholder="Position">
+                </div>
+                <div class="row"> <!-- Full Name field !-->
+                    <label id = "font-style" for="first_name" class="control-label">UF Email</label>
+                    <input type="text" class="form-control" id="between_input" name="first_name" placeholder="UF Email">
+                </div>
+                <div class="row"> <!-- Email field !-->
+                    <label id = "font-style" for="last_name" class="control-label">Position</label>
+                    <input type="email" class="form-control" id="between_input" name="last_name" placeholder="Position">
+                </div>
+                <div class="row"> <!-- Email field !-->
+                    <label id = "font-style" for="last_name" class="control-label">Phone Number</label>
+                    <input type="email" class="form-control" id="between_input" name="last_name" placeholder="Phone Number">
+                </div>
+            </div>
         </div>
 
-        <ul class = "biggerList" style="list-style: none;">
-            <div>
-              <li> Thomas Turner </li>
-              <li> Kira Lowell </li>
-              <li> Shannon Domfort</li>
-              <li> Craig Gaver </li>
-          </div>
-        </ul>
+
+
+        <div class = "spacer">
+
+
+        <button class = "button"> Save Changes</button>
+        <button class = "button"> Back </button>
 
     </div>
 
