@@ -13,7 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/index.js"></script>
-    <title>Landing Page</title>
+    <title>Logout Page</title>
 
     <style>
       body {
@@ -22,12 +22,9 @@
       }
     </style>
     <!-- probably not the best way to do it but we tried -->
-    <style type="text/css">
-        body { background: white !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
-    </style>
 </head>
 
-<body>
+<body style = "background-image:url('../img/logoutbacksplash.png')">
     <!-- Start of the Navbar -->
     <nav style = "border: 0; border-color: none; background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
         <div class="dropdown">
@@ -47,7 +44,7 @@
             </ul>
         </div>
 
-        <h1 style = "color: white; font-family: 'Oswald'; display: inline"> BEACH VOLLEYBALL </h1>
+        <h1 style = "color: white; font-family: 'Oswald'; display: inline"> LOG OUT </h1>
 
         <h3 class = "navbar-username" id = "logged_in">
             <script>
@@ -57,39 +54,10 @@
 
     </nav> <!-- /.navbar -->
 
-
     <div class = "container">
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href = "../mainPages/forms.html"> <center><img class = "landing-icon" src = "../img/icons/forms.png" onmouseover="hoverForm(this)" onmouseout="unhoverForm(this)"></center> </a>
-            <center><h4> forms </h4></center>
-        </div>
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href = "../trackingPages/trackingRequirements.html"> <center><img class = "landing-icon" src = "../img/icons/bar-chart.png" onmouseover="hoverTracking(this)" onmouseout="unhoverTracking(this)"></center> </a>
-            <center><h4> track status </h4></center>
-        </div>
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href = "contactPage.html"> <center><img class = "landing-icon" src = "../img/icons/agenda.png" onmouseover="hoverContact(this)" onmouseout="unhoverContact(this)"></center> </a>
-            <center><h4> Important Contacts </h4></center>
-        </div>
-        <div class="col-md-3" style = "border-style: solid; border-color: black;">
-            <a href = "../accountPages/accountsPage.html"> <center><img class = "landing-icon" src = "../img/icons/man.png" onmouseover="hoverMan(this)" onmouseout="unhoverMan(this)"></center> </a>
-            <center><h4> accounts </h4></center>
-        </div>
-    </div>
-
-    <div class="spacer"/>
-    <hr>
-
-    <div class = "container">
-        <h2 style = "font-family: 'Oswald'"> Important Dates Coming Up </h2>
-        <ul class = "colorful biggerList alternating-list" style="list-style: none;">
-            <div>
-              <li>February 28th - Leadership Seminar</li>
-              <li> Home Tournament - March 4rd </li>
-              <li> Budget Proposal </li>
-              <li> Tournamnet this weekend </li>
-          </div>
-        </ul>
+        <center>
+            <h1 style = "color: white; font-family: 'Oswald'"> Awwww, Sorry To See You Go </h2>
+        </center>
     </div>
 
     <script type="text/javascript" src="../js/index.js"></script>
@@ -103,7 +71,11 @@
         });
     </script>
 
-
+    <center>
+        <button style = "font-size: 30px" class="rec-button btn btn-primary">
+            Confirm Log Out
+        </button>
+    </center>
 
 </body>
 

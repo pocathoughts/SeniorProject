@@ -67,10 +67,10 @@ $("#create_account_form").submit(function(e){
       alert('success');
 
 
-      $.ajax( { 
+      $.ajax( {
         type : 'POST',
         data : {phpFunction:'Login',email:userEmail,password:userPass},
-        url  : serverAddress,    //'http://' is required for request. 
+        url  : serverAddress,    //'http://' is required for request.
       })
       .done(function ( data, status ) {
         var newdata = JSON.parse(data);
@@ -346,7 +346,7 @@ function GetClubPositionByClub(){
   var userSess = $('#GetClubPositionByClubSession').val();
   var clubName = $('#GetClubPositionByClubClubName').val();
   var clubYear = $('#GetClubPositionByClubYear').val();
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'GetClubPositionByClub', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear},
     url  : serverAddress,
@@ -380,7 +380,7 @@ function GetClubPositionByEmail(){
   var userEmail = $('#GetClubPositionByEmailEmail').val();
   var userSess = $('#GetClubPositionByEmailSession').val();
   var positionEmail = $('#GetClubPositionByEmailPositionEmail').val();
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'GetClubPositionByEmail', email:userEmail, session_id:userSess, position_email:positionEmail},
     url  : serverAddress,
@@ -413,7 +413,7 @@ function GetClubPositionByEmail(){
 function GetClubPositionByUser(){
   var userEmail = $('#GetClubPositionByUserEmail').val();
   var userSess = $('#GetClubPositionByUserSession').val();
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'GetClubPositionByUser', email:userEmail, session_id:userSess},
     url  : serverAddress,
@@ -451,7 +451,7 @@ function RemoveClubPositionByUser(){
   var clubYear = $('#RemoveClubPositionByUserYear').val();
   var clubPosition = $('#RemoveClubPositionByUserPosition').val();
   alert(userEmail + " | " + userSess + " | " + clubName + " | " + clubYear + " | " + clubPosition);
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'RemoveClubPositionByUser', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear, position:clubPosition},
     url  : serverAddress,

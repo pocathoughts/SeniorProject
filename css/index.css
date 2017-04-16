@@ -173,9 +173,53 @@ h1 {
     border : none;
 }
 
-li:nth-child(even) {
-    background: #F0F0F0;
+/* navbar styling */
 
+.navbar-username{
+    color: white;
+    font-family: 'Oswald';
+    float: right;
+    display: inline;
+    padding-right: 15px;
+}
+
+
+/* list styling */
+
+ul.alternating-list li:nth-child(even) {
+    background: #F0F0F0;
+}
+
+li:hover {
+    color: #104f75;
+}
+
+ul li {
+    padding-top: 15px;
+    font-size: 25px;
+    padding-bottom: 15px;
+}
+
+/* menu dropdown styling */
+
+ul.recsports-dropdown {
+    background-color: #2E2E2E;
+    color: white;
+}
+
+ul.recsports-dropdown li a {
+    color: white;
+}
+
+ul.recsports-dropdown li a:hover{
+    background-color: black;
+    color: white;
+}
+
+.menuDropdownSize{
+    font-size: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 span.glyphicon-th-list {
@@ -220,21 +264,6 @@ div#list {
     width: 900px;
 }
 
-ul li {
-    padding-top: 15px;
-    font-size: 25px;
-    padding-bottom: 15px;
-}
-
-.menuDropdownSize{
-    font-size: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-li:hover {
-    color: #104f75;
-}
 
 
 .orange{
