@@ -170,7 +170,6 @@ function GetAccountsNamesFromClub(){
 
 }
 
-
 function getAttachedClubsByUser(){
   var userEmail = $('#GetAttachedClubsByUserEmail').val();
   var userSession = $('#GetAttachedClubsByUserPass').val();
@@ -303,6 +302,10 @@ function getClubRequestByEmail() {
   .fail(function ( data, status ) {
     alert("errorr");
   });
+}
+
+function getAllClubRequests(){
+    
 }
 
 function getClubRequestByUser() {
@@ -474,6 +477,33 @@ function RemoveClubPositionByUser(){
 function displayLoggedInUser(){
   document.getElementById("logged_in").innerHTML = sessionStorage.userEmail;
 }
+
+function displayLoggedInUserClub(){
+    var userEmail = $('#GetAttachedClubsByUserEmail').val();
+    var userSession = $('#GetAttachedClubsByUserPass').val();
+    $.ajax( {
+      type : 'POST',
+      data : {phpFunction:'GetAttachedClubsByUser', email:userEmail, session_id:userSession},
+      url : serverAddress,
+    }).done(function (data, status) {
+      var newdata = JSON.parse(data);
+      var results = newdata.data;
+      if(newdata.errcode != 0){
+        var str = "Errcode : " + newdata.errcode;
+        str += "\nErrno : " + newdata.errno;
+        str += "\nErrstr : " + newdata.errstr;
+        str += "\nData : " + JSON.stringify(newdata.data);
+        alert(str);
+      } else {
+        results = results.club_team;
+        document.getElementById("user_club").innerHTML = results.club_team;
+      }
+    }).fail(function (data, status) {
+      alert('errorr with displaying sports club');
+    });
+}
+
+
 
 //old functions  This includes the login, new functions wont
 /*function CheckAccount() {

@@ -26,38 +26,25 @@
 
 <body>
     <!-- Start of the Navbar -->
-    <nav style = "border: 0; border-color: none; background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
+    <nav style = "background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
+
         <div class="dropdown">
             <a href="#" class="btn navbar-brand dropdown-toggle special-button" data-toggle="dropdown">
                  <span class="glyphicon glyphicon-th-list" style="color:white"></span>
             </a>
 
-            <ul class="dropdown-menu recsports-dropdown" role="menu" aria-labelledby="menu1">
-              <li class="menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href = "landingPage.html"> Home </a></li>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/landingPage.html">Home</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Account</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="trackingRequirements.html">Track Club Progress</a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Deadlines</a></li>
-              <hr>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="logOutPage.html">Log Out</a></li>
+              <li class = "menuDropdownSize" role="presentation" class="divider"></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/creditPage.html">Icon Credits</a></li>
             </ul>
         </div>
 
-        <h1 style = "color: white; font-family: 'Oswald'; display: inline" id = "user_club">
-            <script>
-                displayLoggedInUserClub();
-            </script>
-        </h1>
-
-        <h3 class = "navbar-username" id = "logged_in">
-            <script>
-                displayLoggedInUser();
-            </script>
-        </h3>
-
+        <h1 style = "color: white; font-family: 'Oswald'"> BEACH VOLLEYBALL ACCOUNTS</h1>
     </nav> <!-- /.navbar -->
-
 
     <div class = "container">
         <div class="col-md-6" style = "border-style: solid; border-color: black;">
@@ -65,7 +52,7 @@
             <center><h4> Your Account </h4></center>
         </div>
         <div class="col-md-6" style = "border-style: solid; border-color: black;">
-            <a href = "editAccountPage.html"> <center><img class = "landing-icon" src = "../img/icons/account.png" onmouseover="hoverAccountMod(this)" onmouseout="unhoverAccountMod(this)"></center> </a>
+            <a href = "trackingRequirements.html"> <center><img class = "landing-icon" src = "../img/icons/account.png" onmouseover="hoverAccountMod(this)" onmouseout="unhoverAccountMod(this)"></center> </a>
             <center><h4> Manage Club Accounts </h4></center>
         </div>
     </div>
