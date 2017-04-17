@@ -230,8 +230,8 @@ $("#club_request_form").submit(function(e){
 });
 
 function getClubRequestByClub() {
-  var userEmail = $('#GetClubRequestByClubEmail').val();
-  var userSess = $('#GetClubRequestByClubSession').val();
+  var userEmail = sessionStorage.userEmail;
+  var userSess = sessionStorage.session_id;
   var clubName = $('#GetClubRequestByClubClubName').val();
   var clubYear = $('#GetClubRequestByClubYear').val();
   $.ajax( {
@@ -268,8 +268,8 @@ function getClubRequestByClub() {
 }
 
 function getClubRequestByEmail() {
-  var userEmail = $('#GetClubRequestByEmailEmail').val();
-  var userSess = $('#GetClubRequestByEmailSession').val();
+  var userEmail = sessionStorage.userEmail;
+  var userSess = sessionStorage.session_id;
   var requestEmail = $('#GetClubRequestByEmailRequestEmail').val();
   $.ajax( {
     type : 'POST',
@@ -309,8 +309,8 @@ function getAllClubRequests(){
 }
 
 function getClubRequestByUser() {
-  var userEmail = $('#GetClubRequestByUserEmail').val();
-  var userSess = $('#GetClubRequestByUserSession').val();
+  var userEmail = sessionStorage.userEmail;
+  var userSess = sessionStorage.session_id;
   $.ajax( {
     type : 'POST',
     data : {phpFunction:'GetJoinClubRequestByUser', email:userEmail, session_id:userSess},
@@ -345,8 +345,8 @@ function getClubRequestByUser() {
 }
 
 function GetClubPositionByClub(){
-  var userEmail = $('#GetClubPositionByClubEmail').val();
-  var userSess = $('#GetClubPositionByClubSession').val();
+  var userEmail = sessionStorage.userEmail;
+  var userSess = sessionStorage.session_id;
   var clubName = $('#GetClubPositionByClubClubName').val();
   var clubYear = $('#GetClubPositionByClubYear').val();
   $.ajax( {
@@ -380,8 +380,8 @@ function GetClubPositionByClub(){
   });
 }
 function GetClubPositionByEmail(){
-  var userEmail = $('#GetClubPositionByEmailEmail').val();
-  var userSess = $('#GetClubPositionByEmailSession').val();
+  var userEmail = sessionStorage.userEmail;
+  var userSess = sessionStorage.session_id;
   var positionEmail = $('#GetClubPositionByEmailPositionEmail').val();
   $.ajax( {
     type : 'POST',
@@ -414,8 +414,8 @@ function GetClubPositionByEmail(){
   });
 }
 function GetClubPositionByUser(){
-  var userEmail = $('#GetClubPositionByUserEmail').val();
-  var userSess = $('#GetClubPositionByUserSession').val();
+  var userEmail = sessionStorage.userEmail;
+  var userSess = sessionStorage.session_id;
   $.ajax( {
     type : 'POST',
     data : {phpFunction:'GetClubPositionByUser', email:userEmail, session_id:userSess},
@@ -448,8 +448,8 @@ function GetClubPositionByUser(){
 }
 
 function RemoveClubPositionByUser(){
-  var userEmail = $('#RemoveClubPositionByUserEmail').val();
-  var userSess = $('#RemoveClubPositionByUserSession').val();
+  var userEmail = sessionStorage.userEmail;
+  var userSess = sessionStorage.session_id;
   var clubName = $('#RemoveClubPositionByUserClubName').val();
   var clubYear = $('#RemoveClubPositionByUserYear').val();
   var clubPosition = $('#RemoveClubPositionByUserPosition').val();
