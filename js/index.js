@@ -476,13 +476,13 @@ function RemoveClubPositionByUser(){
 
 function displayLoggedInUser(){
   document.getElementById("logged_in").innerHTML = sessionStorage.userEmail;
-<<<<<<< HEAD
-=======
 }
 
 function displayLoggedInUserClub(){
-    var userEmail = $('#GetAttachedClubsByUserEmail').val();
-    var userSession = $('#GetAttachedClubsByUserPass').val();
+    //var userEmail = $('#GetAttachedClubsByUserEmail').val();
+    var userEmail = sessionStorage.userEmail;
+    //var userSession = $('#GetAttachedClubsByUserPass').val();
+    var userSession = sessionStorage.session_id;
     $.ajax( {
       type : 'POST',
       data : {phpFunction:'GetAttachedClubsByUser', email:userEmail, session_id:userSession},
@@ -498,7 +498,7 @@ function displayLoggedInUserClub(){
         alert(str);
       } else {
         results = results.club_team;
-        document.getElementById("user_club").innerHTML = results.club_team;
+        document.getElementById("user_club").innerHTML = results;
       }
     }).fail(function (data, status) {
       alert('errorr with displaying sports club');
