@@ -286,7 +286,7 @@ function getClubRequestByClub() {
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
       return;
-    } 
+    }
     else {
       results = results.club_team;
       var clubNameArr = formatClubString(results);
@@ -335,7 +335,7 @@ function getClubRequestByClub() {
 
 
 
-  
+
 }
 
 function getClubRequestByEmail() {
@@ -520,7 +520,7 @@ function GetClubPositionByUser(){
 }
 
 function testing(){
-    alert("hi");
+    alert("hiiiiii");
 }
 
 function RemoveClubPositionByUser(){
@@ -574,6 +574,7 @@ function displayLoggedInUserClub(){
         var positionsArray = newdata.data.positions;
         var clubName = formatClubTeamNameString(positionsArray[0].club_name);
         document.getElementById("user_club").innerHTML = clubName;
+        document.getElementById("logged_in").innerHTML = positionsArray[0].userEmail;
       }
      })
     .fail(function ( data, status ) {

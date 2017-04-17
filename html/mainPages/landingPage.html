@@ -13,7 +13,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="../../js/index.js"></script>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="../../js/customScript.js"></script>
     <title>Home Page</title>
+
+    <script>
+        window.onload = displayLoggedInUserClub();
+    </script>
 
     <style>
       body {
@@ -48,15 +55,9 @@
         </div>
 
         <h1 style = "color: white; font-family: 'Oswald'; display: inline" id = "user_club">
-            <script>
-                displayLoggedInUserClub();
-            </script>
         </h1>
 
         <h3 class = "navbar-username" id = "logged_in">
-            <script>
-                displayLoggedInUser();
-            </script>
         </h3>
 
     </nav> <!-- /.navbar -->
@@ -97,7 +98,6 @@
     </div>
 
     <script type="text/javascript" src="../../js/index.js"></script>
-
     <!-- Placed at the end of the document so the pages load faster -->
     <script type="text/javascript" src="../../js/customScript.js"></script>
 
