@@ -1,5 +1,7 @@
 var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
+
   $("#login_form").submit(function(e){
+  alert("hi");
   e.preventDefault();
   alert('inside login')
   var values = $(this).serializeArray();
@@ -28,7 +30,7 @@ var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
     sessionStorage.userEmail = userEmail;
     sessionStorage.session_id = results.session_id;
     alert(str);
-    window.location.href ="landingPage.html";
+    window.location.href ="../MainPages/landingPage.html";
   })
   .fail(function (xhr, data, status) {
     alert( "errorr");
@@ -119,6 +121,34 @@ function getAllClubs(){
       for (i = 0; i< results.length; i++){
         document.getElementById("ClubTeams").innerHTML += "<p>" + results[i] + "</p>";
       }
+    }
+  }).fail(function (data, status) {
+    alert('errorr');
+  });
+}
+
+function getAllClubsExecutiveBoardMembers(){
+    alert("we are here");
+  $.ajax( {
+    type : 'POST',
+    data : {phpFunction:'GetAllClubs'},
+    url : serverAddress,
+  }).done(function (data, status) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode != 0){
+      var str = "Errcode : " + newdata.errcode;
+      str += "\nErrno : " + newdata.errno;
+      str += "\nErrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+      alert(str);
+    } else {
+      results = results.name;
+      var stringToAdd = "";
+      for (i = 0; i< results.length; i++){
+        stringToAdd += "<li> " + results[i] + "</li>";
+      }
+      document.getElementById("other_club_member_accounts").innerHTML = stringToAdd;
     }
   }).fail(function (data, status) {
     alert('errorr');
@@ -379,6 +409,7 @@ function GetClubPositionByClub(){
     alert("errorr");
   });
 }
+
 function GetClubPositionByEmail(){
   var userEmail = sessionStorage.userEmail;
   var userSess = sessionStorage.session_id;
@@ -540,6 +571,43 @@ function populateAccountPage(){
       printString +=  "<h3 style = \"font-family: 'Oswald'\"> UF Email : " + positionsArray[0].email + "<h3>";
 
       document.getElementById("personal_account_info").innerHTML += printString;
+    }
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
+
+// need to make a new php funciton for this
+function GetApprovedClubMembersByClub(){
+  var userEmail = sessionStorage.userEmail;
+  var userSess = sessionStorage.session_id;
+  var clubName = $('#GetClubPositionByClubClubName').val();
+  var clubYear = $('#GetClubPositionByClubYear').val();
+  $.ajax( {
+    type : 'POST',
+    data : {phpFunction:'GetClubPositionByClub', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode != 0){
+      var str = "Errcode : " + newdata.errcode;
+      str += "\nErrno : " + newdata.errno;
+      str += "\nErrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+      alert(str);
+    } else {
+      var positionsArray = newdata.data.positions;
+      document.getElementById("ClubPositions").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + "-" + (clubYear+1) + ")</h3>";
+      for (i = 0; i < positionsArray.length; i++){
+        var printString = "<p>Name : " + positionsArray[i].name + "<br>";
+        printString += "Email : " + positionsArray[i].email + "<br>";
+        printString += "Club Name : " + positionsArray[i].club_name + "<br>";
+        printString += "Position : " + positionsArray[i].position + "<br>";
+        document.getElementById("ClubPositions").innerHTML += printString;
+      }
     }
    })
   .fail(function ( data, status ) {

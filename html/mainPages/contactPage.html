@@ -2,14 +2,16 @@
     <head>
         <meta charset="utf-8" />
 
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Oswald">
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Sans">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../css/index.css" />
         <link rel="stylesheet" type="text/css" href="../../css/bootstrap/css/bootstrap.min.css">
+        <link type="text/css" href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Sans">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../../js/index.js"></script>
+        <script type="text/javascript" src="../../js/customScript.js"></script>
         <style>
           body {
             font-family: 'Josefin Sans', sans-serif;
@@ -25,36 +27,23 @@
     </head>
 
     <body>
-        <nav style = "border: 0; border-color: none; background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
+        <nav style = "background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
             <div class="dropdown">
                 <a href="#" class="btn navbar-brand dropdown-toggle special-button" data-toggle="dropdown">
                      <span class="glyphicon glyphicon-th-list" style="color:white"></span>
                 </a>
 
-                <ul class="dropdown-menu recsports-dropdown" role="menu" aria-labelledby="menu1">
-                  <li class="menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href = "landingPage.html"> Home </a></li>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                   <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Account</a></li>
                   <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="trackingRequirements.html">Track Club Progress</a></li>
                   <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Deadlines</a></li>
-                  <hr>
-                  <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="logOutPage.html">Log Out</a></li>
+                  <li class = "menuDropdownSize" role="presentation" class="divider"></li>
                   <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
                   <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/creditPage.html">Icon Credits</a></li>
                 </ul>
             </div>
 
-            <h1 style = "color: white; font-family: 'Oswald'; display: inline" id = "user_club">
-                <script>
-                    displayLoggedInUserClub();
-                </script>
-            </h1>
-
-            <h3 class = "navbar-username" id = "logged_in">
-                <script>
-                    displayLoggedInUser();
-                </script>
-            </h3>
-
+            <h1 style = "color: white; font-family: 'Oswald'"> BEACH VOLLEYBALL </h1>
         </nav> <!-- /.navbar -->
 
         <center>
@@ -64,25 +53,25 @@
 
             <div class="col-md-3">
                 <center>
-                    <img class = "landing-icon" src = "../img/icons/handshake.png">
+                    <img class = "landing-icon" src = "../../img/icons/handshake.png">
                     <a href = "#administration"><button type="button" class="btn btn-primary btn-lg outline"><strong>ADMINISTRATION</strong></button></a>
                 </center>
             </div>
             <div class="col-md-3">
                 <center>
-                    <img class = "landing-icon" src = "../img/icons/exercise.png">
+                    <img class = "landing-icon" src = "../../img/icons/exercise.png">
                     <a href = "#athletic-trainers"><button type="button" class="btn btn-primary btn-lg outline"><strong>ATHLETIC TRAINERS</strong></button></a>
                 </center>
             </div>
             <div class="col-md-3">
                 <center>
-                    <img class = "landing-icon" src = "../img/icons/football-field.png">
+                    <img class = "landing-icon" src = "../../img/icons/football-field.png">
                     <a href = "#facilities"><button type="button" class="btn btn-primary btn-lg outline"><strong>FACILITIES</strong></button></a>
                 </center>
             </div>
             <div class="col-md-3">
                 <center>
-                    <img class = "landing-icon" src = "../img/icons/alligator.png">
+                    <img class = "landing-icon" src = "../../img/icons/alligator.png">
                     <a href = "#gatorconnect"><button type="button" class="btn btn-primary btn-lg outline"><strong>GATOR CONNECT</strong></button></a>
                 </center>
             </div>
@@ -326,7 +315,7 @@
                     <hr>
 
                     <div class = "row">
-                        <img src = "../img/icons/transfer.png" style = "padding-left: 30px; padding-right: 30px;">
+                        <img src = "../../img/icons/transfer.png" style = "padding-left: 30px; padding-right: 30px;">
                         <h3 style = "display: inline; font-family: 'Oswald'"> Click <a href = "https://orgs.studentinvolvement.ufl.edu/"> Here </a> For the Gator Connect Website </h3>
                     </div>
 

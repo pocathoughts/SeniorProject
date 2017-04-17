@@ -134,7 +134,7 @@ WHERE active_bool = 1 and account_id = " . $data['account_id'] . " and club_year
   nonQuery($link, $update, "update position active status", 5000);
   $returnData['errcode'] = 0;
   $returnData['errno'] = 0;
-  $returnData['data']['status'] = 'successful'; 
+  $returnData['data']['status'] = 'successful';
   exitfnc($returnData);
 }
 function RemoveClubPositionByEmail($link, $data){
@@ -154,7 +154,7 @@ WHERE active_bool = 1 and email = '" . $email . "' and club_year_id = " . $data[
   nonQuery($link, $update, "update position active status", 5000);
   $returnData['errcode'] = 0;
   $returnData['errno'] = 0;
-  $returnData['data']['status'] = 'successful'; 
+  $returnData['data']['status'] = 'successful';
   exitfnc($returnData);
 
 }
@@ -168,7 +168,7 @@ INNER JOIN club_team ON club_operating_year.club_id = club_team.club_id
 INNER JOIN operating_year ON club_operating_year.year_id = operating_year.year_id
 WHERE club_position.active_bool = 1 and club_position.account_id = " . $data['account_id'];
   $results = queryMultiple($link,$query,"Club Position By User Query", 5000);
-  
+
   if (mysqli_num_rows($results) == 0){
     //TODO speak with kev about how to rep this.
   }
@@ -196,7 +196,7 @@ INNER JOIN club_team ON club_operating_year.club_id = club_team.club_id
 INNER JOIN operating_year ON club_operating_year.year_id = operating_year.year_id
 WHERE club_position.active_bool = 1 and user_account.email = '" . $email . "'";
   $results = queryMultiple($link,$query,"Club Position By Email Query", 5000);
-  
+
   if (mysqli_num_rows($results) == 0){
     //TODO speak with kev about how to rep this.
   }
@@ -224,7 +224,7 @@ INNER JOIN club_team ON club_operating_year.club_id = club_team.club_id
 INNER JOIN operating_year ON club_operating_year.year_id = operating_year.year_id
 WHERE club_position.active_bool = 1 and club_operating_year.club_year_id = " . $data['club_year_id'];
   $results = queryMultiple($link,$query,"Club Position By Club Query", 5000);
-  
+
   if (mysqli_num_rows($results) == 0){
     //TODO speak with kev about how to rep this.
   }
@@ -241,10 +241,10 @@ WHERE club_position.active_bool = 1 and club_operating_year.club_year_id = " . $
   $returnData['errno'] = 0;
   exitfnc($returnData);
 }
-    
+
 function GetAttachedClubsByUser ($link, $data){
   GetAttachedClubsByUserValidate($link, $data);
-  
+
   $query = "SELECT CONCAT(club_team.club_name, ', ', operating_year.year_string) AS display_string FROM club_operating_year, club_team, operating_year, club_position WHERE club_team.club_id = club_operating_year.club_id and operating_year.year_id = club_operating_year.year_id and club_position.account_id = " . $data['account_id'] . " and club_position.club_year_id = club_operating_year.club_year_id ORDER BY display_string; ";
   $results = queryMultiple($link, $query, "Clubs attached to Account Query", 5000);
 
@@ -270,7 +270,7 @@ function GetAllClubs ($link, $data){
   GetAllClubsValidate($link, $data);
 
   $query = "SELECT CONCAT(club_team.club_name, ', ', operating_year.year_string) AS display_string FROM club_operating_year, club_team, operating_year WHERE club_team.club_id = club_operating_year.club_id and operating_year.year_id = club_operating_year.year_id ORDER BY display_string";
-  $results = queryMultiple($link, $query, "All Clubs Query", 5000);
+  $results = queryMultiple($link, $query, "Members Attached To Club", 5000);
 
   while ($row = mysqli_fetch_array($results)){
     $rows[] = $row;
@@ -278,7 +278,7 @@ function GetAllClubs ($link, $data){
   if (sizeof($rows) == 0){
     $returnData['errcode'] = 5;
     $returnData['errno'] = 5011;
-    $returnData['errstr'] = "No Clubs have been detected in database, contact admin";
+    $returnData['errstr'] = "No Users have been detected in database, contact admin";
     exitfnc($returnData);
   } else {
     for ($i = 0; $i < sizeof($rows); $i++){
@@ -288,6 +288,31 @@ function GetAllClubs ($link, $data){
     $returnData['errno'] = 0;
     exitfnc($returnData);
   }
+}
+
+function GetUsersInClub ($link, $data){
+    GetAllClubsValidate($link, $data);
+
+    $query = "SELECT user_account WHERE CLUB == USER's CLUB"
+
+    $results = queryMultiple($link, $query, "All Clubs Query", 5000);
+
+    while ($row = mysqli_fetch_array($results)){
+      $rows[] = $row;
+    }
+    if (sizeof($rows) == 0){
+      $returnData['errcode'] = 5;
+      $returnData['errno'] = 5011;
+      $returnData['errstr'] = "No Clubs have been detected in database, contact admin";
+      exitfnc($returnData);
+    } else {
+      for ($i = 0; $i < sizeof($rows); $i++){
+        $returnData['data']['club_team'][$i] = $rows[$i][0];
+      }
+      $returnData['errcode'] = 0;
+      $returnData['errno'] = 0;
+      exitfnc($returnData);
+    }
 }
 
 ?>
