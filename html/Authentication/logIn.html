@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Description of page -->
+    <!-- This page is the landing page. After the splash screen this is
+    the first page users will encounter. They will either login to the
+    application or they will choose the option to make a new acccount -->
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Sans">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>Log In Page</title>
+
+</head>
+
+<body style = "background-image:url('../../img/splash.png')" >
+
+    <div class = "spacer"/>
+
+    <div class = "container">
+        <div class="col-md-4 col-md-offset-4" style = "border-style: solid; border-color: orange; border-width: 8px;">
+            <h1 id = "big-font-style">UF</h1>
+            <h1 id = "font-style"> CLUB SPORT </h1>
+            <h1 id = "font-style"> MANAGER </h1>
+        </div>
+    </div>
+
+    <div class = "spacer"/>
+
+    <div class = "container">
+        <form id = "login_form">
+
+            <div class="col-md-4 col-md-offset-4"> <!-- centering the forms -->
+                <div class = "row">
+                    <div class="form-group"> <!-- Email field !-->
+                        <label id = "font-style" for="email_id" class="control-label">Email</label>
+                        <input type="email" class="form-control" id="LoginEmail" name="email_name" placeholder="UFL Email Address">
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class="form-group"> <!-- Password field !-->
+    		            <label id = "font-style" for="email_id" class="control-label">Password</label>
+    		            <input type="password" class="form-control" id="LoginPass" name="password" placeholder="Password">
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-md-offset-4">
+                    <div class = "row">
+                        <div class="form-group"> <!-- Submit button !-->
+                            <center><button id="login_button" class="rec-button btn btn-primary" style = "background-color:#7AAE96; border-style: none;" type="submit" >LOGIN</button></center>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+
+    </div>
+
+    <div class = "container">
+        <div class="col-md-4 col-md-offset-4">
+            <center>
+                <h5 id = "font-style"> Need An Account? </h5>
+                <button class = "sign_up" id = "font-style" onclick="window.location.href='createAccount.html';" style = "color: blue">Sign Up Here</button>
+            </center>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="../../js/index.js"></script>
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script type="text/javascript" src="../../js/customScript.js"></script>
+
+</body>
+
+</html>
