@@ -305,7 +305,7 @@ function getClubRequestByEmail() {
 }
 
 function getAllClubRequests(){
-    
+
 }
 
 function getClubRequestByUser() {
@@ -447,6 +447,10 @@ function GetClubPositionByUser(){
   });
 }
 
+function testing(){
+    alert("hi");
+}
+
 function RemoveClubPositionByUser(){
   var userEmail = $('#RemoveClubPositionByUserEmail').val();
   var userSess = $('#RemoveClubPositionByUserSession').val();
@@ -479,13 +483,14 @@ function displayLoggedInUser(){
 }
 
 function displayLoggedInUserClub(){
-    var userEmail = $('#GetAttachedClubsByUserEmail').val();
-    var userSession = $('#GetAttachedClubsByUserPass').val();
+    var userEmail = sessionStorage.userEmail;
+    var userSess = sessionStorage.session_id;
     $.ajax( {
       type : 'POST',
-      data : {phpFunction:'GetAttachedClubsByUser', email:userEmail, session_id:userSession},
-      url : serverAddress,
-    }).done(function (data, status) {
+      data : {phpFunction:'GetClubPositionByUser', email:userEmail, session_id:userSess},
+      url  : serverAddress,
+    })
+    .done(function ( data, status ) {
       var newdata = JSON.parse(data);
       var results = newdata.data;
       if(newdata.errcode != 0){
@@ -493,16 +498,54 @@ function displayLoggedInUserClub(){
         str += "\nErrno : " + newdata.errno;
         str += "\nErrstr : " + newdata.errstr;
         str += "\nData : " + JSON.stringify(newdata.data);
-        alert(str);
       } else {
-        results = results.club_team;
-        document.getElementById("user_club").innerHTML = results.club_team;
+        var positionsArray = newdata.data.positions;
+        var clubName = formatClubTeamNameString(positionsArray[0].club_name);
+        document.getElementById("user_club").innerHTML = clubName;
       }
-    }).fail(function (data, status) {
-      alert('errorr with displaying sports club');
+     })
+    .fail(function ( data, status ) {
+      alert("errorr");
     });
 }
 
+
+function formatClubTeamNameString(teamString){
+        var club = teamString.split(',');
+        return club[0];
+}
+
+function populateAccountPage(){
+  var userEmail = sessionStorage.userEmail;
+  var userSess = sessionStorage.session_id;
+  $.ajax( {
+    type : 'POST',
+    data : {phpFunction:'GetClubPositionByUser', email:userEmail, session_id:userSess},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode != 0){
+      var str = "Errcode : " + newdata.errcode;
+      str += "\nErrno : " + newdata.errno;
+      str += "\nErrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+    } else {
+      var positionsArray = newdata.data.positions;
+
+      var printString = "<h3 style = \"font-family: 'Oswald'\"> Name : " + positionsArray[0].name + "<h3>";
+      printString +=  "<h3 style = \"font-family: 'Oswald'\"> Sports Club : " + formatClubTeamNameString(positionsArray[0].club_name) + "<h3>";
+      printString +=  "<h3 style = \"font-family: 'Oswald'\"'> Position : " + positionsArray[0].position + "<h3>";
+      printString +=  "<h3 style = \"font-family: 'Oswald'\"> UF Email : " + positionsArray[0].email + "<h3>";
+
+      document.getElementById("personal_account_info").innerHTML += printString;
+    }
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
 
 
 //old functions  This includes the login, new functions wont
