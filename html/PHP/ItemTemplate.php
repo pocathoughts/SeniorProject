@@ -267,7 +267,6 @@ function DeleteITEMRequest ($link, $data){
 
   $delete = "DELETE FROM ITEMT WHERE request_id = " . $data['request_id'];
 
-
   //return 0 on success
 }
 function RespondITEMRequest ($link, $data){
