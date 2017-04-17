@@ -165,14 +165,19 @@ function formatClubString(sportsClubs){
     return trimmedClubs;
 }
 
+function getClubYearFromString(club){
+  return String(club).match(/\(([^)]+)\)/)[1];
+}
+
 function GetAccountsNamesFromClub(){
     var clubName = $('#GetClubSportName').val();
 
 }
 
 function getAttachedClubsByUser(){
-  var userEmail = $('#GetAttachedClubsByUserEmail').val();
-  var userSession = $('#GetAttachedClubsByUserPass').val();
+  var userEmail = sessionStorage.userEmail;
+  var userSession = sessionStorage.session_id;
+  var res = [];
   $.ajax( {
     type : 'POST',
     data : {phpFunction:'GetAttachedClubsByUser', email:userEmail, session_id:userSession},
@@ -186,16 +191,19 @@ function getAttachedClubsByUser(){
       str += "\nErrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
+      return;
     } else {
       results = results.club_team;
-      document.getElementById("ClubTeams").innerHTML = "<h3>Clubs Attached to " + userEmail + ":</h3>";
-      for (i = 0; i< results.length; i++){
-        document.getElementById("ClubTeams").innerHTML += "<p>" + results[i] + "</p>";
-      }
+      res = results;
+      // document.getElementById("ClubTeams").innerHTML = "<h3>Clubs Attached to " + userEmail + ":</h3>";
+      // for (i = 0; i< results.length; i++){
+      //   document.getElementById("ClubTeams").innerHTML += "<p>" + results[i] + "</p>";
+      // }
     }
   }).fail(function (data, status) {
     alert('errorr');
   });
+  return res;
 }
 
 $("#club_request_form").submit(function(e){
@@ -232,14 +240,13 @@ $("#club_request_form").submit(function(e){
 function getClubRequestByClub() {
   var userEmail = sessionStorage.userEmail;
   var userSess = sessionStorage.session_id;
-  var clubName = $('#GetClubRequestByClubClubName').val();
-  var clubYear = $('#GetClubRequestByClubYear').val();
+
+
   $.ajax( {
     type : 'POST',
-    data : {phpFunction:'GetJoinClubRequestByClub', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear},
-    url  : serverAddress,
-  })
-  .done(function ( data, status ) {
+    data : {phpFunction:'GetAttachedClubsByUser', email:userEmail, session_id:userSess},
+    url : serverAddress,
+  }).done(function (data, status) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
     if(newdata.errcode != 0){
@@ -248,23 +255,57 @@ function getClubRequestByClub() {
       str += "\nErrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
-    } else {
-      var requestsArray = newdata.data.requests;
-      document.getElementById("ClubRequests").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + "-" + (clubYear+1) + ")</h3>";
-      for (i = 0; i < requestsArray.length; i++){
-        var printString = "<p>Name : " + requestsArray[i].name + "<br>";
-        printString += "Email : " + requestsArray[i].email + "<br>";
-        printString += "Club Name : " + requestsArray[i].club_name + "<br>";
-        printString += "Position : " + requestsArray[i].position + "<br>";
-        printString += "Status : " + requestsArray[i].status + "<br>";
-        printString += "request_id : " + requestsArray[i].request_id + "</p>";
-        document.getElementById("ClubRequests").innerHTML += printString;
-      }
+      return;
+    } 
+    else {
+      results = results.club_team;
+      var clubNameArr = formatClubString(results);
+      var clubName = clubNameArr[0];
+      var clubYear = getClubYearFromString(results);
+
+      $.ajax( {
+        type : 'POST',
+        data : {phpFunction:'GetJoinClubRequestByClub', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear},
+        url  : serverAddress,
+      })
+      .done(function ( data, status ) {
+        var newdata = JSON.parse(data);
+        var results = newdata.data;
+        if(newdata.errcode != 0){
+          var str = "Errcode : " + newdata.errcode;
+          str += "\nErrno : " + newdata.errno;
+          str += "\nErrstr : " + newdata.errstr;
+          str += "\nData : " + JSON.stringify(newdata.data);
+          alert(str);
+        } else {
+          var requestsArray = newdata.data.requests;
+          var clubRequests = document.getElementById("ClubRequests");
+          document.getElementById("ClubRequests").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + ")</h3>";
+          for (i = 0; i < requestsArray.length; i++){
+            var newItem = document.createElement('li');
+            clubRequests.appendChild(newItem);
+            var printString = "<p>Name : " + requestsArray[i].name + "<br>";
+            printString += "Email : " + requestsArray[i].email + "<br>";
+            printString += "Club Name : " + requestsArray[i].club_name + "<br>";
+            printString += "Position : " + requestsArray[i].position + "<br>";
+            printString += "Status : " + requestsArray[i].status + "<br>";
+            printString += "request_id : " + requestsArray[i].request_id + "</p>";
+            newItem.innerHTML = printString;
+            newItem.innerHTML += "<button onClick =\"requestApproval();\"> Approve </button> <button onClick = \"requestDenial();\"> Deny </button>"
+          }
+        }
+      })
+      .fail(function ( data, status ) {
+        alert("errorr");
+      });
     }
-   })
-  .fail(function ( data, status ) {
-    alert("errorr");
+  }).fail(function (data, status) {
+    alert('errorr');
   });
+
+
+
+  
 }
 
 function getClubRequestByEmail() {
@@ -531,8 +572,10 @@ function populateAccountPage(){
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
+      alert(str);
     } else {
       var positionsArray = newdata.data.positions;
+
 
       var printString = "<h3 style = \"font-family: 'Oswald'\"> Name : " + positionsArray[0].name + "<h3>";
       printString +=  "<h3 style = \"font-family: 'Oswald'\"> Sports Club : " + formatClubTeamNameString(positionsArray[0].club_name) + "<h3>";
