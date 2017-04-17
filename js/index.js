@@ -471,10 +471,13 @@ function RemoveClubPositionByUser(){
   .fail(function ( data, status ) {
     alert("errorr");
   });
+
 }
 
 function displayLoggedInUser(){
   document.getElementById("logged_in").innerHTML = sessionStorage.userEmail;
+<<<<<<< HEAD
+=======
 }
 
 function displayLoggedInUserClub(){
@@ -501,6 +504,10 @@ function displayLoggedInUserClub(){
       alert('errorr with displaying sports club');
     });
 }
+
+
+
+
 
 
 
