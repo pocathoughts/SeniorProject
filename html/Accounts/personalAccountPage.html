@@ -15,6 +15,10 @@
     <script type="text/javascript" src="../../js/index.js"></script>
     <title>Personal Account</title>
 
+    <script>
+        window.onload = populateNavBarWithNameAndClub();
+    </script>
+
     <!-- probably not the best way to do it but we tried -->
     <style type="text/css">
         body { background: white !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
@@ -29,43 +33,39 @@
                  <span class="glyphicon glyphicon-th-list" style="color:white"></span>
             </a>
 
-            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../MainPages/landingPage.html">Home</a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="accountsPage.html">Account</a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../CriteriaTacking/trackingRequirements.html">Track Club Progress</a></li>
+            <ul class="dropdown-menu recsports-dropdown" role="menu" aria-labelledby="menu1">
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../Accounts/accountsPage.html">Account</a></li>
+             <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../forms.html"> Forms</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../CriteriaTracking/trackingRequirements.html">Track Club Progress</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Deadlines</a></li>
               <hr>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../Authentication/logOutPage.html">Log Out</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../Authentication/logoutPage.html">Log Out</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../MainPages/creditPage.html">Icon Credits</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="creditPage.html">Icon Credits</a></li>
             </ul>
         </div>
 
         <h1 style = "color: white; font-family: 'Oswald'; display: inline" id = "user_club">
-            <script>
-                displayLoggedInUserClub();
-            </script>
         </h1>
 
-        <h3 class = "navbar-username" id = "logged_in" style = "display: inline">
-            <script>
-                displayLoggedInUser();
-            </script>
+        <h3 class = "navbar-username" id = "logged_in">
         </h3>
 
     </nav> <!-- /.navbar -->
 
 
+    <center>
     <div class = "container">
         <div class = "spacer"></div>
 
         <div style = "display: inline-block">
 
 
-            <h2 style = "font-family: 'Oswald'"> Your Account <a href = "editAccountPage.html" ><img onmouseover="hoverEditAccount(this)" onmouseout="unhoverEditAccount(this)" height = "30px" width = "30px" style = "margin-left: 40px; margin-bottom: 5px; vertical-align: center" src = "../../img/img/icons/edit.png"/></a></h2>
+            <h2 style = "font-family: 'Oswald'"> Your Account <a href = "editAccountPage.html" ><img onmouseover="hoverEditAccount(this)" onmouseout="unhoverEditAccount(this)" height = "30px" width = "30px" style = "margin-left: 20px; margin-bottom: 5px; vertical-align: center" src = "../../img/icons/edit.png"/></a></h2>
 
 
         </div>
+        <hr>
 
         <div class = "spacer"></div>
 
@@ -76,11 +76,13 @@
         </div>
 
         <div class = "spacer"></div>
+        <div class = "spacer"></div>
         <hr>
 
-        <button class = "button btn btn-primary"><a href="accountsPage.html"> Go Back </a></button>
+        <a href="accountsPage.html" class="rec-button btn btn-primary">Go Back</a>
 
     </div>
+    </center>
 
     <script type="text/javascript" src="../../js/index.js"></script>
     <!-- Placed at the end of the document so the pages load faster -->

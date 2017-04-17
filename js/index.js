@@ -554,7 +554,7 @@ function displayLoggedInUser(){
   document.getElementById("logged_in").innerHTML = sessionStorage.userEmail;
 }
 
-function displayLoggedInUserClub(){
+function populateNavBarWithNameAndClub(){
     var userEmail = sessionStorage.userEmail;
     var userSess = sessionStorage.session_id;
     $.ajax( {
@@ -574,7 +574,7 @@ function displayLoggedInUserClub(){
         var positionsArray = newdata.data.positions;
         var clubName = formatClubTeamNameString(positionsArray[0].club_name);
         document.getElementById("user_club").innerHTML = clubName;
-        document.getElementById("logged_in").innerHTML = positionsArray[0].userEmail;
+        document.getElementById("logged_in").innerHTML = sessionStorage.userEmail;
       }
      })
     .fail(function ( data, status ) {

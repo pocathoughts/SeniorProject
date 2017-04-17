@@ -18,6 +18,10 @@
     <script type="text/javascript" src="../../js/customScript.js"></script>
     <title>Accounts Page</title>
 
+
+    <script>
+        window.onload = populateNavBarWithNameAndClub();
+    </script>
     <!-- probably not the best way to do it but we tried -->
     <style type="text/css">
         body { background: white !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
@@ -43,16 +47,10 @@
             </ul>
         </div>
 
-        <h1 style = "color: white; font-family: 'Oswald'; display: inline" id = "user_club">
-            <script>
-                displayLoggedInUserClub();
-            </script>
+        <h1 style = "color: white; font-family: 'Oswald'; display: inline-block;" id = "user_club">
         </h1>
 
         <h3 class = "navbar-username" id = "logged_in">
-            <script>
-                displayLoggedInUser();
-            </script>
         </h3>
 
     </nav> <!-- /.navbar -->
