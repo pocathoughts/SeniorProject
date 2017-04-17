@@ -1,5 +1,31 @@
 ////////////////////////Setting the Hover Functions/////////////////////////////
 
+////////////////////////Accounts Hover Functions ///////////////////////////////
+// I had to make these seperate functions because the file path to the replacement image is slightly different for the accounts pages
+
+function hoverAccountMod(element) {
+    element.setAttribute('src', '../../img/icons/account-blue.png');
+}
+function unhoverAccountMod(element) {
+    element.setAttribute('src', '../../img/icons/account.png');
+}
+
+function hoverFormAccount(element) {
+    element.setAttribute('src', '../../img/icons/forms-blue.png');
+}
+function unhoverFormAccount(element) {
+    element.setAttribute('src', '../../img/icons/forms.png');
+}
+
+function hoverEditAccount(element) {
+    element.setAttribute('src', '../../img/icons/edit-blue.png');
+}
+function unhoverEditAccount(element) {
+    element.setAttribute('src', '../../img/icons/edit.png');
+}
+
+////////////////////////General Hover Functions//////////////////////
+
 function hoverHouse(element) {
     element.setAttribute('src', '../img/icons/home-blue.png');
 }

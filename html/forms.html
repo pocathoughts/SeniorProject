@@ -10,13 +10,13 @@
     <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../../css/index.css" />
-    <link rel="stylesheet" type="text/css" href="../../css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>Accounts Page</title>
+    <title>Beach Volleyball Forms</title>
 
     <!-- probably not the best way to do it but we tried -->
     <style type="text/css">
@@ -26,6 +26,7 @@
 
 <body>
     <!-- Start of the Navbar -->
+    <!-- Start of the Navbar -->
     <nav style = "background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
 
         <div class="dropdown">
@@ -34,50 +35,44 @@
             </a>
 
             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../landingPage.html">Home</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/landingPage.html">Home</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Account</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="trackingRequirements.html">Track Club Progress</a></li>
               <li class = "menuDropdownSize" role="presentation" class="divider"></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../creditPage.html">Icon Credits</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/creditPage.html">Icon Credits</a></li>
             </ul>
         </div>
 
-        <h1 style = "color: white; font-family: 'Oswald'"> BEACH VOLLEYBALL ACCOUNTS</h1>
+        <h1 style = "color: white; font-family: 'Oswald'"> BEACH VOLLEYBALL FORMS</h1>
     </nav> <!-- /.navbar -->
 
-
     <div class = "container">
-        <div class = "spacer">
-
-        <div style = "display: inline-block">
-            <h2 style = "font-family: 'Oswald'"> Your Account <a href = "editAccountPage.html" ><img onmouseover="hoverEditAccount(this)" onmouseout="unhoverEditAccount(this)" height = "30px" width = "30px" style = "margin-left: 40px; margin-bottom: 5px; vertical-align: center" src = "../../img/icons/edit.png"/></a></h2>
+        <div class="col-md-6" style = "border-style: solid; border-color: black;">
+            <a href = "../specificFormPages/communityServiceForm.html"> <center><img class = "landing-icon" src = "../img/icons/home.png" onmouseover="hoverHouse(this)" onmouseout="unhoverHouse(this)";></center> </a>
+            <center><h4> Community Service </h4></center>
         </div>
-
-        <div class = "spacer">
-
-        <h3 style = "font-family: 'Oswald'"> Name : Christine Moore</h3>
-        <h3 style = "font-family: 'Oswald'"> Position : President</h3>
-        <h3 style = "font-family: 'Oswald'"> UF Email : arrowtime@ufl.edu</h3>
-        <h3 style = "font-family: 'Oswald'"> Phone Number : 405-513-0605 </h3>
-
-
-        <div class = "spacer">
-        <hr>
-
-        <button class = "button"><a href="accountsPage.html"> Go Back </a></button>
-
+        <div class="col-md-6" style = "border-style: solid; border-color: black;">
+            <a href = "fundraisingForm.html"> <center><img class = "landing-icon" src = "../img/icons/piggy-bank.png" onmouseover="hoverPig(this)" onmouseout="unhoverPig(this)"></center> </a>
+            <center><h4> Fundraising </h4></center>
+        </div>
+        <div class="col-md-6" style = "border-style: solid; border-color: black;">
+            <a href = "sportsClubAttendance.html"> <center><img class = "landing-icon" src = "../img/icons/shoe.png" onmouseover="hoverShoe(this)" onmouseout="unhoverShoe(this)"></center> </a>
+            <center><h4> Sports Club Attendance </h4></center>
+        </div>
+        <div class="col-md-6" style = "border-style: solid; border-color: black;">
+            <a href = "travelRefundForm.html"> <center><img class = "landing-icon" src = "../img/icons/departures.png" onmouseover="hoverPlane(this)" onmouseout="unhoverPlane(this)"></center> </a>
+            <center><h4> Travel Refund </h4></center>
+        </div>
     </div>
 
-    <script type="text/javascript" src="../../js/index.js"></script>
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="../../js/customScript.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="../js/index.js"></script>
+    <script type="text/javascript" src="../js/customScript.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('.dropdown-toggle').dropdown();
-        });
-    </script>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="jquery/jquery-2.0.3.min.js"></script>
+    <script src="bootstrap/bootstrap-2.3.1.min.js"></script>
 
 </body>
 
