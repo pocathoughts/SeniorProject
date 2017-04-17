@@ -262,6 +262,7 @@ function DeleteITEMRequest ($link, $data){
   DeleteITEMRequestValidate($link, $data);
   //remove the item request.
   $delete = "DELETE FROM ITEMT WHERE request_id = " . $data['request_id'];
+
   //return 0 on success
 }
 function RespondITEMRequest ($link, $data){
