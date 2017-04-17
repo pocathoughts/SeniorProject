@@ -10,12 +10,14 @@
     <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/index.css" />
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/index.js"></script>
+    <script type="text/javascript" src="../../js/customScript.js"></script>
     <title>Approval Page</title>
 
     <!-- probably not the best way to do it but we tried -->
@@ -49,10 +51,10 @@
     <div class = "container">
         <h1 style = "font-family: 'Oswald'; text-align:left"> Pending Approvals </h1>
         <hr>
-        <ul style="font-family: 'Oswald'; text-align: left; list-style-type:none; font-size: 2em">
-          <li>Person 1 </li>
-          <li>Person 2 </li>
-          <li>Person 3 </li>
+        <ul id = "ClubRequests" style="font-family: 'Oswald'; text-align: left; list-style-type:none; font-size: 2em">
+          <script>
+            getClubRequestByClub();          
+          </script>
         </ul>
     </div>
 
@@ -74,16 +76,7 @@
                   <input type="image" class="searchbutton" name="search" src="http://www.spheretekk.com/bc/images/search-icon.gif" alt="Search">
                 </div>
 
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript">
 
-        app.initialize();
-    </script>
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="jquery/jquery-2.0.3.min.js"></script>
-    <script src="bootstrap/bootstrap-2.3.1.min.js"></script>
-    <script type="text/javascript" src="../js/customScript.js"></script>
 
     <script>
         $(document).ready(function () {

@@ -112,3 +112,7 @@ function addInput(divName){
 <input type="text" class="form-control" id="between_input" name="contact" placeholder="Organization Contact Name">
 <input type="text" class="form-control" id="between_input" name="contact" placeholder="Organization Contact Name">
 */
+
+/////////////Approve/Deny functions for account requests/////////////////////////
+
+
