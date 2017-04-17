@@ -5,14 +5,13 @@
     <meta charset="utf-8" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/index.css" />
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Sans">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../js/index.js"></script>
     <title>Logout Page</title>
 
     <style>
@@ -21,10 +20,14 @@
         font-size: 48px;
       }
     </style>
+
+    <script>
+        window.onload = populateNavBarWithNameAndClub();
+    </script>
     <!-- probably not the best way to do it but we tried -->
 </head>
 
-<body style = "background-image:url('../img/logoutbacksplash.png')">
+<body style = "background-image:url('../../img/logoutbacksplash.png')">
     <!-- Start of the Navbar -->
     <nav style = "border: 0; border-color: none; background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
         <div class="dropdown">
@@ -33,7 +36,7 @@
             </a>
 
             <ul class="dropdown-menu recsports-dropdown" role="menu" aria-labelledby="menu1">
-              <li class="menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href = "landingPage.html"> Home </a></li>
+              <li class="menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href = "../MainPages/landingPage.html"> Home </a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Account</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="trackingRequirements.html">Track Club Progress</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Deadlines</a></li>
@@ -55,21 +58,20 @@
     </nav> <!-- /.navbar -->
 
     <div class = "container">
+        <div class="spacer"></div>
+        <div class="spacer"></div>
         <center>
             <h1 style = "color: white; font-family: 'Oswald'"> Awwww, Sorry To See You Go </h2>
         </center>
+        <div class="spacer"></div>
+        <div class="spacer"></div>
     </div>
 
-    <script type="text/javascript" src="../js/index.js"></script>
+    <script type="text/javascript" src="../../js/index.js"></script>
 
     <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="../js/customScript.js"></script>
+    <script type="text/javascript" src="../../js/customScript.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('.dropdown-toggle').dropdown();
-        });
-    </script>
 
     <center>
         <button style = "font-size: 30px" class="rec-button btn btn-primary">

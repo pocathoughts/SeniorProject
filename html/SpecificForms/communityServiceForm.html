@@ -2,51 +2,55 @@
 <html>
 
 <head>
-    <!-- Description of page -->
-    <!-- This page is the landing page. After the splash screen this is
-    the first page users will encounter. They will either login to the
-    application or they will choose the option to make a new acccount -->
-
     <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
-    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/index.css" />
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Sans">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>Community Service</title>
+    <script type="text/javascript" src="../../js/index.js"></script>
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script type="text/javascript" src="../../js/customScript.js"></script>
+    <title>Community Service Form</title>
 
 </head>
 <!-- only took 800 tries to get his to work -->
-<body style = "background-image:url('../img/splash.png')">
+<body style = "background-image:url('../../img/splash.png')">
 
-    <nav style = "background-color: #104f75; border: none; text-align: center;" class="navbar navbar-default" role="navigation">
-
+    <nav style = "border: 0; border-color: none; background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
         <div class="dropdown">
             <a href="#" class="btn navbar-brand dropdown-toggle special-button" data-toggle="dropdown">
                  <span class="glyphicon glyphicon-th-list" style="color:white"></span>
             </a>
 
-            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/landingPage.html">Home</a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Account</a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="trackingRequirements.html">Track Club Progress</a></li>
-              <li class = "menuDropdownSize" role="presentation" class="divider"></li>
+            <ul class="dropdown-menu recsports-dropdown" role="menu" aria-labelledby="menu1">
+                <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../MainPages/landingPage.html">Home</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../Accounts/accountsPage.html">Account</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../CriteriaTracking/trackingRequirements.html">Track Club Progress</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Deadlines</a></li>
+              <hr>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../Authentication/logoutPage.html">Log Out</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/creditPage.html">Icon Credits</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="creditPage.html">Icon Credits</a></li>
             </ul>
         </div>
 
-        <h1 style = "color: white; font-family: 'Oswald'"> COMMUNITY SERVICE FORM</h1>
-    </nav> <!-- /.navbar -->
+        <h1 style = "color: white; font-family: 'Oswald'; display: inline-block" id = "user_club">
+            COMMUNITY SERVICE FORM
+        </h1>
 
+        <h3 class = "navbar-username" id = "logged_in" style = "color: white; font-family: 'Oswald'; display: inline-block">
+            <script>
+                displayLoggedInUser();
+            </script>
+        </h3>
+
+    </nav> <!-- /.navbar -->
 
     <div class = "spacer"/>
 
@@ -117,38 +121,38 @@
                 <div class = "spacer"></div>
                 <div class="row">
                     <label id = "font-style" for="email_id" class="control-label">Volunteer 1</label>
-                    <input type="text" class="form-control" id="between_input" placeholder= "Name of Volunteer 1" name="myInputs[]">
+                    <input type="text" class="form-control" id="between_input" placeholder= "Name of Volunteer 1" name="vol1">
                 </div>
                 <div class="row">
-                    <input type="text" class="form-control" id="between_input" placeholder="Hours Served by Volunteer 1" name="myInputs[]">
+                    <input type="text" class="form-control" id="between_input" placeholder="Hours Served by Volunteer 1" name="vol1_hrs">
                 </div>
                 <div class="row">
                     <label id = "font-style" for="email_id" class="control-label">Volunteer 2</label>
-                    <input type="text" class="form-control" id="between_input" placeholder="Name of Volunteer 2" name="myInputs[]">
+                    <input type="text" class="form-control" id="between_input" placeholder="Name of Volunteer 2" name="vol2">
                 </div>
                 <div class="row">
-                    <input type="text" class="form-control" id="between_input" placeholder="Hours Served by Volunteer 2" name="myInputs[]">
+                    <input type="text" class="form-control" id="between_input" placeholder="Hours Served by Volunteer 2" name="vol2_hrs">
                 </div>
                 <div class="row">
                     <label id = "font-style" for="email_id" class="control-label">Volunteer 3</label>
-                    <input type="text" class="form-control" id="between_input" placeholder="Name of Volunteer 3" name="myInputs[]">
+                    <input type="text" class="form-control" id="between_input" placeholder="Name of Volunteer 3" name="vol3">
                 </div>
                 <div class="row">
-                    <input type="text" class="form-control" id="between_input" placeholder="Hours Served by Volunteer 3" name="myInputs[]">
+                    <input type="text" class="form-control" id="between_input" placeholder="Hours Served by Volunteer 3" name="vol3_hrs">
                 </div>
                 <div class="row">
                     <label id = "font-style" for="email_id" class="control-label">Volunteer 4</label>
-                    <input type="text" class="form-control" id="between_input" placeholder="Name of Volunteer 4" name="myInputs[]">
+                    <input type="text" class="form-control" id="between_input" placeholder="Name of Volunteer 4" name="vol4">
                 </div>
                 <div class="row">
-                    <input type="text" class="form-control" id="between_input" placeholder="Hours Served by Volunteer 4" name="myInputs[]">
+                    <input type="text" class="form-control" id="between_input" placeholder="Hours Served by Volunteer 4" name="vol4_hrs">
                 </div>
                 <div class="row">
                     <label id = "font-style" for="email_id" class="control-label">Volunteer 5</label>
-                    <input type="text" class="form-control" id="between_input" placeholder="Name of Volunteer 5" name="myInputs[]">
+                    <input type="text" class="form-control" id="between_input" placeholder="Name of Volunteer 5" name="vol5">
                 </div>
                 <div class="row">
-                    <input type="text" class="form-control" id="between_input" placeholder="Hours Served by Volunteer 5" name="myInputs[]">
+                    <input type="text" class="form-control" id="between_input" placeholder="Hours Served by Volunteer 5" name="vol5_hrs">
                 </div>
         </div>
             <div class="form-group row"> <!-- Submit button !-->

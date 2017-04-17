@@ -3,19 +3,19 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
-    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../../css/index.css" />
     <link rel="stylesheet" type="text/css" href="../../css/bootstrap/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link type="text/css" href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Sans">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/index.js"></script>
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script type="text/javascript" src="../../js/customScript.js"></script>
     <title>Beach Volleyball Forms</title>
 
     <!-- probably not the best way to do it but we tried -->
@@ -34,14 +34,14 @@
             </a>
 
             <ul class="dropdown-menu recsports-dropdown" role="menu" aria-labelledby="menu1">
-              <li class="menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href = "landingPage.html"> Home </a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Account</a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="trackingRequirements.html">Track Club Progress</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="landingPage.html">Home</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../Accounts/accountsPage.html">Account</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../CriteriaTracking/trackingRequirements.html">Track Club Progress</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Deadlines</a></li>
               <hr>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="logOutPage.html">Log Out</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../Authentication/logoutPage.html">Log Out</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/creditPage.html">Icon Credits</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="creditPage.html">Icon Credits</a></li>
             </ul>
         </div>
 
@@ -49,6 +49,7 @@
             <script>
                 displayLoggedInUserClub();
             </script>
+            FORMS
         </h1>
 
         <h3 class = "navbar-username" id = "logged_in">
@@ -58,22 +59,21 @@
         </h3>
 
     </nav> <!-- /.navbar -->
-
     <div class = "container">
         <div class="col-md-6" style = "border-style: solid; border-color: black;">
-            <a href = "../specificFormPages/communityServiceForm.html"> <center><img class = "landing-icon" src = "../img/icons/home.png" onmouseover="hoverHouse(this)" onmouseout="unhoverHouse(this)";></center> </a>
+            <a href = "../SpecificForms/communityServiceForm.html"> <center><img class = "landing-icon" src = "../../img/icons/home.png" onmouseover="hoverHouse(this)" onmouseout="unhoverHouse(this)";></center> </a>
             <center><h4> Community Service </h4></center>
         </div>
         <div class="col-md-6" style = "border-style: solid; border-color: black;">
-            <a href = "fundraisingForm.html"> <center><img class = "landing-icon" src = "../img/icons/piggy-bank.png" onmouseover="hoverPig(this)" onmouseout="unhoverPig(this)"></center> </a>
+            <a href = "fundraisingForm.html"> <center><img class = "landing-icon" src = "../../img/icons/piggy-bank.png" onmouseover="hoverPig(this)" onmouseout="unhoverPig(this)"></center> </a>
             <center><h4> Fundraising </h4></center>
         </div>
         <div class="col-md-6" style = "border-style: solid; border-color: black;">
-            <a href = "sportsClubAttendance.html"> <center><img class = "landing-icon" src = "../img/icons/shoe.png" onmouseover="hoverShoe(this)" onmouseout="unhoverShoe(this)"></center> </a>
+            <a href = "sportsClubAttendance.html"> <center><img class = "landing-icon" src = "../../img/icons/shoe.png" onmouseover="hoverShoe(this)" onmouseout="unhoverShoe(this)"></center> </a>
             <center><h4> Sports Club Attendance </h4></center>
         </div>
         <div class="col-md-6" style = "border-style: solid; border-color: black;">
-            <a href = "travelRefundForm.html"> <center><img class = "landing-icon" src = "../img/icons/departures.png" onmouseover="hoverPlane(this)" onmouseout="unhoverPlane(this)"></center> </a>
+            <a href = "travelRefundForm.html"> <center><img class = "landing-icon" src = "../../img/icons/departures.png" onmouseover="hoverPlane(this)" onmouseout="unhoverPlane(this)"></center> </a>
             <center><h4> Travel Refund </h4></center>
         </div>
     </div>
