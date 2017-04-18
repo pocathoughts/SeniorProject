@@ -267,6 +267,7 @@ function DeleteITEMRequest ($link, $data){
 
   $delete = "DELETE FROM ITEMT WHERE request_id = " . $data['request_id'];
 
+
   //return 0 on success
 }
 function RespondITEMRequest ($link, $data){
@@ -278,6 +279,7 @@ function RespondITEMRequest ($link, $data){
     $insetItem = "INSERT INTO ITEMT (DATA) SELECT DATA FROM ITEMT_request WHERE request_id = " . $data['request_id'];
     //query
   } 
+
   //insert response audit
   $insertAudit = "INSERT INTO ITEMT_request_response (request_id, responder_id, decision) VALUES (" . $data['request_id'] . ", " . $data['account_id'] . ", " . $data['decision'] . ")";
   //update active_bool and item id
