@@ -207,7 +207,10 @@ function GetJoinClubRequestByUserValidate ($link, &$data, &$returnData){
 
   
   //InjectClubYearIdByClubYear($link, $data);
+<<<<<<< cc3de35b0bef262ed6915a210075be92e6075d4d
 
+=======
+>>>>>>> comm ser
   GetJoinClubRequestByUserPermissionCheck($data, $returnData);
 }
 
@@ -215,7 +218,10 @@ function GetJoinClubRequestByEmailValidate ($link, &$data, &$returnData){
 
   
   //InjectClubYearIdByClubYear($link, $data);
+<<<<<<< cc3de35b0bef262ed6915a210075be92e6075d4d
 
+=======
+>>>>>>> comm ser
   GetJoinClubRequestByEmailPermissionCheck($data, $returnData);
 }
 

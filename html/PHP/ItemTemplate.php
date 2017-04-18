@@ -243,95 +243,45 @@ function GetITEMEditRequestByClubValidate ($link, $data){
 function CreateITEMRequest ($link, $data){
   CreateITEMRequestValidate($link, $data);
   //insert request item
-<<<<<<< 0b1957ba1088ce4625b58cbd3ad9600b66a5b674
-<<<<<<< acfa2febe69c7f4ae888e6457f995e26bdf0e435
   $insert = "INSERT INTO ITEMT_request (DATA) VALUES (TODO)";
   nonQuery($link, $insert, "insert ITEM request", 5000);
   $returnData['errcode'] = 0;
   $returnData['errno'] = 0;
   $returnData['data']['status'] = 'successful'; 
   exitfnc($returnData);
-=======
-  $insert = "INSERT INTO ITEMT (DATA) VALUES (TODO);"
->>>>>>> catching up
-=======
-  $insert = "INSERT INTO ITEMT_request (DATA) VALUES (TODO)";
->>>>>>> push
   //return 0 on success  
 }
 function EditITEMRequest ($link, $data){
   EditITEMRequestValidate($link, $data);
   //require old value in request check it in validate
-<<<<<<< 0b1957ba1088ce4625b58cbd3ad9600b66a5b674
-<<<<<<< acfa2febe69c7f4ae888e6457f995e26bdf0e435
   //insert item request
   $insert = "UPDATE ITEMT SET " . $data['attribute'] . " = " . $data['new_value'] . " where ITEMT_id = " . $data['ITEMT_id'];
-=======
-  
-  //insert item request
-  
->>>>>>> catching up
-=======
-  //insert item request
-  $insert = "UPDATE ITEMT SET " . $data['attribute'] . " = " . $data['new_value'] . " where ITEMT_id = " . $data['ITEMT_id'];
->>>>>>> push
   //return 0 on success
 }
 function DeleteITEMRequest ($link, $data){
   DeleteITEMRequestValidate($link, $data);
   //remove the item request.
-<<<<<<< 0b1957ba1088ce4625b58cbd3ad9600b66a5b674
-<<<<<<< acfa2febe69c7f4ae888e6457f995e26bdf0e435
   $delete = "DELETE FROM ITEMT WHERE request_id = " . $data['request_id'];
-=======
->>>>>>> catching up
-=======
-  $delete = "DELETE FROM ITEMT WHERE request_id = " . $data['request_id'];
->>>>>>> push
   //return 0 on success
 }
 function RespondITEMRequest ($link, $data){
   RespondITEMRequestValidate($link, $data);
-<<<<<<< 0b1957ba1088ce4625b58cbd3ad9600b66a5b674
-<<<<<<< acfa2febe69c7f4ae888e6457f995e26bdf0e435
-=======
->>>>>>> push
   $id = 0;
   if ($data['decision'] == 1){
     //insert into item
     $insetItem = "INSERT INTO ITEMT (DATA) SELECT DATA FROM ITEMT_request WHERE request_id = " . $data['request_id'];
     //query
   } 
-  
-<<<<<<< 0b1957ba1088ce4625b58cbd3ad9600b66a5b674
   //insert response audit
   $insertAudit = "INSERT INTO ITEMT_request_response (request_id, responder_id, decision) VALUES (" . $data['request_id'] . ", " . $data['account_id'] . ", " . $data['decision'] . ")";
   //update active_bool and item id
   $update = "UPDATE ITEMT_request SET active_bool = 0 and ITEMT_id = " . $id . "WHERE request_id = " . $data['request_id'];
-=======
-=======
->>>>>>> push
-  //insert response audit
-  $insertAudit = "INSERT INTO ITEMT_request_response (request_id, responder_id, decision) VALUES (" . $data['request_id'] . ", " . $data['account_id'] . ", " . $data['decision'] . ")";
-  //update active_bool and item id
-<<<<<<< 0b1957ba1088ce4625b58cbd3ad9600b66a5b674
->>>>>>> catching up
-=======
-  $update = "UPDATE ITEMT_request SET active_bool = 0 and ITEMT_id = " . $id . "WHERE request_id = " . $data['request_id'];
->>>>>>> push
   //return 0 on success
 }
 function EditITEM ($link, $data){
   CreateITEMRequestValidate($link, $data);
   //insert item request
-<<<<<<< 0b1957ba1088ce4625b58cbd3ad9600b66a5b674
-<<<<<<< acfa2febe69c7f4ae888e6457f995e26bdf0e435
   $insert = "INSERT INTO ITEMT_change_request (ITEMT_id, attribute_name, new_value, old_value) VALUE (" . $data['ITEMT_id'] . ", " . $data['attribute'] . ", " . $data['old_value'] . ", " . $data['old_value'] . ")";
-=======
->>>>>>> catching up
-=======
-  $insert = "INSERT INTO ITEMT_change_request (ITEMT_id, attribute_name, new_value, old_value) VALUE (" . $data['ITEMT_id'] . ", " . $data['attribute'] . ", " . $data['old_value'] . ", " . $data['old_value'] . ")";
->>>>>>> push
   //return 0 on success
 }
 function RespondITEMEdit ($link, $data){
