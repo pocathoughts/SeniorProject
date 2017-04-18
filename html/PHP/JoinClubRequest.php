@@ -118,7 +118,7 @@ function CreateJoinClubRequestValidate ($link, &$data, &$returnData){
   } else {
     $data['president_bool'] = 0;
   }
-  InjectClubYearIdByClubYear($link, $data, $returnData);
+  InjectClubYearIdByClubYear($link, $data);
   CreateJoinClubRequestPermissionCheck($data, $returnData);
 
 //check account doesnt already have a position for that year/club
@@ -163,7 +163,7 @@ function RespondJoinClubRequestValidate ($link, &$data, &$returnData){
 //TODO valdite inputs
   //translate decision into 1 or 0 (yes, no)
   //
-  InjectClubYearIdByRequest($link, $data, $returnData);
+  InjectClubYearIdByRequest($link, $data);
   RespondJoinClubRequestPermissionCheck($data, $returnData);
 
    //TODO check that the request exists no longer pending!
@@ -204,20 +204,19 @@ function DeleteJoinClubRequestValidate ($link, &$data, &$returnData){
 }
 
 function GetJoinClubRequestByUserValidate ($link, &$data, &$returnData){
-
-  //InjectClubYearIdByClubYear($link, $data, $returnData);
+  //InjectClubYearIdByClubYear($link, $data);
   GetJoinClubRequestByUserPermissionCheck($data, $returnData);
 }
 
 function GetJoinClubRequestByEmailValidate ($link, &$data, &$returnData){
-
-  //InjectClubYearIdByClubYear($link, $data, $returnData);
+  //InjectClubYearIdByClubYear($link, $data);
   GetJoinClubRequestByEmailPermissionCheck($data, $returnData);
 }
 
+
 function GetJoinClubRequestByClubValidate ($link, &$data, &$returnData){
   //do this one
-  InjectClubYearIdByClubYear($link, $data, $returnData);
+  InjectClubYearIdByClubYear($link, $data);
   GetJoinClubRequestByClubPermissionCheck($data, $returnData);
 
 
@@ -416,7 +415,7 @@ WHERE club_position_request.club_year_id =" . $data ['club_year_id'];
 }
 
 //---------------------------------------Helper Function --------------------------------------------
-function InjectClubYearIdByClubYear ($link, &$data, &$returnData){
+function InjectClubYearIdByClubYear ($link, &$data){
   $query = "SELECT club_year_id FROM club_operating_year WHERE club_id IN (SELECT club_id FROM club_team WHERE club_name = '". $data['club_name'] ."') AND year_id IN (SELECT year_id FROM operating_year WHERE beginning_year = '". $data['year'] ."')";
 
   //perform the query and verify no error in query
