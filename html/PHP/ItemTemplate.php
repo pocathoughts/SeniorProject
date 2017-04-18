@@ -244,6 +244,11 @@ function CreateITEMRequest ($link, $data){
   CreateITEMRequestValidate($link, $data);
   //insert request item
   $insert = "INSERT INTO ITEMT_request (DATA) VALUES (TODO)";
+  nonQuery($link, $insert, "insert ITEM request", 5000);
+  $returnData['errcode'] = 0;
+  $returnData['errno'] = 0;
+  $returnData['data']['status'] = 'successful'; 
+  exitfnc($returnData);
   //return 0 on success  
 }
 function EditITEMRequest ($link, $data){

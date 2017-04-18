@@ -4,6 +4,9 @@ CREATE TABLE community_service(
   active_bool BIT(1) NOT NULL DEFAULT 1,
   
   /*TODO data fields*/
+  /*individual_time_string VARCHAR(800) NOT NULL,
+  event_date VARCHAR(200) NOT NULL,*/
+  total_hours INT NOT NULL,
   club_year_id INT NOT NULL,
   
   FOREIGN KEY (club_year_id) REFERENCES club_operating_year(club_year_id) ON DELETE CASCADE,
@@ -77,7 +80,7 @@ CREATE TABLE community_service_request_response(
   PRIMARY KEY (response_id) 
 );
 
-CREATE TABLE community_service_request_change_request(
+CREATE TABLE community_service_request_change(
   request_change_id INT NOT NULL AUTO_INCREMENT,
   request_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   active_bool BIT(1) NOT NULL DEFAULT 1,
@@ -86,21 +89,11 @@ CREATE TABLE community_service_request_change_request(
   attribute_name VARCHAR(60) NOT NULL,
   new_value VARCHAR(400) NOT NULL, 
   old_value VARCHAR(400) NOT NULL,
+  changer_id INT NOT NULL,
   
   FOREIGN KEY (request_id) REFERENCES community_service_request(request_id) ON DELETE CASCADE,
+  FOREIGN KEY (changer_id) REFERENCES user_account(account_id) ON DELETE CASCADE,
   PRIMARY KEY (request_change_id)
 );
 
-CREATE TABLE community_service_request_change_request_response(
-  response_id INT NOT NULL AUTO_INCREMENT,
-  response_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  
-  request_change_id INT NOT NULL,
-  responder_id INT NOT NULL,
-  decision BIT(1) NOT NULL, /*0 REJECTED, 1 ACCEPTED*/
-  
-  FOREIGN KEY (request_change_id) REFERENCES community_service_request_change(request_change_id) ON DELETE CASCADE,
-  FOREIGN KEY (responder_id) REFERENCES user_account(account_id) ON DELETE CASCADE,
-  PRIMARY KEY (response_id) 
-);
 
