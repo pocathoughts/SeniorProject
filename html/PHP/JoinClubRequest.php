@@ -213,6 +213,7 @@ function GetJoinClubRequestByEmailValidate ($link, &$data, &$returnData){
   GetJoinClubRequestByEmailPermissionCheck($data, $returnData);
 }
 
+
 function GetJoinClubRequestByClubValidate ($link, &$data, &$returnData){
   //do this one
   InjectClubYearIdByClubYear($link, $data);
