@@ -6,6 +6,7 @@ include ('Login.php');
 include ('CreateAccount.php');
 include ('JoinClubRequest.php');
 include ('ClubTeam.php');
+include ('CommunityService.php');
 
 
 
@@ -91,6 +92,55 @@ switch ($functionChoice) {
     break;
   case 'GetAllClubs':
     GetAllClubs($link, $dataContainer);
+    break; 
+//-------------------------------Community Service----------------------------
+      case 'CreateCommunityServiceRequest':
+    CreateCommunityServiceRequest($link, $dataContainer);
+    break;
+  case 'EditCommunityServiceRequest':
+    EditCommunityServiceRequest($link, $dataContainer);
+    break;
+  case 'DeleteCommunityServiceRequest':
+    DeleteCommunityServiceRequest($link, $dataContainer);
+    break;
+  case 'RespondCommunityServiceRequest':
+    RespondCommunityServiceRequest($link, $dataContainer);
+    break;
+  case 'EditCommunityService':
+    EditCommunityService($link, $dataContainer);
+    break;
+  case 'RespondCommunityServiceEdit':
+    RespondCommunityServiceEdit($link, $dataContainer);
+    break;
+  case 'DeleteCommunityService':
+    DeleteCommunityService($link, $dataContainer);
+    break;
+  case 'GetCommunityServiceByUser':
+    GetCommunityServiceByUser($link, $dataContainer);
+    break;
+  case 'GetCommunityServiceByEmail':
+    GetCommunityServiceByEmail($link, $dataContainer);
+    break;
+  case 'GetCommunityServiceByClub':
+    GetCommunityServiceByClub($link, $dataContainer);
+    break;
+  case 'GetCommunityServiceRequstByUser':
+    GetCommunityServiceRequstByUser($link, $dataContainer);
+    break;
+  case 'GetCommunityServiceRequstByEmail':
+    GetCommunityServiceRequstByEmail($link, $dataContainer);
+    break;
+  case 'GetCommunityServiceRequstByClub':
+    GetCommunityServiceRequstByClub($link, $dataContainer);
+    break;
+  case 'GetCommunityServiceEditRequestByUser':
+    GetCommunityServiceEditRequestByUser($link, $dataContainer);
+    break;
+  case 'GetCommunityServiceEditRequestByEmail':
+    GetCommunityServiceEditRequestByEmail($link, $dataContainer);
+    break;
+  case 'GetCommunityServiceEditRequestByClub':
+    GetCommunityServiceEditRequestByClub($link, $dataContainer);
     break;
   default:
     $returnData['errcode'] = 1;
