@@ -317,7 +317,7 @@ function DeleteCommunityServiceRequest ($link, $data){
   DeleteCommunityServiceRequestValidate($link, $data);
   //remove the CommunityService request.
   $delete = "DELETE FROM community_service_request WHERE request_id = " . $data['request_id'];
-  nonQuery($link, $update, "delete CommunityService request", 5000);
+  nonQuery($link, $delete, "delete CommunityService request", 5000);
   $returnData['errcode'] = 0;
   $returnData['errno'] = 0;
   $returnData['data']['status'] = 'successful'; 
