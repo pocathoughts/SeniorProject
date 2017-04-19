@@ -40,9 +40,9 @@ function Login(){
 
 function createUserAccount(){
   alert('here');
-  var userEmail = $('#CreateAccountEmail');
-  var userName = $('#CreateAccountName');
-  var userPass = $('#CreateAccountPass');
+  var userEmail = $('#CreateAccountEmail').val();
+  var userName = $('#CreateAccountName').val();
+  var userPass = $('#CreateAccountPass').val();
   alert('gere2');
   $.ajax( {
     type : 'POST',
