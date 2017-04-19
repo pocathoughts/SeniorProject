@@ -22,12 +22,10 @@ function Login(){
     }
     str = "User Email" + userEmail.toLowerCase();
     str += "\nSession_id = " + JSON.stringify(results.session_id);
-    alert(str);
     var idString = userEmail.toLowerCase()  + "ID";
     var node = document.getElementById(idString);
     if (node === null){
     var textNode = document.createElement("p");
-    //textNode.id = idSting;
     textNode.setAttribute('id', idString);
     textNode.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
     document.getElementById("Sessions").appendChild(textNode);
@@ -40,7 +38,7 @@ function Login(){
   });
 }
 
-function createUserAccount() {
+function createUserAccount(){
   var userEmail = $('#CreateAccountEmail');
   var userName = $('#CreateAccountName');
   var userPass = $('#CreateAccountPass');
