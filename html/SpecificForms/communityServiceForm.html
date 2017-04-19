@@ -31,7 +31,6 @@
             <a href="#" class="btn navbar-brand dropdown-toggle special-button" data-toggle="dropdown">
                  <span class="glyphicon glyphicon-th-list" style="color:white"></span>
             </a>
-
             <ul class="dropdown-menu recsports-dropdown" role="menu" aria-labelledby="menu1">
                 <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../MainPages/landingPage.html">Home</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../Accounts/accountsPage.html">Account</a></li>
@@ -59,7 +58,7 @@
     <div class = "spacer"/>
 
     <!-- each field needs a form group -->
-    <form accept-charset="UTF-8" id="form" method="post" >
+    <form accept-charset="UTF-8" id="form" method="post" action="https://script.google.com/macros/s/AKfycbxrUzD_lW6qJSoLTwEdrZZJq8cy6u9p6cf1ec5kCbuk1xf-ZyQ/exec">
         <div class="col-md-4 col-md-offset-4"> <!-- centering the forms -->
             <div class = "form-group" id="dynamicInput">
                 <div class="row"> <!-- Full Name field !-->
@@ -106,7 +105,7 @@
                 </div>
                 <div class="row"> <!-- Password field !-->
                     <label id = "font-style" for="email_id" class="control-label">total numbers of hours performed by the club as a group (eg if 10 people worked for 3 hours = 30 hours)</label>
-                    <input type="text" class="form-control" id="between_input" name="hours" placeholder="Total Number of Hours">
+                    <input type="text" class="form-control hours" id="between_input" name="hours" placeholder="Total Number of Hours">
                 </div>
                 <div class="row"> <!-- Confirm Password field !-->
                     <label id = "font-style" for="email_id" class="control-label">please list name of org/project for which club worked</label>
@@ -168,15 +167,15 @@
             <div class = "spacer"/>
 
             <div class="form-group row"> <!-- Submit button !-->
-                <center><button onclick = "CreateCommunityServiceRequest(); google.script.run.withSuccessHandler(onSuccess).fillCommunityServiceForm();" style = "background-color:#7AAE96; border-style: none;" type="submit" class="rec-button btn btn-primary">NEXT STEP</button></center>
+                <center><button onclick = "CreateCommunityServiceRequest();" style = "background-color:#7AAE96; border-style: none;" type="submit" class="rec-button btn btn-primary">NEXT STEP</button></center>
             </div>
         </form>
     </div>
 
 
-    <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="../../js/index.js"></script>
     <script type="text/javascript" src="../../js/customScript.js"></script>
+
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="jquery/jquery-2.0.3.min.js"></script>
     <script src="bootstrap/bootstrap-2.3.1.min.js"></script>

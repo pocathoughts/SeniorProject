@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 
@@ -12,6 +14,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../../css/index.css" />
     <link rel="stylesheet" type="text/css" href="../../css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Sans">
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -19,6 +22,16 @@
     <script type="text/javascript" src="../../js/customScript.js"></script>
     <script type="text/javascript" src="../../js/index.js"></script>
     <title>Approval Page</title>
+
+    <style>
+      body {
+        font-family: 'Josefin Sans', sans-serif;
+      }
+    </style>
+
+        <script>
+            window.onload = populateNavBarWithNameAndClub();
+        </script>
 
     <!-- probably not the best way to do it but we tried -->
     <style type="text/css">
@@ -55,8 +68,8 @@
 
     <div class = "container">
         <h1 style = "font-family: 'Oswald'; text-align:left"> Pending Approvals </h1>
-        <hr>
-        <ul id = "ClubRequests" style="font-family: 'Oswald'; text-align: left; list-style-type:none; font-size: 2em">
+
+        <ul id = "ClubRequests" style="text-align: left; list-style-type:none; font-size: 2em">
           <script>
             getClubRequestByClub();
           </script>
@@ -67,22 +80,24 @@
 
     <div class = "container">
         <h1 style = "font-family: 'Oswald'; text-align:left"> View Approved Users </h1>
-        <hr>
+
         <!-- will need to be populated by database data -->
-        <ul id="ClubPositions" style="font-family: 'Oswald'; text-align: left; list-style-type:none; font-size: 2em">
-          <script>
+        <ul id="ClubPositions" style="text-align: left; list-style-type:none; font-size: 2em">
+         <!-- <script>
             GetApprovedClubMembersByClub();
-          </script>
+        </script>-->
 <!--           <li>Name : </li>
           <li>Email : </li>
           <li>Sports Club : </li> -->
         </ul>
     </div>
 
+    <div class = "container">
     <div class="search-bar">
-                  <input type="text" class="sfield" name="searchterm" maxlength="30" value="Search...">
-<!--                   <input type="image" class="searchbutton" name="search" src="http://www.spheretekk.com/bc/images/search-icon.gif" alt="Search">
- -->                </div>
+        <input type="text" display = "inline-block" class="sfield" name="searchterm" value="Search...">
+        <input type="image" class="searchbutton" name="search" src="../../img/icons/search.png" alt="Search">
+    </div>
+</div>
 
 
 </body>
