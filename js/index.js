@@ -262,6 +262,7 @@ $("#club_request_form").submit(function(e){
       alert(str);
     } else {
       alert('success');
+      window.location.href = "../mainPages/landingPage.html";
     }
    })
   .fail(function ( data, status ) {
@@ -313,18 +314,24 @@ function getClubRequestByClub() {
           var requestsArray = newdata.data.requests;
           var clubRequests = document.getElementById("ClubRequests");
           document.getElementById("ClubRequests").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + ")</h3>";
+          var count = 0;
           for (i = 0; i < requestsArray.length; i++){
-            var newItem = document.createElement('li');
-            clubRequests.appendChild(newItem);
-            var printString = "<p>Name : " + requestsArray[i].name + "<br>";
-            printString += "Email : " + requestsArray[i].email + "<br>";
-            printString += "Club Name : " + requestsArray[i].club_name + "<br>";
-            printString += "Position : " + requestsArray[i].position + "<br>";
-            printString += "Status : " + requestsArray[i].status + "<br>";
-            printString += "request_id : " + requestsArray[i].request_id + "</p>";
-            newItem.innerHTML = printString;
-            newItem.innerHTML += "<button onClick =\"requestApproval();\"> Approve </button> <button onClick = \"requestDenial();\"> Deny </button>"
+            if(requestsArray[i].status == "pending"){
+              count++;
+              var newItem = document.createElement('li');
+              clubRequests.appendChild(newItem);
+              var printString = "<p>Name : " + requestsArray[i].name + "<br>";
+              printString += "Email : " + requestsArray[i].email + "<br>";
+              printString += "Club Name : " + requestsArray[i].club_name + "<br>";
+              printString += "Position : " + requestsArray[i].position + "<br>";
+              printString += "Status : " + requestsArray[i].status + "<br>";
+              printString += "request_id : " + requestsArray[i].request_id + "</p>";
+              newItem.innerHTML = printString;
+              newItem.innerHTML += "<button onClick =\"RespondRequest(" + requestsArray[i].request_id + ",1);\"> Approve </button> <button onClick =\"RespondRequest(" + requestsArray[i].request_id + ",0);\"> Deny </button>"
+            }
           }
+          if(count == 0)
+            document.getElementById("ClubRequests").innerHTML = "<h3> There are no pending club requests</h3>";
         }
       })
       .fail(function ( data, status ) {
@@ -629,11 +636,12 @@ function populateAccountPage(){
 function GetApprovedClubMembersByClub(){
   var userEmail = sessionStorage.userEmail;
   var userSess = sessionStorage.session_id;
-  var clubName = $('#GetClubPositionByClubClubName').val();
-  var clubYear = $('#GetClubPositionByClubYear').val();
-  $.ajax( {
+
+
+
+ $.ajax( {
     type : 'POST',
-    data : {phpFunction:'GetClubPositionByClub', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear},
+    data : {phpFunction:'GetClubPositionByUser', email:userEmail, session_id:userSess},
     url  : serverAddress,
   })
   .done(function ( data, status ) {
@@ -645,19 +653,64 @@ function GetApprovedClubMembersByClub(){
       str += "\nErrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
-    } else {
-      var positionsArray = newdata.data.positions;
-      document.getElementById("ClubPositions").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + "-" + (clubYear+1) + ")</h3>";
-      for (i = 0; i < positionsArray.length; i++){
-        var printString = "<p>Name : " + positionsArray[i].name + "<br>";
-        printString += "Email : " + positionsArray[i].email + "<br>";
-        printString += "Club Name : " + positionsArray[i].club_name + "<br>";
-        printString += "Position : " + positionsArray[i].position + "<br>";
-        document.getElementById("ClubPositions").innerHTML += printString;
-      }
-    }
+    } 
+    else {
+      var posArr = newdata.data.positions;
+      var clubName = formatClubTeamNameString(posArr[0].club_name);
+      var clubYear = getClubYearFromString(posArr[0].club_name);
+      $.ajax( {
+        type : 'POST',
+        data : {phpFunction:'GetClubPositionByClub', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear},
+        url  : serverAddress,
+      })
+      .done(function ( data, status ) {
+        var newdata = JSON.parse(data);
+        var results = newdata.data;
+        if(newdata.errcode != 0){
+          var str = "Errcode : " + newdata.errcode;
+          str += "\nErrno : " + newdata.errno;
+          str += "\nErrstr : " + newdata.errstr;
+          str += "\nData : " + JSON.stringify(newdata.data);
+          alert(str);
+        } else {
+          var positionsArray = newdata.data.positions;
+          for (i = 0; i < positionsArray.length; i++){
+              var printString = "<li><p>Name : " + positionsArray[i].name + "<br>";
+              printString += "Email : " + positionsArray[i].email + "<br>";
+              printString += "Club Name : " + positionsArray[i].club_name + "<br>";
+              printString += "Position : " + positionsArray[i].position + "<br></li>";
+              document.getElementById("ClubPositions").innerHTML += printString;
+          }
+        }
+       })
+      .fail(function ( data, status ) {
+        alert("errorr");
+      });
+     }
    })
   .fail(function ( data, status ) {
     alert("errorr");
   });
+}
+
+function RespondRequest(request, decision) {
+  //alert ('sanity check');
+  var userEmail = sessionStorage.userEmail;
+  var userSess = sessionStorage.session_id;
+    $.ajax( {
+      type : 'POST',
+      data : {phpFunction:'RespondJoinClubRequest', email:userEmail, session_id:userSess, request_id:request, decision:decision},
+      url  : serverAddress,    //'http://' is required for request.
+    })
+    .done(function ( data, status ) {
+      var newdata = JSON.parse(data);
+      var str = "Errcode : " + newdata.errcode;
+      str += "\nErrno : " + newdata.errno;
+      str += "\nErrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+      alert( str );
+    })
+    .fail(function ( data, status ) {
+      alert( "errorr" );
+    });
 }
