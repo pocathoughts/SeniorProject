@@ -388,26 +388,195 @@ function DeleteCommunityService ($link, $data){
 function GetCommunityServiceByUser ($link, $data){
   GetCommunityServiceByUserValidate($link, $data);
   //query CommunityService by user
+  $results = queryMultiple($link, $monsterQuery, "gathering request information query", 5000);
+  while ($row = mysqli_fetch_array($results)){
+    $rows[] = $row;
+  }
+  if (sizeof($rows) == 0){
+    $returnData['errcode'] = 2;
+    $returnData['errno'] = 2000;
+    $returnData['errstr'] = "User " . $data['email'] . " Has No CommunityService events";
+    exitfnc($returnData);
+  } else {
+    $returnData['data']['community_service'] = array();
+    for ($i = 0; $i < sizeof($rows); $i++){
+      $returnData['data']['community_service'][$i]['community_service_id'] = $rows[$i]['community_service_id'];
+      $returnData['data']['community_service'][$i]['total_hours'] = $rows[$i]['total_hours'];
+      $returnData['data']['community_service'][$i]['club_name'] = $rows[$i]['club_display'];
+      if($rows[$i]['active_bool'] == 0){
+        $returnData['data']['community_service'][$i]['status'] = 'Deleted';
+      } else {
+        $returnData['data']['community_service'][$i]['status'] = 'Active';
+      }
+    }
+    $returnData['errcode'] = 0;
+    $returnData['errno'] = 0;
+    exitfnc($returnData);
+  }
 }
 function GetCommunityServiceByEmail ($link, $data){
   GetCommunityServiceByEmailValidate($link, $data);
   //query CommunityService by email
+  $results = queryMultiple($link, $monsterQuery, "gathering request information query", 5000);
+  while ($row = mysqli_fetch_array($results)){
+    $rows[] = $row;
+  }
+  if (sizeof($rows) == 0){
+    $returnData['errcode'] = 2;
+    $returnData['errno'] = 2000;
+    $returnData['errstr'] = "User " . $data['request_email'] . " Has No CommunityService events";
+    exitfnc($returnData);
+  } else {
+    $returnData['data']['community_service'] = array();
+    for ($i = 0; $i < sizeof($rows); $i++){
+      $returnData['data']['community_service'][$i]['community_service_id'] = $rows[$i]['community_service_id'];
+      $returnData['data']['community_service'][$i]['total_hours'] = $rows[$i]['total_hours'];
+      $returnData['data']['community_service'][$i]['club_name'] = $rows[$i]['club_display'];
+      if($rows[$i]['active_bool'] == 0){
+        $returnData['data']['community_service'][$i]['status'] = 'Deleted';
+      } else {
+        $returnData['data']['community_service'][$i]['status'] = 'Active';
+      }
+    }
+    $returnData['errcode'] = 0;
+    $returnData['errno'] = 0;
+    exitfnc($returnData);
+  }
 }
 function GetCommunityServiceByClub ($link, $data){
   GetCommunityServiceByClubValidate($link, $data);
   //query CommunityService by club
+  $results = queryMultiple($link, $monsterQuery, "gathering request information query", 5000);
+  while ($row = mysqli_fetch_array($results)){
+    $rows[] = $row;
+  }
+  if (sizeof($rows) == 0){
+    $returnData['errcode'] = 2;
+    $returnData['errno'] = 2000;
+    $returnData['errstr'] = "Club " . $data['club_name'] . " Has No CommunityService events";
+    exitfnc($returnData);
+  } else {
+    $returnData['data']['community_service'] = array();
+    for ($i = 0; $i < sizeof($rows); $i++){
+      $returnData['data']['community_service'][$i]['community_service_id'] = $rows[$i]['community_service_id'];
+      $returnData['data']['community_service'][$i]['total_hours'] = $rows[$i]['total_hours'];
+      $returnData['data']['community_service'][$i]['club_name'] = $rows[$i]['club_display'];
+      if($rows[$i]['active_bool'] == 0){
+        $returnData['data']['community_service'][$i]['status'] = 'Deleted';
+      } else {
+        $returnData['data']['community_service'][$i]['status'] = 'Active';
+      }
+    }
+    $returnData['errcode'] = 0;
+    $returnData['errno'] = 0;
+    exitfnc($returnData);
+  }
 }
 function GetCommunityServiceRequstByUser ($link, $data){
   GetCommunityServiceRequstByUserValidate($link, $data);
   //query CommunityService REQUEST by user
+  $monsterQuery = "SELECT community_service_request.request_id, total_hours, CONCAT(club_team.club_name, ', ', operating_year.year_string) AS club_display, active_bool, decision
+FROM community_service_request
+LEFT OUTER JOIN community_service_request_response ON community_service_request.request_id = community_service_request_response.request_id
+INNER JOIN user_account ON user_account.account_id = community_service_request.requester_id
+INNER JOIN club_operating_year ON community_service_request.club_year_id = club_operating_year.club_year_id
+INNER JOIN club_team ON club_operating_year.club_id = club_team.club_id
+INNER JOIN operating_year ON club_operating_year.year_id = operating_year.year_id
+WHERE user_account.account_id = " . $data['account_id'];
+  $results = queryMultiple($link, $monsterQuery, "gathering request information query", 5000);
+  while ($row = mysqli_fetch_array($results)){
+    $rows[] = $row;
+  }
+  if (sizeof($rows) == 0){
+    $returnData['errcode'] = 2;
+    $returnData['errno'] = 2000;
+    $returnData['errstr'] = "User " . $data['email'] . " Has No CommunityService events";
+    exitfnc($returnData);
+  } else {
+    $returnData['data']['community_service'] = array();
+    for ($i = 0; $i < sizeof($rows); $i++){
+      $returnData['data']['community_service'][$i]['request_id'] = $rows[$i]['request_id'];
+      $returnData['data']['community_service'][$i]['total_hours'] = $rows[$i]['total_hours'];
+      $returnData['data']['community_service'][$i]['club_name'] = $rows[$i]['club_display'];
+      if($rows[$i]['active_bool'] == 1){
+        $returnData['data']['community_service'][$i]['status'] = 'Pending';
+      } else {
+        if($rows[$i]['decision'] == 1){
+          $returnData['data']['community_service'][$i]['status'] = 'Accepted';
+        } else {
+          $returnData['data']['community_service'][$i]['status'] = 'Rejected';
+        }
+      }
+    }
+    $returnData['errcode'] = 0;
+    $returnData['errno'] = 0;
+    exitfnc($returnData);
+  }
 }
 function GetCommunityServiceRequstByEmail ($link, $data){
   GetCommunityServiceRequstByEmailValidate($link, $data);
   //query CommunityService REQUEST by email
+  $results = queryMultiple($link, $monsterQuery, "gathering request information query", 5000);
+  while ($row = mysqli_fetch_array($results)){
+    $rows[] = $row;
+  }
+  if (sizeof($rows) == 0){
+    $returnData['errcode'] = 2;
+    $returnData['errno'] = 2000;
+    $returnData['errstr'] = "User " . $data['request_email'] . " Has No CommunityService events";
+    exitfnc($returnData);
+  } else {
+    $returnData['data']['community_service'] = array();
+    for ($i = 0; $i < sizeof($rows); $i++){
+      $returnData['data']['community_service'][$i]['request_id'] = $rows[$i]['request_id'];
+      $returnData['data']['community_service'][$i]['total_hours'] = $rows[$i]['total_hours'];
+      $returnData['data']['community_service'][$i]['club_name'] = $rows[$i]['club_display'];
+      if($rows[$i]['active_bool'] == 1){
+        $returnData['data']['community_service'][$i]['status'] = 'Pending';
+      } else {
+        if($rows[$i]['decision'] == 1){
+          $returnData['data']['community_service'][$i]['status'] = 'Accepted';
+        } else {
+          $returnData['data']['community_service'][$i]['status'] = 'Rejected';
+        }
+      }
+    }
+    $returnData['errcode'] = 0;
+    $returnData['errno'] = 0;
+    exitfnc($returnData);
+  }
 }
 function GetCommunityServiceRequstByClub ($link, $data){
   GetCommunityServiceRequstByClubValidate($link, $data);
   //query CommunityService REQUEST by club
+  $results = queryMultiple($link, $monsterQuery, "gathering request information query", 5000);
+  while ($row = mysqli_fetch_array($results)){
+    $rows[] = $row;
+  }
+  if (sizeof($rows) == 0){
+    $returnData['errcode'] = 2;
+    $returnData['errno'] = 2000;
+    $returnData['errstr'] = "Club " . $data['club_name'] . " Has No CommunityService events";
+    exitfnc($returnData);
+  } else {
+    $returnData['data']['community_service'] = array();
+    for ($i = 0; $i < sizeof($rows); $i++){
+      $returnData['data']['community_service'][$i]['request_id'] = $rows[$i]['request_id'];
+      $returnData['data']['community_service'][$i]['total_hours'] = $rows[$i]['total_hours'];
+      $returnData['data']['community_service'][$i]['club_name'] = $rows[$i]['club_display'];
+      if($rows[$i]['active_bool'] == 1){
+        $returnData['data']['community_service'][$i]['status'] = 'Pending';
+      } else {
+        if($rows[$i]['decision'] == 1){
+          $returnData['data']['community_service'][$i]['status'] = 'Accepted';
+        } else {
+          $returnData['data']['community_service'][$i]['status'] = 'Rejected';
+        }
+      }
+    }
+    $returnData['errcode'] = 0;
+    $returnData['errno'] = 0;
+    exitfnc($returnData);
 }
 function GetCommunityServiceEditRequestByUser ($link, $data){
   GetCommunityServiceEditRequestByUserValidate($link, $data);
