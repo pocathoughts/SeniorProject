@@ -16,13 +16,15 @@ INSERT INTO club_operating_year (club_id, year_id, club_year_id) VALUES (1010, 1
 
 /*----Creating 3 default accounts, asilcott will be admin, user1 will be added to a club, and requester will be just a request----*/
 INSERT INTO user_account (email, password, name, recSport_acc, account_id) VALUES ('asilcott@ufl.edu', 'pass', 'Aaron Silcott', 1, 100);
-INSERT INTO user_account (email, password, name, recSport_acc, account_id) VALUES ('user1@ufl.edu', 'pass', 'Example user1', 0, 101);
-INSERT INTO user_account (email, password, name, recSport_acc, account_id) VALUES ('requester1@ufl.edu', 'pass', 'Example requester1', 0, 102);
+INSERT INTO user_account (email, password, name, recSport_acc, account_id) VALUES ('kmarin@ufl.edu', 'pass', 'Kevin Marin', 1, 101);
+INSERT INTO user_account (email, password, name, recSport_acc, account_id) VALUES ('c@ufl.edu', 'pass', 'stuff', 1, 102);
+INSERT INTO user_account (email, password, name, recSport_acc, account_id) VALUES ('user1@ufl.edu', 'pass', 'Example user1', 0, 103);
+INSERT INTO user_account (email, password, name, recSport_acc, account_id) VALUES ('requester1@ufl.edu', 'pass', 'Example requester1', 0, 104);
 
 /*----Adding user and asilcot to Mens Lacrosse----*/
 INSERT INTO club_position (account_id, club_year_id, position_name, president_bool) VALUES ('100', 1000, 'President', 1);
 INSERT INTO club_position (account_id, club_year_id, position_name, president_bool) VALUES ('101', 1000, 'VP', 0);
-INSERT INTO club_position (account_id, club_year_id, position_name, president_bool) VALUES ('101', 1001, 'President', 1);
+INSERT INTO club_position (account_id, club_year_id, position_name, president_bool) VALUES ('102', 1001, 'President', 1);
 
 /*----Adding requester's request to Join----*/
 INSERT INTO club_position_request(account_id, club_year_id, position_name, president_bool) VALUES ('102', 1000, 'secretary', 0);
@@ -46,5 +48,4 @@ SELECT * FROM community_service_change_request;
 SELECT * FROM community_service_change_request_response;
 SELECT * FROM community_service_request;
 SELECT * FROM community_service_request_response;
-SELECT * FROM community_service_request_change_request;
-SELECT * FROM community_service_request_change_request_response;
+SELECT * FROM community_service_request_change;

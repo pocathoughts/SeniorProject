@@ -1,14 +1,7 @@
 var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
-//function login(){
-
-  $("#login_form").submit(function(e){
-  e.preventDefault();
-  alert('inside login')
-  var values = $(this).serializeArray();
-  var userEmail = values[0].value;
-  var userPass = values[1].value;
-  //var userEmail = $('#LoginEmail').val();
-  //var userPass = $('#LoginPass').val();
+function Login(){
+  var userEmail = $('#LoginEmail').val();
+  var userPass = $('#LoginPass').val();
   //alert("here");
   $.ajax( {
     type : 'POST',
@@ -18,59 +11,45 @@ var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
-      var str = "Errcode : " + newdata.errcode;
+    var str = '';
+    if(newdata.errcode !== 0){
+      str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
-      //window.location.href ="";
       return;
     }
-
-
-    var str = "User Email" + userEmail.toLowerCase();
+    str = "User Email" + userEmail.toLowerCase();
     str += "\nSession_id = " + JSON.stringify(results.session_id);
-    alert(str);
-    // var idString = userEmail.toLowerCase()  + "ID";
-    // var node = document.getElementById(idString);
-    // if (node == null){
-    //   var textNode = document.createElement("p");
-    //   //textNode.id = idSting;
-    //   textNode.setAttribute('id', idString);
-    //   textNode.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
-    //   document.getElementById("Sessions").appendChild(textNode);
-    // } else {
-    //   node.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
-    // }
+    var idString = userEmail.toLowerCase()  + "ID";
+    var node = document.getElementById(idString);
+    if (node === null){
+    var textNode = document.createElement("p");
+    textNode.setAttribute('id', idString);
+    textNode.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
+    document.getElementById("Sessions").appendChild(textNode);
+    } else {
+      node.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
+    }
   })
   .fail(function (xhr, data, status) {
     alert( "errorr");
   });
-});
+}
 
-//function createUserAccount() {
-$("#create_account_form").submit(function(e){
-  e.preventDefault();
-  alert('inside createAccount')
-  var values = $(this).serializeArray();
-  var userName = values[0].value;
-  var userEmail = values[1].value;
-    if(values[2].value == values[3].value)
-      var userPass = values[2].value;
-    else{
-      alert("Passwords do not match!!");
-      return
-    }
+function createUserAccount(){
+  var userEmail = $('#CreateAccountEmail').val();
+  var userName = $('#CreateAccountName').val();
+  var userPass = $('#CreateAccountPass').val();
   $.ajax( {
     type : 'POST',
-    data : {phpFunction:'CreateUserAccount',email:userEmail, password:userPass,name:userName},
+    data : {phpFunction:'CreateUserAccount',email:userEmail,password:userPass,name:userName},
     url  : serverAddress,
   })
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
-    var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -79,13 +58,12 @@ $("#create_account_form").submit(function(e){
     }
     else {
       alert('success');
-      window.location.href = "signUpAdditionalInfo.html"
     }
   })
   .fail(function ( data, status ) {
     alert( "errorr" );
   });
-});
+}
 
 function getAllClubs(){
   $.ajax( {
@@ -95,7 +73,7 @@ function getAllClubs(){
   }).done(function (data, status) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -114,54 +92,10 @@ function getAllClubs(){
 }
 
 
-function populateDropDownWithClubSports(){
-    alert("we are here");
-    $.ajax( {
-      type : 'POST',
-      data : {phpFunction:'GetAllClubs'},
-      url : serverAddress,
-    }).done(function (data, status) {
-      var newdata = JSON.parse(data);
-      var results = newdata.data;
-      if(newdata.errcode != 0){
-        var str = "Errcode : " + newdata.errcode;
-        str += "\nErrno : " + newdata.errno;
-        str += "\nErrstr : " + newdata.errstr;
-        str += "\nData : " + JSON.stringify(newdata.data);
-        alert(str);
-      } else {
-        results = results.club_team;
-        var trimmedClubNames = formatClubString(results);
-        //var hi = results.split(",");
-        document.getElementById("sports-club-list").innerHTML = "<option>Sports Club Name</option>";
-        for (i = 0; i < results.length; i++){
-            document.getElementById("sports-club-list").innerHTML += "<option>" + trimmedClubNames[i] + "</option>";
-        }
-      }
-    }).fail(function (data, status) {
-      alert('errorr');
-    });
-}
-
-
-function formatClubString(sportsClubs){
-    var trimmedClubs = [];
-    for(i = 0; i < sportsClubs.length; i++){
-        var club = sportsClubs[i].split(',');
-        trimmedClubs.push(club[0]);
-    }
-    return trimmedClubs;
-}
-
-function GetAccountsNamesFromClub(){
-    var clubName = $('#GetClubSportName').val();
-
-}
-
 
 function getAttachedClubsByUser(){
   var userEmail = $('#GetAttachedClubsByUserEmail').val();
-  var userSession = $('#GetAttachedClubsByUserPass').val();
+  var userSession = $('#GetAttachedClubsByUserSession').val();
   $.ajax( {
     type : 'POST',
     data : {phpFunction:'GetAttachedClubsByUser', email:userEmail, session_id:userSession},
@@ -169,7 +103,7 @@ function getAttachedClubsByUser(){
   }).done(function (data, status) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -201,7 +135,7 @@ function CreateJoinClubRequest() {
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -229,7 +163,7 @@ function getClubRequestByClub() {
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -237,7 +171,8 @@ function getClubRequestByClub() {
       alert(str);
     } else {
       var requestsArray = newdata.data.requests;
-      document.getElementById("ClubRequests").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + "-" + (clubYear+1) + ")</h3>";
+      var newYear = clubYear +1;
+      document.getElementById("ClubRequests").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + "-" + newYear + ")</h3>";
       for (i = 0; i < requestsArray.length; i++){
         var printString = "<p>Name : " + requestsArray[i].name + "<br>";
         printString += "Email : " + requestsArray[i].email + "<br>";
@@ -266,7 +201,7 @@ function getClubRequestByEmail() {
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -302,7 +237,7 @@ function getClubRequestByUser() {
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -340,7 +275,7 @@ function GetClubPositionByClub(){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -348,7 +283,8 @@ function GetClubPositionByClub(){
       alert(str);
     } else {
       var positionsArray = newdata.data.positions;
-      document.getElementById("ClubPositions").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + "-" + (clubYear+1) + ")</h3>";
+      var newYear = clubYear +1;
+      document.getElementById("ClubPositions").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + "-" + newYear + ")</h3>";
       for (i = 0; i < positionsArray.length; i++){
         var printString = "<p>Name : " + positionsArray[i].name + "<br>";
         printString += "Email : " + positionsArray[i].email + "<br>";
@@ -374,7 +310,7 @@ function GetClubPositionByEmail(){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -407,7 +343,7 @@ function GetClubPositionByUser(){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -455,9 +391,154 @@ function RemoveClubPositionByUser(){
     alert("errorr");
   });
 }
+function CreateCommunityServiceRequest(){
+  //var userEmail = $('#RemoveClubPositionByUserEmail').val();
+  //var userSess = $('#RemoveClubPositionByUserSession').val();
+  //var clubName = $('#RemoveClubPositionByUserClubName').val();
+  //var clubYear = $('#RemoveClubPositionByUserYear').val();
+  //var clubPosition = $('#RemoveClubPositionByUserPosition').val();
+  var userEmail = "asilcott@ufl.edu";
+  var userSess = $('#GetAttachedClubsByUserSession').val();
+  var clubName = "Mens Lacrosse";
+  var clubYear = "2016";
+  var total_hours = "25";
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'CreateCommunityServiceRequest', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear, total_hours:total_hours},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    var str = "Errcode : " + newdata.errcode;
+    str += "\nErrno : " + newdata.errno;
+    str += "\nErrstr : " + newdata.errstr;
+    str += "\nData : " + JSON.stringify(newdata.data);
+    alert(str);
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
+function EditCommunityServiceRequest(){
+  var userEmail = "asilcott@ufl.edu";
+  var userSess = $('#GetAttachedClubsByUserSession').val();
+  var attribute = "total_hours";
+  var oldValue = "25";
+  var newValue = "30";
+  var request_id = "1";
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'EditCommunityServiceRequest', email:userEmail, session_id:userSess, attribute:attribute, old_value:oldValue, new_value:newValue, request_id:request_id},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    var str = "Errcode : " + newdata.errcode;
+    str += "\nErrno : " + newdata.errno;
+    str += "\nErrstr : " + newdata.errstr;
+    str += "\nData : " + JSON.stringify(newdata.data);
+    alert(str);
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
+function DeleteCommunityServiceRequest(){
+  var userEmail = "asilcott@ufl.edu";
+  var userSess = $('#GetAttachedClubsByUserSession').val();
+  var request_id = "1";
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'DeleteCommunityServiceRequest', email:userEmail, session_id:userSess, request_id:request_id},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    var str = "Errcode : " + newdata.errcode;
+    str += "\nErrno : " + newdata.errno;
+    str += "\nErrstr : " + newdata.errstr;
+    str += "\nData : " + JSON.stringify(newdata.data);
+    alert(str);
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
+function RespondCommunityServiceRequest(){
+  var userEmail = "asilcott@ufl.edu";
+  var userSess = $('#GetAttachedClubsByUserSession').val();
+  var request_id = "1";
+  var decision = "1";
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'RespondCommunityServiceRequest', email:userEmail, session_id:userSess, request_id:request_id, decision:decision},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    var str = "Errcode : " + newdata.errcode;
+    str += "\nErrno : " + newdata.errno;
+    str += "\nErrstr : " + newdata.errstr;
+    str += "\nData : " + JSON.stringify(newdata.data);
+    alert(str);
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
 
 //old functions  This includes the login, new functions wont
-/*function CheckAccount() {
+/*
+
+function populateDropDownWithClubSports(){
+    alert("we are here");
+    $.ajax( {
+      type : 'POST',
+      data : {phpFunction:'GetAllClubs'},
+      url : serverAddress,
+    }).done(function (data, status) {
+      var newdata = JSON.parse(data);
+      var results = newdata.data;
+      if(newdata.errcode !== 0){
+        var str = "Errcode : " + newdata.errcode;
+        str += "\nErrno : " + newdata.errno;
+        str += "\nErrstr : " + newdata.errstr;
+        str += "\nData : " + JSON.stringify(newdata.data);
+        alert(str);
+      } else {
+        results = results.club_team;
+        var trimmedClubNames = formatClubString(results);
+        //var hi = results.split(",");
+        document.getElementById("sports-club-list").innerHTML = "<option>Sports Club Name</option>";
+        for (i = 0; i < results.length; i++){
+            document.getElementById("sports-club-list").innerHTML += "<option>" + trimmedClubNames[i] + "</option>";
+        }
+      }
+    }).fail(function (data, status) {
+      alert('errorr');
+    });
+}
+
+
+function formatClubString(sportsClubs){
+    var trimmedClubs = [];
+    for(i = 0; i < sportsClubs.length; i++){
+        var club = sportsClubs[i].split(',');
+        trimmedClubs.push(club[0]);
+    }
+    return trimmedClubs;
+}
+
+function GetAccountsNamesFromClub(){
+    var clubName = $('#GetClubSportName').val();
+
+}
+
+function CheckAccount() {
   //alert ('CheckAccount');
   var userEmail = $('#email').val();
   var userPass = $('#password').val();

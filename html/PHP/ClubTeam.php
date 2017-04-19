@@ -293,7 +293,7 @@ function GetAllClubs ($link, $data){
 function GetUsersInClub ($link, $data){
     GetAllClubsValidate($link, $data);
 
-    $query = "SELECT user_account WHERE CLUB == USER's CLUB"
+    $query = "SELECT user_account WHERE CLUB == USER's CLUB";
 
     $results = queryMultiple($link, $query, "All Clubs Query", 5000);
 
