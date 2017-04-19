@@ -39,18 +39,15 @@ function Login(){
 }
 
 function createUserAccount(){
-  alert('here');
   var userEmail = $('#CreateAccountEmail').val();
   var userName = $('#CreateAccountName').val();
   var userPass = $('#CreateAccountPass').val();
-  alert('gere2');
   $.ajax( {
     type : 'POST',
     data : {phpFunction:'CreateUserAccount',email:userEmail,password:userPass,name:userName},
     url  : serverAddress,
   })
   .done(function ( data, status ) {
-    alert("data");
     var newdata = JSON.parse(data);
     if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
