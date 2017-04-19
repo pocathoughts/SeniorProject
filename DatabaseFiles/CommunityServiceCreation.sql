@@ -59,6 +59,7 @@ CREATE TABLE community_service_request(
   community_service_id INT, /*this is the community_service id once the posision is created*/
   
   /*TODO data fields*/
+  total_hours INT NOT NULL,
   club_year_id INT NOT NULL,
   requester_id INT NOT NULL,
 

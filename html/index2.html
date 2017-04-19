@@ -1,7 +1,7 @@
 <html>
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script type = "text/javascript" src="../js/index.js"></script>
+    <script type = "text/javascript" src="../js/index2.js"></script>
     <!--<script type = "text/javascript" src="../js/index.js"></script>-->
     <style>
       .functions {
@@ -12,6 +12,9 @@
       .results {
         width:33%;
         float: left;
+        overflow-y: scroll;
+        position:relative;
+        top: 0;
       }
       .divRow {
           clear:both;
@@ -24,18 +27,18 @@
           padding:10px;
       }
     </style>
-
-    <script>
-        window.onload = populateDropDownWithClubSports();
-    </script>
   </head>
   <body>
-    <div class="results" style="position:fixed">
+    <div class="results">
       <h1>Results:</h1>
       <button onclick=clearHeading('Sessions','Active Sessions')>Clear Sessions</button>
       <button onclick=clearHeading('ClubTeams','Club Teams')>Clear ClubTeams</button>
       <button onclick=clearHeading('ClubRequests','Club Requests')>Clear ClubRequests</button>
       <button onclick=clearHeading('ClubPositions','Club Positions')>Clear ClubPositions</button>
+      <button onclick=CreateCommunityServiceRequest()>Create Com Serv</button>
+      <button onclick=EditCommunityServiceRequest()>Edit Com Serv</button>
+      <button onclick=DeleteCommunityServiceRequest()>Delete Com Serv</button>
+      <button onclick=RespondCommunityServiceRequest()>Respond Com Serv</button>
       <div id="Sessions"><h3>Active Sessions</h3></div>
       <div id="ClubTeams"><h3>Club Teams</h3></div>
       <div id="ClubRequests"><h3>Club Requests</h3></div>
@@ -45,14 +48,13 @@
       <div class='divRow'>
         <div class='item'>
           <h1>Login</h1>
-          <form id="login_form">
           <form>
             <p>Email</p>
             <input type="text" id="LoginEmail" name="email_name"><br>
             <p>Password</p>
             <input type="text" id="LoginPass" name="password"><br>
-            <button id="login_button" type="submit">Login</button>
           </form>
+          <button onclick="Login()">Login</button>
         </div>
         <div class='item'>
           <h1>Create Account</h1>
@@ -70,12 +72,6 @@
       <div class='divRow'>
         <div class='item'>
           <h1>Get All Clubs</h1>
-          <form>
-            <p>Email</p>
-            <input type="text" id="GetAllClubsEmail" name="email"><br>
-            <p>Session_id</p>
-            <input type="text" id="GetAllClubsSession" name="session"><br>
-          </form>
           <button onclick="getAllClubs()">Get All Clubs</button>
           <div id="Sessions"></div>
         </div>
@@ -85,7 +81,7 @@
             <p>Email</p>
             <input type="text" id="GetAttachedClubsByUserEmail" name="email"><br>
             <p>Session_id</p>
-            <input type="text" id="GetAttachedClubsByUserPass" name="password"><br>
+            <input type="text" id="GetAttachedClubsByUserSession" name="password"><br>
           </form>
           <button onclick="getAttachedClubsByUser()">Get Attached Clubs By User</button>
         </div>
