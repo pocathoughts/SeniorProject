@@ -124,13 +124,13 @@ switch ($functionChoice) {
   case 'GetCommunityServiceByClub':
     GetCommunityServiceByClub($link, $dataContainer);
     break;
-  case 'GetCommunityServiceRequstByUser':
+  case 'GetCommunityServiceRequestByUser':
     GetCommunityServiceRequstByUser($link, $dataContainer);
     break;
-  case 'GetCommunityServiceRequstByEmail':
+  case 'GetCommunityServiceRequestByEmail':
     GetCommunityServiceRequstByEmail($link, $dataContainer);
     break;
-  case 'GetCommunityServiceRequstByClub':
+  case 'GetCommunityServiceRequestByClub':
     GetCommunityServiceRequstByClub($link, $dataContainer);
     break;
   case 'GetCommunityServiceEditRequestByUser':
