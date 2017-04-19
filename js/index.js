@@ -316,7 +316,7 @@ function getClubRequestByClub() {
           document.getElementById("ClubRequests").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + ")</h3>";
           var count = 0;
           for (i = 0; i < requestsArray.length; i++){
-            if(requestsArray[i].status == "pending"){
+            if(requestsArray[i].status == "Pending"){
               count++;
               var newItem = document.createElement('li');
               clubRequests.appendChild(newItem);
