@@ -22,17 +22,17 @@ function Login(){
     var str = "User Email" + userEmail.toLowerCase();
     str += "\nSession_id = " + JSON.stringify(results.session_id);
     alert(str);
-     var idString = userEmail.toLowerCase()  + "ID";
-     var node = document.getElementById(idString);
-     if (node == null){
-       var textNode = document.createElement("p");
-       //textNode.id = idSting;
-       textNode.setAttribute('id', idString);
-       textNode.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
-       document.getElementById("Sessions").appendChild(textNode);
-     } else {
-       node.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
-     }
+    var idString = userEmail.toLowerCase()  + "ID";
+    var node = document.getElementById(idString);
+    if (node == null){
+     var textNode = document.createElement("p");
+     textNode.id = idSting;
+     textNode.setAttribute('id', idString);
+     textNode.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
+     document.getElementById("Sessions").appendChild(textNode);
+    } else {
+     node.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
+    }
   })
   .fail(function (xhr, data, status) {
     alert( "errorr");
@@ -93,50 +93,6 @@ function getAllClubs(){
   });
 }
 
-
-function populateDropDownWithClubSports(){
-    alert("we are here");
-    $.ajax( {
-      type : 'POST',
-      data : {phpFunction:'GetAllClubs'},
-      url : serverAddress,
-    }).done(function (data, status) {
-      var newdata = JSON.parse(data);
-      var results = newdata.data;
-      if(newdata.errcode != 0){
-        var str = "Errcode : " + newdata.errcode;
-        str += "\nErrno : " + newdata.errno;
-        str += "\nErrstr : " + newdata.errstr;
-        str += "\nData : " + JSON.stringify(newdata.data);
-        alert(str);
-      } else {
-        results = results.club_team;
-        var trimmedClubNames = formatClubString(results);
-        //var hi = results.split(",");
-        document.getElementById("sports-club-list").innerHTML = "<option>Sports Club Name</option>";
-        for (i = 0; i < results.length; i++){
-            document.getElementById("sports-club-list").innerHTML += "<option>" + trimmedClubNames[i] + "</option>";
-        }
-      }
-    }).fail(function (data, status) {
-      alert('errorr');
-    });
-}
-
-
-function formatClubString(sportsClubs){
-    var trimmedClubs = [];
-    for(i = 0; i < sportsClubs.length; i++){
-        var club = sportsClubs[i].split(',');
-        trimmedClubs.push(club[0]);
-    }
-    return trimmedClubs;
-}
-
-function GetAccountsNamesFromClub(){
-    var clubName = $('#GetClubSportName').val();
-
-}
 
 
 function getAttachedClubsByUser(){
@@ -437,7 +393,53 @@ function RemoveClubPositionByUser(){
 }
 
 //old functions  This includes the login, new functions wont
-/*function CheckAccount() {
+/*
+
+function populateDropDownWithClubSports(){
+    alert("we are here");
+    $.ajax( {
+      type : 'POST',
+      data : {phpFunction:'GetAllClubs'},
+      url : serverAddress,
+    }).done(function (data, status) {
+      var newdata = JSON.parse(data);
+      var results = newdata.data;
+      if(newdata.errcode != 0){
+        var str = "Errcode : " + newdata.errcode;
+        str += "\nErrno : " + newdata.errno;
+        str += "\nErrstr : " + newdata.errstr;
+        str += "\nData : " + JSON.stringify(newdata.data);
+        alert(str);
+      } else {
+        results = results.club_team;
+        var trimmedClubNames = formatClubString(results);
+        //var hi = results.split(",");
+        document.getElementById("sports-club-list").innerHTML = "<option>Sports Club Name</option>";
+        for (i = 0; i < results.length; i++){
+            document.getElementById("sports-club-list").innerHTML += "<option>" + trimmedClubNames[i] + "</option>";
+        }
+      }
+    }).fail(function (data, status) {
+      alert('errorr');
+    });
+}
+
+
+function formatClubString(sportsClubs){
+    var trimmedClubs = [];
+    for(i = 0; i < sportsClubs.length; i++){
+        var club = sportsClubs[i].split(',');
+        trimmedClubs.push(club[0]);
+    }
+    return trimmedClubs;
+}
+
+function GetAccountsNamesFromClub(){
+    var clubName = $('#GetClubSportName').val();
+
+}
+
+function CheckAccount() {
   //alert ('CheckAccount');
   var userEmail = $('#email').val();
   var userPass = $('#password').val();
