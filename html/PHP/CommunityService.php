@@ -391,6 +391,13 @@ function DeleteCommunityService ($link, $data){
 function GetCommunityServiceByUser ($link, $data){
   GetCommunityServiceByUserValidate($link, $data);
   //query CommunityService by user
+  $monsterQuery = "SELECT community_service_id, total_hours, CONCAT(club_team.club_name, ', ', operating_year.year_string) AS club_display, active_bool
+FROM community_service
+INNER JOIN user_account ON user_account.account_id = community_service.requester_id
+INNER JOIN club_operating_year ON community_service.club_year_id = club_operating_year.club_year_id
+INNER JOIN club_team ON club_operating_year.club_id = club_team.club_id
+INNER JOIN operating_year ON club_operating_year.year_id = operating_year.year_id
+WHERE user_account.account_id = " . $data['account_id'];
   $results = queryMultiple($link, $monsterQuery, "gathering request information query", 5000);
   while ($row = mysqli_fetch_array($results)){
     $rows[] = $row;
@@ -420,6 +427,14 @@ function GetCommunityServiceByUser ($link, $data){
 function GetCommunityServiceByEmail ($link, $data){
   GetCommunityServiceByEmailValidate($link, $data);
   //query CommunityService by email
+  $email = $data['request_email'];
+  $monsterQuery = "SELECT community_service_id, total_hours, CONCAT(club_team.club_name, ', ', operating_year.year_string) AS club_display, active_bool
+FROM community_service
+INNER JOIN user_account ON user_account.account_id = community_service.requester_id
+INNER JOIN club_operating_year ON community_service.club_year_id = club_operating_year.club_year_id
+INNER JOIN club_team ON club_operating_year.club_id = club_team.club_id
+INNER JOIN operating_year ON club_operating_year.year_id = operating_year.year_id
+WHERE user_account.email = '" . $email . "'";
   $results = queryMultiple($link, $monsterQuery, "gathering request information query", 5000);
   while ($row = mysqli_fetch_array($results)){
     $rows[] = $row;
@@ -449,6 +464,13 @@ function GetCommunityServiceByEmail ($link, $data){
 function GetCommunityServiceByClub ($link, $data){
   GetCommunityServiceByClubValidate($link, $data);
   //query CommunityService by club
+  $monsterQuery = "SELECT community_service_id, total_hours, CONCAT(club_team.club_name, ', ', operating_year.year_string) AS club_display, active_bool
+FROM community_service
+INNER JOIN user_account ON user_account.account_id = community_service.requester_id
+INNER JOIN club_operating_year ON community_service.club_year_id = club_operating_year.club_year_id
+INNER JOIN club_team ON club_operating_year.club_id = club_team.club_id
+INNER JOIN operating_year ON club_operating_year.year_id = operating_year.year_id
+WHERE club_operating_year.club_year_id = " . $data['club_year_id'];
   $results = queryMultiple($link, $monsterQuery, "gathering request information query", 5000);
   while ($row = mysqli_fetch_array($results)){
     $rows[] = $row;
