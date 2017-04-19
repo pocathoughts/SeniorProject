@@ -5,20 +5,22 @@
     <meta charset="utf-8" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/index.css" />
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Sans">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/index.js"></script>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="../../js/customScript.js"></script>
     <title>Progress Tracker</title>
 
-    <style>
-      body {
-        font-family: 'Josefin Sans', sans-serif;
-      }
-    </style>
+    <script>
+        window.onload = populateNavBarWithNameAndClub();
+    </script>
+
     <!-- probably not the best way to do it but we tried -->
     <style type="text/css">
         body { background: white !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
@@ -27,24 +29,31 @@
 
 <body>
     <!-- Start of the Navbar -->
-    <nav style = "background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
-
+    <nav style = "border: 0; border-color: none; background-color: #104f75; text-align: center;" class="navbar navbar-default" role="navigation">
         <div class="dropdown">
             <a href="#" class="btn navbar-brand dropdown-toggle special-button" data-toggle="dropdown">
                  <span class="glyphicon glyphicon-th-list" style="color:white"></span>
             </a>
 
-            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/landingPage.html">Home</a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Account</a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="trackingRequirements.html">Track Club Progress</a></li>
-              <li class = "menuDropdownSize" role="presentation" class="divider"></li>
+            <ul class="dropdown-menu recsports-dropdown" role="menu" aria-labelledby="menu1">
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../MainPages/landingPage.html">Home</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../Accounts/accountsPage.html">Account</a></li>
+             <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../MainPages/forms.html"> Forms</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../CriteriaTracking/trackingRequirements.html">Track Club Progress</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Deadlines</a></li>
+              <hr>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../Authentication/logoutPage.html">Log Out</a></li>
               <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
-              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="../mainPages/creditPage.html">Icon Credits</a></li>
+              <li class = "menuDropdownSize" role="presentation"><a role="menuitem" tabindex="-1" href="creditPage.html">Icon Credits</a></li>
             </ul>
         </div>
 
-        <h1 style = "color: white; font-family: 'Oswald'"> BEACH VOLLEYBALL</h1>
+        <h1 style = "color: white; font-family: 'Oswald'; display: inline" id = "user_club">
+        </h1>
+
+        <h3 class = "navbar-username" id = "logged_in">
+        </h3>
+
     </nav> <!-- /.navbar -->
 
     <div class = "container">
@@ -85,13 +94,14 @@
             </div>
 
             <!-- Table -->
-            <table class="table">
+            <table class="table" style = "font-family: 'Oswald'">
                 <thead>
                     <tr>
                         <th> # </th>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Age</th>
+                        <th>Member 1</th>
+                        <th>Member 2</th>
+                        <th>Month</th>
+                        <th>Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -160,23 +170,9 @@
 
     </div>
 
+    <script type="text/javascript" src="../../js/customScript.js"></script>
+    <script type="text/javascript" src="../../js/index.js"></script>
 
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript">
-
-        app.initialize();
-    </script>
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="jquery/jquery-2.0.3.min.js"></script>
-    <script src="bootstrap/bootstrap-2.3.1.min.js"></script>
-    <script type="text/javascript" src="js/customScript.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('.dropdown-toggle').dropdown();
-        });
-    </script>
 
 </body>
 
