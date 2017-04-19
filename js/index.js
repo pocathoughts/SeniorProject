@@ -179,9 +179,11 @@ function getAllClubs(){
 
 function getAllClubsExecutiveBoardMembers(){
     alert("we are here in exec board members");
+    var userEmail = sessionStorage.userEmail;
+    var userSession = sessionStorage.session_id;
   $.ajax( {
     type : 'POST',
-    data : {phpFunction:'GetAllClubs'},
+    data : {phpFunction:'GetClubPositionByClub', email:userEmail, club_name:"Mens Lacrosse", session_id:userSession, year:"2016-2017"},
     url : serverAddress,
   }).done(function (data, status) {
     var newdata = JSON.parse(data);
@@ -391,6 +393,7 @@ function getClubRequestByClub() {
           str += "\nErrno : " + newdata.errno;
           str += "\nerrstr : " + newdata.errstr;
           str += "\nData : " + JSON.stringify(newdata.data);
+          document.getElementById("ClubRequests").innerHTML = "<h3> No Pending Account Requests</h3>";
           alert(str);
         } else {
           var requestsArray = newdata.data.requests;
@@ -857,9 +860,9 @@ function CreateCommunityServiceRequest(){
   var userEmail = sessionStorage.userEmail;
   var userSess = sessionStorage.session_id;
 
-  var clubName = values[3].value;
+  var clubName = $('#sports-club-list').val();
   var clubYear = "2016";
-  var total_hours = values[10].value;
+  var total_hours = values[9].value;
   $.ajax( {
     type : 'POST',
     data : {phpFunction:'CreateCommunityServiceRequest', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear, total_hours:total_hours},
@@ -1127,6 +1130,7 @@ $.ajax( {
       alert(newdata.errstr + "\n\nPlease log in");
       window.location.href = "../Authentication/login.html";
       return;
+<<<<<<< HEAD
     }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
@@ -1158,6 +1162,35 @@ $.ajax( {
       str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
+
+      alert("we are here in hours");
+      document.getElementById("CommHours").innerHTML = "There are no submitted hours.";
+    }
+    else {
+      var posArr = newdata.data.positions;
+      var clubName = formatClubTeamNameString(posArr[0].club_name);
+      var clubYear = getClubYearFromString(posArr[0].club_name);
+
+  $.ajax( {
+    type : 'POST',
+    data : {phpFunction:'GetCommunityServiceRequestByClub', email:userEmail, session_id:userSession, club_name:clubName, year:clubYear},
+    url : serverAddress,
+  }).done(function (data, status) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
+    if(newdata.errcode != 0){
+      var str = "Errcode : " + newdata.errcode;
+      str += "\nErrno : " + newdata.errno;
+      str += "\nerrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+      alert(str);
+      alert("we are here in hours");
+      document.getElementById("CommHours").innerHTML = "There are no submitted hours.";
       return;
     } else {
           var requestsArray = newdata.data.community_service;
