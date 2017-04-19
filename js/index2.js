@@ -11,38 +11,39 @@ function Login(){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
-      var str = "Errcode : " + newdata.errcode;
+    var str = '';
+    if(newdata.errcode !== 0){
+      str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
       return;
     }
-    var str = "User Email" + userEmail.toLowerCase();
+    str = "User Email" + userEmail.toLowerCase();
     str += "\nSession_id = " + JSON.stringify(results.session_id);
     alert(str);
     var idString = userEmail.toLowerCase()  + "ID";
     var node = document.getElementById(idString);
-    if (node == null){
-     var textNode = document.createElement("p");
-     textNode.id = idSting;
-     textNode.setAttribute('id', idString);
-     textNode.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
-     document.getElementById("Sessions").appendChild(textNode);
+    if (node === null){
+    var textNode = document.createElement("p");
+    //textNode.id = idSting;
+    textNode.setAttribute('id', idString);
+    textNode.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
+    document.getElementById("Sessions").appendChild(textNode);
     } else {
-     node.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
+      node.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
     }
   })
   .fail(function (xhr, data, status) {
     alert( "errorr");
   });
-});
+}
 
 function createUserAccount() {
   var userEmail = $('#CreateAccountEmail');
   var userName = $('#CreateAccountName');
-  var userEmail = $('#CreateAccountPass');
+  var userPass = $('#CreateAccountPass');
   $.ajax( {
     type : 'POST',
     data : {phpFunction:'CreateUserAccount',email:userEmail, password:userPass,name:userName},
@@ -51,7 +52,7 @@ function createUserAccount() {
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -65,7 +66,7 @@ function createUserAccount() {
   .fail(function ( data, status ) {
     alert( "errorr" );
   });
-});
+}
 
 function getAllClubs(){
   $.ajax( {
@@ -75,7 +76,7 @@ function getAllClubs(){
   }).done(function (data, status) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -105,7 +106,7 @@ function getAttachedClubsByUser(){
   }).done(function (data, status) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -137,7 +138,7 @@ function CreateJoinClubRequest() {
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -165,7 +166,7 @@ function getClubRequestByClub() {
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -202,7 +203,7 @@ function getClubRequestByEmail() {
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -238,7 +239,7 @@ function getClubRequestByUser() {
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -276,7 +277,7 @@ function GetClubPositionByClub(){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -310,7 +311,7 @@ function GetClubPositionByEmail(){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -343,7 +344,7 @@ function GetClubPositionByUser(){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
-    if(newdata.errcode != 0){
+    if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
       str += "\nErrstr : " + newdata.errstr;
@@ -404,7 +405,7 @@ function populateDropDownWithClubSports(){
     }).done(function (data, status) {
       var newdata = JSON.parse(data);
       var results = newdata.data;
-      if(newdata.errcode != 0){
+      if(newdata.errcode !== 0){
         var str = "Errcode : " + newdata.errcode;
         str += "\nErrno : " + newdata.errno;
         str += "\nErrstr : " + newdata.errstr;
