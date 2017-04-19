@@ -429,8 +429,8 @@ function EditCommunityServiceRequest(){
   var userEmail = "asilcott@ufl.edu";
   var userSess = $('#GetAttachedClubsByUserSession').val();
   var attribute = "total_hours";
-  var oldValue = "2016";
-  var newValue = "25";
+  var oldValue = "25";
+  var newValue = "30";
   var request_id = "1";
   $.ajax( { 
     type : 'POST',
