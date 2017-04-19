@@ -209,6 +209,7 @@ function EditCommunityServiceRequestValidate ($link, $data){
     $returnData['errstr'] = "invalid request id";
     exitfnc($returnData);
   } else {
+    $i = 0;
     echo $rows[$i];
     $att = $data['attribute'];
     if ($rows[$i]['active_bool'] === 0){
