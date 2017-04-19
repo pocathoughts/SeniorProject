@@ -420,6 +420,36 @@ function CreateCommunityServiceRequest(){
     alert("errorr");
   });
 }
+function EditCommunityServiceRequest(){
+  //var userEmail = $('#RemoveClubPositionByUserEmail').val();
+  //var userSess = $('#RemoveClubPositionByUserSession').val();
+  //var clubName = $('#RemoveClubPositionByUserClubName').val();
+  //var clubYear = $('#RemoveClubPositionByUserYear').val();
+  //var clubPosition = $('#RemoveClubPositionByUserPosition').val();
+  var userEmail = "asilcott@ufl.edu";
+  var userSess = $('#GetAttachedClubsByUserSession').val();
+  var attribute = "total_hours";
+  var oldValue = "2016";
+  var newValue = "25";
+  var request_id = "1";
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'EditCommunityServiceRequest', email:userEmail, session_id:userSess, attribute:attribute, old_value:oldValue, new_value:newValue, request_id:request_id},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    var str = "Errcode : " + newdata.errcode;
+    str += "\nErrno : " + newdata.errno;
+    str += "\nErrstr : " + newdata.errstr;
+    str += "\nData : " + JSON.stringify(newdata.data);
+    alert(str);
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
 
 //old functions  This includes the login, new functions wont
 /*

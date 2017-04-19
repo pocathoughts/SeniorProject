@@ -246,7 +246,6 @@ function CreateCommunityServiceRequest ($link, $data){
   CreateCommunityServiceRequestValidate($link, $data);
   //insert request CommunityService
   $insert = "INSERT INTO community_service_request (total_hours, club_year_id, requester_id) VALUES (" . $data['total_hours'] . ", " . $data['club_year_id'] . ", " . $data['account_id'] . ")";
-  echo $insert;
   nonQuery($link, $insert, "insert CommunityService request", 5000);
   $returnData['errcode'] = 0;
   $returnData['errno'] = 0;
@@ -258,7 +257,12 @@ function EditCommunityServiceRequest ($link, $data){
   EditCommunityServiceRequestValidate($link, $data);
   //require old value in request check it in validate
   //insert CommunityService request
-  $insert = "UPDATE community_service SET " . $data['attribute'] . " = " . $data['new_value'] . " where community_service_id = " . $data['community_service_id'];
+  $update = "UPDATE community_service_request SET " . $data['attribute'] . " = " . $data['new_value'] . " WHERE community_service_id = " . $data['community_service_id'];
+  nonQuery($link, $update, "edit CommunityService request", 5000);
+  $returnData['errcode'] = 0;
+  $returnData['errno'] = 0;
+  $returnData['data']['status'] = 'successful'; 
+  exitfnc($returnData);
   //return 0 on success
 }
 function DeleteCommunityServiceRequest ($link, $data){
@@ -336,6 +340,36 @@ function GetCommunityServiceEditRequestByClub ($link, $data){
   GetCommunityServiceEditRequestByClubValidate($link, $data);
   //query CommunityService EDIT reqeust by club.
 }
+function InjectClubYearIdByCommunityServiceID ($link, &$data){
+  $query = "SELECT club_year_id FROM community_service_request WHERE request_id = " . $data['request_id'];
 
+  //perform the query and verify no error in query
+  if( ! $result = mysqli_query($link,$query) ) {
+    $returnData['errcode'] = 5;
+    //TODO proper code
+    $returnData['errno'] = 5000;
+    $returnData['errstr'] = "Mysql club_operating_year from club_position_request query error: " . mysqli_error($link);
+    exitfnc($returnData);
+  }
+
+  //verify size of result:
+  if (mysqli_num_rows($result) == 0){   //no matching records
+      $returnData['errcode'] = 3;
+      //TODO proper code
+      $returnData['errno'] = 3000;
+      $returnData['errstr'] = "invalid request id";
+    exitfnc($returnData);
+  } elseif (mysqli_num_rows($result) > 1){   //multiple matching records, supposed to be Unique, Database error
+    $returnData['errcode'] = 5;
+    //TODO proper code
+    $returnData['errno'] = 5000;
+    $returnData['errstr'] = "multiple records tied to request";
+    //ALERT SYS ADMIN
+    exitfnc($returnData);
+  } else {
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $data['club_year_id'] = $row['club_year_id'];
+  }
+}
 
 ?>
