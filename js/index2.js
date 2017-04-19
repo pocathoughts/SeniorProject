@@ -474,7 +474,7 @@ function RespondCommunityServiceRequest(){
   var decision = "1";
   $.ajax( { 
     type : 'POST',
-    data : {phpFunction:'DeleteCommunityServiceRequest', email:userEmail, session_id:userSess, request_id:request_id, decision:decision},
+    data : {phpFunction:'RespondCommunityServiceRequest', email:userEmail, session_id:userSess, request_id:request_id, decision:decision},
     url  : serverAddress,
   })
   .done(function ( data, status ) {
