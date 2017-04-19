@@ -204,6 +204,7 @@ function DeleteJoinClubRequestValidate ($link, &$data, &$returnData){
 }
 
 function GetJoinClubRequestByUserValidate ($link, &$data, &$returnData){
+
   
   //InjectClubYearIdByClubYear($link, $data);
 
@@ -211,7 +212,7 @@ function GetJoinClubRequestByUserValidate ($link, &$data, &$returnData){
 }
 
 function GetJoinClubRequestByEmailValidate ($link, &$data, &$returnData){
-  
+
   //InjectClubYearIdByClubYear($link, $data);
   GetJoinClubRequestByEmailPermissionCheck($data, $returnData);
 }

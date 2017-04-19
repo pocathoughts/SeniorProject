@@ -289,7 +289,9 @@ function EditITEM ($link, $data){
   CreateITEMRequestValidate($link, $data);
   //insert item request
 
+
   $insert = "INSERT INTO ITEMT_change_request (ITEMT_id, attribute_name, new_value, old_value) VALUE (" . $data['ITEMT_id'] . ", " . $data['attribute'] . ", " . $data['old_value'] . ", " . $data['old_value'] . ")";
+
 
   //return 0 on success
 }
