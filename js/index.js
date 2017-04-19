@@ -30,14 +30,42 @@ var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
       alert(str);
       return;
     }
+    else{
+        alert("did we make it here");
+        var str = "User Email" + userEmail.toLowerCase();
+        str += "\nSession_id = " + JSON.stringify(results.session_id);
+        sessionStorage.userEmail = userEmail;
+        sessionStorage.session_id = results.session_id;
+        var userSession = sessionStorage.session_id;
+        $.ajax( {
+          type : 'POST',
+          data : {phpFunction:'GetAttachedClubsByUser', email:userEmail, session_id:userSession},
+          url : serverAddress,
+        }).done(function (data, status) {
+          var newdata = JSON.parse(data);
+          var results = newdata.data;
+          if(newdata.errcode == 2){
+            alert(newdata.errstr + "\n\nPlease log in");
+            window.location.href = "../Authentication/login.html";
+            return;
+          }
+          if(newdata.errcode != 0){
+              alert("heres the error message");
+            var str = "Errcode : " + newdata.errcode;
+            str += "\nErrno : " + newdata.errno;
+            str += "\nerrstr : " + newdata.errstr;
+            str += "\nData : " + JSON.stringify(newdata.data);
+            alert(str);
 
-
-    var str = "User Email" + userEmail.toLowerCase();
-    str += "\nSession_id = " + JSON.stringify(results.session_id);
-    sessionStorage.userEmail = userEmail;
-    sessionStorage.session_id = results.session_id;
-    alert(str);
-    window.location.href ="../MainPages/landingPage.html";
+            window.location.href ="../Authentication/splashPage.html";
+            return;
+          } else {
+              window.location.href ="../MainPages/landingPage.html";
+          }
+        }).fail(function (data, status) {
+          alert('errorr');
+        });
+      }
   })
   .fail(function (xhr, data, status) {
     alert( "errorr");
@@ -211,7 +239,7 @@ function populateDropDownWithClubSports(){
         //var hi = results.split(",");
         document.getElementById("sports-club-list").innerHTML = "<option>Sports Club Name</option>";
         for (i = 0; i < results.length; i++){
-            document.getElementById("sports-club-list").innerHTML += "<option>" + trimmedClubNames[i] + "</option>";
+            document.getElementById("sports-club-list").innerHTML += "<option name = 'club'>" + trimmedClubNames[i] + "</option>";
         }
       }
     }).fail(function (data, status) {
@@ -304,7 +332,7 @@ $("#club_request_form").submit(function(e){
       alert(str);
     } else {
       alert('success');
-      window.location.href = "../mainPages/landingPage.html";
+      window.location.href = "../Authentication/splashPage.html";
     }
    })
   .fail(function ( data, status ) {
@@ -752,7 +780,7 @@ function GetApprovedClubMembersByClub(){
       str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
-    } 
+    }
     else {
       var posArr = newdata.data.positions;
       var clubName = formatClubTeamNameString(posArr[0].club_name);
@@ -826,14 +854,13 @@ function RespondRequest(request, decision) {
 
 function CreateCommunityServiceRequest(){
   var values = $("form").serializeArray();
-  var userEmail = values[0].value;
-  var userPass = values[1].value;
-  var userEmail = "asilcott@ufl.edu";
-  var userSess = $('#GetAttachedClubsByUserSession').val();
-  var clubName = "Mens Lacrosse";
+  var userEmail = sessionStorage.userEmail;
+  var userSess = sessionStorage.session_id;
+
+  var clubName = values[3].value;
   var clubYear = "2016";
-  var total_hours = "25";
-  $.ajax( { 
+  var total_hours = values[10].value;
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'CreateCommunityServiceRequest', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear, total_hours:total_hours},
     url  : serverAddress,
@@ -856,6 +883,7 @@ function CreateCommunityServiceRequest(){
     alert("errorr");
   });
 }
+
 function EditCommunityServiceRequest(){
   var userEmail = "asilcott@ufl.edu";
   var userSess = $('#GetAttachedClubsByUserSession').val();
@@ -863,7 +891,7 @@ function EditCommunityServiceRequest(){
   var oldValue = "25";
   var newValue = "30";
   var request_id = "1";
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'EditCommunityServiceRequest', email:userEmail, session_id:userSess, attribute:attribute, old_value:oldValue, new_value:newValue, request_id:request_id},
     url  : serverAddress,
@@ -890,7 +918,7 @@ function DeleteCommunityServiceRequest(){
   var userEmail = "asilcott@ufl.edu";
   var userSess = $('#GetAttachedClubsByUserSession').val();
   var request_id = "1";
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'DeleteCommunityServiceRequest', email:userEmail, session_id:userSess, request_id:request_id},
     url  : serverAddress,
@@ -918,7 +946,7 @@ function RespondCommunityServiceRequest(){
   var userSess = $('#GetAttachedClubsByUserSession').val();
   var request_id = "1";
   var decision = "1";
-  $.ajax( { 
+  $.ajax( {
     type : 'POST',
     data : {phpFunction:'RespondCommunityServiceRequest', email:userEmail, session_id:userSess, request_id:request_id, decision:decision},
     url  : serverAddress,

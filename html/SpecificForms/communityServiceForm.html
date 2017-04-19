@@ -59,7 +59,7 @@
     <div class = "spacer"/>
 
     <!-- each field needs a form group -->
-    <form accept-charset="UTF-8" id="form" method="post" action="https://script.google.com/macros/s/AKfycbxrUzD_lW6qJSoLTwEdrZZJq8cy6u9p6cf1ec5kCbuk1xf-ZyQ/exec">
+    <form accept-charset="UTF-8" id="form" method="post" >
         <div class="col-md-4 col-md-offset-4"> <!-- centering the forms -->
             <div class = "form-group" id="dynamicInput">
                 <div class="row"> <!-- Full Name field !-->
@@ -76,8 +76,8 @@
                 </div>
                 <div class="row"> <!-- Confirm Password field !-->
                     <label id = "font-style" for="club" class="control-label">Sports Club</label>
-                    <select id = "sports-club-list" class="form-control">
-                        <option value = "default" selected> Sports Club Name </option>
+                    <select id = "sports-club-list" class="form-control" name = "club">
+                        <option name = "club" value = "default" selected> Sports Club Name </option>
                     </select>
                 </div>
                 <div class="row"> <!-- Full Name field !-->
@@ -162,13 +162,13 @@
                 </div>
         </div>
             <div class="form-group row"> <!-- Submit button !-->
-                <input value="Add Another Volunteer" onClick="addInput('dynamicInput')" style = "background-color:#7AAE96; border-style: none;" type="button" class="rec-button btn btn-primary">
+                <input value="Add Another Volunteer" onClick="addInput('dynamicInput');" style = "background-color:#7AAE96; border-style: none;" type="button" class="rec-button btn btn-primary">
             </div>
 
             <div class = "spacer"/>
 
             <div class="form-group row"> <!-- Submit button !-->
-                <center><button onclick = "CreateCommunityServiceRequest();" style = "background-color:#7AAE96; border-style: none;" type="submit" class="rec-button btn btn-primary">NEXT STEP</button></center>
+                <center><button onclick = "CreateCommunityServiceRequest(); google.script.run.withSuccessHandler(onSuccess).fillCommunityServiceForm();" style = "background-color:#7AAE96; border-style: none;" type="submit" class="rec-button btn btn-primary">NEXT STEP</button></center>
             </div>
         </form>
     </div>
