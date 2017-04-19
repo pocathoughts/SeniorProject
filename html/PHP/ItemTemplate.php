@@ -167,7 +167,7 @@ function GetITEMRequstByClubPermissionCheck($link, $data){
 function GetITEMEeditRequestByUserPermissionCheck($link, $data){
   //Null
 }
-function GetITEMEditRequestByEmailPermissionCheck($link, $data)
+function GetITEMEditRequestByEmailPermissionCheck($link, $data){
   //TODO admin
   if ($data['admin'] == 1){
     //echo 'allowed';

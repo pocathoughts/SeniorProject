@@ -167,7 +167,7 @@ function GetCommunityServiceRequstByClubPermissionCheck($link, $data){
 function GetCommunityServiceEeditRequestByUserPermissionCheck($link, $data){
   //Null
 }
-function GetCommunityServiceEditRequestByEmailPermissionCheck($link, $data)
+function GetCommunityServiceEditRequestByEmailPermissionCheck($link, $data){
   //TODO admin
   if ($data['admin'] == 1){
     //echo 'allowed';
