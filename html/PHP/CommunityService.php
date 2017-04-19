@@ -210,7 +210,7 @@ function EditCommunityServiceRequestValidate ($link, $data){
     exitfnc($returnData);
   } else {
     $att = $data['attribute'];
-    if ($row[$i]['active_bool'] == 0){
+    if ($row[$i]['active_bool'] === 0){
       $returnData['errcode'] = 2;
       $returnData['errno'] = 2000;
       $returnData['errstr'] = "request is no longer active and cannot be edited";
