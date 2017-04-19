@@ -826,13 +826,12 @@ function RespondRequest(request, decision) {
 
 function CreateCommunityServiceRequest(){
   var values = $("form").serializeArray();
-  var userEmail = values[0].value;
-  var userPass = values[1].value;
-  var userEmail = "asilcott@ufl.edu";
-  var userSess = $('#GetAttachedClubsByUserSession').val();
-  var clubName = "Mens Lacrosse";
+  var userEmail = sessionStorage.userEmail;
+  var userSess = sessionStorage.session_id;
+
+  var clubName = values[3].value;
   var clubYear = "2016";
-  var total_hours = "25";
+  var total_hours = values[10].value;
   $.ajax( { 
     type : 'POST',
     data : {phpFunction:'CreateCommunityServiceRequest', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear, total_hours:total_hours},
@@ -856,6 +855,7 @@ function CreateCommunityServiceRequest(){
     alert("errorr");
   });
 }
+
 function EditCommunityServiceRequest(){
   var userEmail = "asilcott@ufl.edu";
   var userSess = $('#GetAttachedClubsByUserSession').val();
