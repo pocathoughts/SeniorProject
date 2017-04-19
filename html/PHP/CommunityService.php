@@ -226,6 +226,7 @@ function EditCommunityServiceRequestValidate ($link, $data){
   }
 }
 function DeleteCommunityServiceRequestValidate ($link, $data){
+  InjectClubYearIdByCommunityServiceID($link, $data);
   DeleteCommunityServiceRequestPermissionCheck($link, $data);
   $select = "SELECT active_bool FROM community_service_request WHERE request_id =" . $data['request_id'];
   $results = queryMultiple($link, $select, "Com Serv Query", 5000);
@@ -238,11 +239,12 @@ function DeleteCommunityServiceRequestValidate ($link, $data){
     $returnData['errstr'] = "invalid request id";
     exitfnc($returnData);
   } else {
+    $i = 0;
     $att = $data['attribute'];
     if ($row[$i]['active_bool'] == 0){
       $returnData['errcode'] = 2;
       $returnData['errno'] = 2000;
-      $returnData['errstr'] = "request is no longer active and cannot be edited";
+      $returnData['errstr'] = "request is no longer active and cannot be deleted";
       exitfnc($returnData);
     }
   }
