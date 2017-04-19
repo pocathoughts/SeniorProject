@@ -50,8 +50,8 @@ function Login($link, $data, &$returnData){
   
   //verify size of result:
   if (mysqli_num_rows($result) == 0){   //no matching records
-      $returnData['errcode'] = 2;
-      $returnData['errno'] = 2000;
+      $returnData['errcode'] = 3;
+      $returnData['errno'] = 3000;
       $returnData['errstr'] = "No account found for " . $data['email'] . ", please create one";
     exitfnc($returnData);
   } elseif (mysqli_num_rows($result) > 1){   //multiple matching records, supposed to be Unique, Database error

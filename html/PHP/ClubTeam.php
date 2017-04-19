@@ -252,8 +252,8 @@ function GetAttachedClubsByUser ($link, $data){
     $rows[] = $row;
   }
   if (sizeof($rows) == 0){
-    $returnData['errcode'] = 2;
-    $returnData['errno'] = 2000;
+    $returnData['errcode'] = 3;
+    $returnData['errno'] = 3000;
     $returnData['errstr'] = "User not attached to any Clubs";
     exitfnc($returnData);
   } else {

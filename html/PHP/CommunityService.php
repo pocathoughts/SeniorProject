@@ -204,22 +204,22 @@ function EditCommunityServiceRequestValidate ($link, $data){
     $rows[] = $row;
   }
   if (sizeof($rows) == 0){
-    $returnData['errcode'] = 2;
-    $returnData['errno'] = 2000;
+      $returnData['errcode'] = 3;
+      $returnData['errno'] = 3000;
     $returnData['errstr'] = "invalid request id";
     exitfnc($returnData);
   } else {
     $i = 0;
     $att = $data['attribute'];
     if ($rows[$i]['active_bool'] == 0){
-      $returnData['errcode'] = 2;
-      $returnData['errno'] = 2000;
+      $returnData['errcode'] = 3;
+      $returnData['errno'] = 3000;
       $returnData['errstr'] = "request is no longer active and cannot be edited";
       exitfnc($returnData);
     }
     if ($rows[$i][$att] != $data['old_value']){
-      $returnData['errcode'] = 2;
-      $returnData['errno'] = 2000;
+      $returnData['errcode'] = 3;
+      $returnData['errno'] = 3000;
       $returnData['errstr'] = "request has been edited and cannot be changed";
       exitfnc($returnData);
     }
@@ -234,16 +234,16 @@ function DeleteCommunityServiceRequestValidate ($link, $data){
     $rows[] = $row;
   }
   if (sizeof($rows) == 0){
-    $returnData['errcode'] = 2;
-    $returnData['errno'] = 2000;
+      $returnData['errcode'] = 3;
+      $returnData['errno'] = 3000;
     $returnData['errstr'] = "invalid request id";
     exitfnc($returnData);
   } else {
     $i = 0;
     $att = $data['attribute'];
     if ($rows[$i]['active_bool'] == 0){
-      $returnData['errcode'] = 2;
-      $returnData['errno'] = 2000;
+      $returnData['errcode'] = 3;
+      $returnData['errno'] = 3000;
       $returnData['errstr'] = "request is no longer active and cannot be deleted";
       exitfnc($returnData);
     }
@@ -258,16 +258,16 @@ function RespondCommunityServiceRequestValidate ($link, $data){
     $rows[] = $row;
   }
   if (sizeof($rows) == 0){
-    $returnData['errcode'] = 2;
-    $returnData['errno'] = 2000;
+      $returnData['errcode'] = 3;
+      $returnData['errno'] = 3000;
     $returnData['errstr'] = "invalid request id";
     exitfnc($returnData);
   } else {
     $i = 0;
     $att = $data['attribute'];
     if ($rows[$i]['active_bool'] == 0){
-      $returnData['errcode'] = 2;
-      $returnData['errno'] = 2000;
+      $returnData['errcode'] = 3;
+      $returnData['errno'] = 3000;
       $returnData['errstr'] = "request is no longer active and cannot be responded to";
       exitfnc($returnData);
     }
@@ -403,8 +403,8 @@ WHERE user_account.account_id = " . $data['account_id'];
     $rows[] = $row;
   }
   if (sizeof($rows) == 0){
-    $returnData['errcode'] = 2;
-    $returnData['errno'] = 2000;
+    $returnData['errcode'] = 3;
+    $returnData['errno'] = 3000;
     $returnData['errstr'] = "User " . $data['email'] . " Has No CommunityService events";
     exitfnc($returnData);
   } else {
@@ -440,8 +440,8 @@ WHERE user_account.email = '" . $email . "'";
     $rows[] = $row;
   }
   if (sizeof($rows) == 0){
-    $returnData['errcode'] = 2;
-    $returnData['errno'] = 2000;
+    $returnData['errcode'] = 3;
+    $returnData['errno'] = 3000;
     $returnData['errstr'] = "User " . $data['request_email'] . " Has No CommunityService events";
     exitfnc($returnData);
   } else {
@@ -476,8 +476,8 @@ WHERE club_operating_year.club_year_id = " . $data['club_year_id'];
     $rows[] = $row;
   }
   if (sizeof($rows) == 0){
-    $returnData['errcode'] = 2;
-    $returnData['errno'] = 2000;
+    $returnData['errcode'] = 3;
+    $returnData['errno'] = 3000;
     $returnData['errstr'] = "Club " . $data['club_name'] . " Has No CommunityService events";
     exitfnc($returnData);
   } else {
@@ -513,8 +513,8 @@ WHERE user_account.account_id = " . $data['account_id'];
     $rows[] = $row;
   }
   if (sizeof($rows) == 0){
-    $returnData['errcode'] = 2;
-    $returnData['errno'] = 2000;
+    $returnData['errcode'] = 3;
+    $returnData['errno'] = 3000;
     $returnData['errstr'] = "User " . $data['email'] . " Has No CommunityService events";
     exitfnc($returnData);
   } else {
@@ -555,8 +555,8 @@ WHERE user_account.email = '" . $email . "'";
     $rows[] = $row;
   }
   if (sizeof($rows) == 0){
-    $returnData['errcode'] = 2;
-    $returnData['errno'] = 2000;
+    $returnData['errcode'] = 3;
+    $returnData['errno'] = 3000;
     $returnData['errstr'] = "User " . $data['request_email'] . " Has No CommunityService events";
     exitfnc($returnData);
   } else {
@@ -596,8 +596,8 @@ WHERE club_operating_year.club_year_id = " . $data['club_year_id'];
     $rows[] = $row;
   }
   if (sizeof($rows) == 0){
-    $returnData['errcode'] = 2;
-    $returnData['errno'] = 2000;
+    $returnData['errcode'] = 3;
+    $returnData['errno'] = 3000;
     $returnData['errstr'] = "Club " . $data['club_name'] . " Has No CommunityService events";
     exitfnc($returnData);
   } else {

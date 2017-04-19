@@ -171,9 +171,9 @@ function RespondJoinClubRequestValidate ($link, &$data, &$returnData){
   $statusResults = querySingle($link, $queryStatus, "Request Status Query", 5000, 5, 5001, "Multiple entries by request_id, contact admin");
   $row = mysqli_fetch_array($statusResults);
   if ($row['status'] == 1){
-    $returnData['errcode'] = 2;
+    $returnData['errcode'] = 3;
     //TODO proper code
-    $returnData['errno'] = 2000;
+    $returnData['errno'] = 3000;
     $returnData['errstr'] = "Request has already been responded too, response rejected";
     exitfnc($returnData);
   }
@@ -295,8 +295,8 @@ WHERE user_account.account_id = " . $data['account_id'];
     $rows[] = $row;
   }
   if (sizeof($rows) == 0){
-    $returnData['errcode'] = 2;
-    $returnData['errno'] = 2000;
+      $returnData['errcode'] = 3;
+      $returnData['errno'] = 3000;
     $returnData['errstr'] = "User " . $data['email'] . " Has No Requests";
     exitfnc($returnData);
   } else {
@@ -341,8 +341,8 @@ WHERE user_account.email = '" . $email . "'";
     $rows[] = $row;
   }
   if (sizeof($rows) == 0){
-    $returnData['errcode'] = 2;
-    $returnData['errno'] = 2000;
+      $returnData['errcode'] = 3;
+      $returnData['errno'] = 3000;
     $returnData['errstr'] = "user " . $email . " Has No Requests";
     exitfnc($returnData);
   } else {
@@ -386,8 +386,8 @@ WHERE club_position_request.club_year_id =" . $data ['club_year_id'];
     $rows[] = $row;
   }
   if (sizeof($rows) == 0){
-    $returnData['errcode'] = 2;
-    $returnData['errno'] = 2000;
+      $returnData['errcode'] = 3;
+      $returnData['errno'] = 3000;
     $returnData['errstr'] = "Club " . $data['club_year_id'] . " Has No Requests";
     exitfnc($returnData);
   } else {
