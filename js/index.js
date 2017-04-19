@@ -237,6 +237,8 @@ function populateDropDownWithClubSports(){
         alert(str);
       } else {
         results = results.club_team;
+        //alert("year");
+        //alert(results[0]);
         var trimmedClubNames = formatClubString(results);
         //var hi = results.split(",");
         document.getElementById("sports-club-list").innerHTML = "<option>Sports Club Name</option>";
