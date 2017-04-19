@@ -214,14 +214,6 @@ function shortTest(userInput) {
   //creating and setting responses for a particular question
   //lets start by creating the cehc
 
-    // for the next fields we need to make sure they exist, if they do we then add them in
-  if (userInput.vol6 == null){
-    Logger.log('no value');
-  }
-  else{
-    Logger.log('valid field');
-  }
-
 
   var first_name_r = first_name_q.createResponse(userInput.first_name);
   var last_name_r = last_name_q.createResponse(userInput.last_name);
@@ -285,7 +277,16 @@ function shortTest(userInput) {
   form_responses.withItemResponse(total_hours_r);
   form_responses.withItemResponse(org_name_r);
   form_responses.withItemResponse(contact_person_r);
-  form_responses.withItemResponse(email_phone_contact_person_r);
+  form_responses.withItemResponse(vol1_r);
+  form_responses.withItemResponse(vol1_hrs_r);
+  form_responses.withItemResponse(vol2_r);
+  form_responses.withItemResponse(vol2_hrs_r);
+  form_responses.withItemResponse(vol3_r);
+  form_responses.withItemResponse(vol3_hrs_r);
+  form_responses.withItemResponse(vol4_r);
+  form_responses.withItemResponse(vol4_hrs_r);
+  form_responses.withItemResponse(vol5_r);
+  form_responses.withItemResponse(vol5_hrs_r);
   // handle filling forms out with only certain fields filled out
 
   // submitting the form
