@@ -29,6 +29,81 @@
     </style>
   </head>
   <body>
+
+    <script>
+var userEmail = sessionStorage.userEmail;
+  var userSession = sessionStorage.session_id;
+  $.ajax( {
+    type : 'POST',
+    data : {phpFunction:'GetCommunityServiceByUser', email:userEmail, session_id:userSession},
+    url : serverAddress,
+  }).done(function (data, status) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode != 0){
+      var str = "Errcode : " + newdata.errcode;
+      str += "\nErrno : " + newdata.errno;
+      str += "\nErrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+      alert(str);
+      return;
+    } else {
+      alert(results);
+    }
+  }).fail(function (data, status) {
+    alert('errorr');
+  });
+
+  var userEmail = sessionStorage.userEmail;
+  var userSession = sessionStorage.session_id;
+  var reqEmail = "asilcott@ufl.edu"
+  $.ajax( {
+    type : 'POST',
+    data : {phpFunction:'GetCommunityServiceByEmail', email:userEmail, session_id:userSession, request_email:reqEmail},
+    url : serverAddress,
+  }).done(function (data, status) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode != 0){
+      var str = "Errcode : " + newdata.errcode;
+      str += "\nErrno : " + newdata.errno;
+      str += "\nErrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+      alert(str);
+      return;
+    } else {
+      alert(results);
+    }
+  }).fail(function (data, status) {
+    alert('errorr');
+  });
+
+  var userEmail = sessionStorage.userEmail;
+  var userSession = sessionStorage.session_id;
+  $.ajax( {
+    type : 'POST',
+    data : {phpFunction:'GetCommunityServiceByClub', email:userEmail, session_id:userSession, club_name: "Mens Lacrosse", year:"2016"},
+    url : serverAddress,
+  }).done(function (data, status) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode != 0){
+      var str = "Errcode : " + newdata.errcode;
+      str += "\nErrno : " + newdata.errno;
+      str += "\nErrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+      alert(str);
+      return;
+    } else {
+      alert(results);
+    }
+  }).fail(function (data, status) {
+    alert('errorr');
+  });
+
+</script>
+
+
     <div class="results">
       <h1>Results:</h1>
       <button onclick=clearHeading('Sessions','Active Sessions')>Clear Sessions</button>

@@ -1,5 +1,7 @@
 var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
 
+
+
   $("#login_form").submit(function(e){
   alert("hi");
   e.preventDefault();
@@ -15,10 +17,15 @@ var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
       return;
@@ -58,10 +65,15 @@ $("#create_account_form").submit(function(e){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
     }
@@ -77,10 +89,15 @@ $("#create_account_form").submit(function(e){
       .done(function ( data, status ) {
         var newdata = JSON.parse(data);
         var results = newdata.data;
+        if(newdata.errcode == 2){
+          alert(newdata.errstr + "\n\nPlease log in");
+          window.location.href = "../Authentication/login.html";
+          return;
+        }
         if(newdata.errcode != 0){
           var str = "Errcode : " + newdata.errcode;
           str += "\nErrno : " + newdata.errno;
-          str += "\nErrstr : " + newdata.errstr;
+          str += "\nerrstr : " + newdata.errstr;
           str += "\nData : " + JSON.stringify(newdata.data);
           alert(str);
           //window.location.href ="";
@@ -109,10 +126,15 @@ function getAllClubs(){
   }).done(function (data, status) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
     } else {
@@ -136,10 +158,15 @@ function getAllClubsExecutiveBoardMembers(){
   }).done(function (data, status) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
     } else {
@@ -167,10 +194,15 @@ function populateDropDownWithClubSports(){
     }).done(function (data, status) {
       var newdata = JSON.parse(data);
       var results = newdata.data;
+      if(newdata.errcode == 2){
+        alert(newdata.errstr + "\n\nPlease log in");
+        window.location.href = "../Authentication/login.html";
+        return;
+      }
       if(newdata.errcode != 0){
         var str = "Errcode : " + newdata.errcode;
         str += "\nErrno : " + newdata.errno;
-        str += "\nErrstr : " + newdata.errstr;
+        str += "\nerrstr : " + newdata.errstr;
         str += "\nData : " + JSON.stringify(newdata.data);
         alert(str);
       } else {
@@ -217,10 +249,15 @@ function getAttachedClubsByUser(){
   }).done(function (data, status) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
       return;
@@ -254,10 +291,15 @@ $("#club_request_form").submit(function(e){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
     } else {
@@ -282,10 +324,16 @@ function getClubRequestByClub() {
   }).done(function (data, status) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
       return;
@@ -304,10 +352,16 @@ function getClubRequestByClub() {
       .done(function ( data, status ) {
         var newdata = JSON.parse(data);
         var results = newdata.data;
+
+        if(newdata.errcode == 2){
+          alert(newdata.errstr + "\n\nPlease log in");
+          window.location.href = "../Authentication/login.html";
+          return;
+        }
         if(newdata.errcode != 0){
           var str = "Errcode : " + newdata.errcode;
           str += "\nErrno : " + newdata.errno;
-          str += "\nErrstr : " + newdata.errstr;
+          str += "\nerrstr : " + newdata.errstr;
           str += "\nData : " + JSON.stringify(newdata.data);
           alert(str);
         } else {
@@ -359,10 +413,15 @@ function getClubRequestByEmail() {
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
     } else {
@@ -399,10 +458,15 @@ function getClubRequestByUser() {
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
     } else {
@@ -437,10 +501,15 @@ function GetClubPositionByClub(){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
     } else {
@@ -472,10 +541,15 @@ function GetClubPositionByEmail(){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
     } else {
@@ -505,10 +579,15 @@ function GetClubPositionByUser(){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
     } else {
@@ -547,9 +626,14 @@ function RemoveClubPositionByUser(){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     var str = "Errcode : " + newdata.errcode;
     str += "\nErrno : " + newdata.errno;
-    str += "\nErrstr : " + newdata.errstr;
+    str += "\nerrstr : " + newdata.errstr;
     str += "\nData : " + JSON.stringify(newdata.data);
     alert(str);
    })
@@ -575,10 +659,15 @@ function populateNavBarWithNameAndClub(){
     .done(function ( data, status ) {
       var newdata = JSON.parse(data);
       var results = newdata.data;
+      if(newdata.errcode == 2){
+        alert(newdata.errstr + "\n\nPlease log in");
+        window.location.href = "../Authentication/login.html";
+        return;
+      }
       if(newdata.errcode != 0){
         var str = "Errcode : " + newdata.errcode;
         str += "\nErrno : " + newdata.errno;
-        str += "\nErrstr : " + newdata.errstr;
+        str += "\nerrstr : " + newdata.errstr;
         str += "\nData : " + JSON.stringify(newdata.data);
       } else {
         var positionsArray = newdata.data.positions;
@@ -609,10 +698,15 @@ function populateAccountPage(){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
     } else {
@@ -647,10 +741,15 @@ function GetApprovedClubMembersByClub(){
   .done(function ( data, status ) {
     var newdata = JSON.parse(data);
     var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
     if(newdata.errcode != 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
     } 
@@ -666,10 +765,15 @@ function GetApprovedClubMembersByClub(){
       .done(function ( data, status ) {
         var newdata = JSON.parse(data);
         var results = newdata.data;
+        if(newdata.errcode == 2){
+          alert(newdata.errstr + "\n\nPlease log in");
+          window.location.href = "../Authentication/login.html";
+          return;
+        }
         if(newdata.errcode != 0){
           var str = "Errcode : " + newdata.errcode;
           str += "\nErrno : " + newdata.errno;
-          str += "\nErrstr : " + newdata.errstr;
+          str += "\nerrstr : " + newdata.errstr;
           str += "\nData : " + JSON.stringify(newdata.data);
           alert(str);
         } else {
@@ -704,13 +808,227 @@ function RespondRequest(request, decision) {
     })
     .done(function ( data, status ) {
       var newdata = JSON.parse(data);
+      if(newdata.errcode == 2){
+        alert(newdata.errstr + "\n\nPlease log in");
+        window.location.href = "../Authentication/login.html";
+        return;
+      }
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
-      str += "\nErrstr : " + newdata.errstr;
+      str += "\nerrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert( str );
     })
     .fail(function ( data, status ) {
       alert( "errorr" );
     });
+}
+
+function CreateCommunityServiceRequest(){
+  var values = $("form").serializeArray();
+  var userEmail = values[0].value;
+  var userPass = values[1].value;
+  var userEmail = "asilcott@ufl.edu";
+  var userSess = $('#GetAttachedClubsByUserSession').val();
+  var clubName = "Mens Lacrosse";
+  var clubYear = "2016";
+  var total_hours = "25";
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'CreateCommunityServiceRequest', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear, total_hours:total_hours},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
+    var str = "Errcode : " + newdata.errcode;
+    str += "\nErrno : " + newdata.errno;
+    str += "\nerrstr : " + newdata.errstr;
+    str += "\nData : " + JSON.stringify(newdata.data);
+    alert(str);
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
+function EditCommunityServiceRequest(){
+  var userEmail = "asilcott@ufl.edu";
+  var userSess = $('#GetAttachedClubsByUserSession').val();
+  var attribute = "total_hours";
+  var oldValue = "25";
+  var newValue = "30";
+  var request_id = "1";
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'EditCommunityServiceRequest', email:userEmail, session_id:userSess, attribute:attribute, old_value:oldValue, new_value:newValue, request_id:request_id},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
+    var str = "Errcode : " + newdata.errcode;
+    str += "\nErrno : " + newdata.errno;
+    str += "\nerrstr : " + newdata.errstr;
+    str += "\nData : " + JSON.stringify(newdata.data);
+    alert(str);
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
+function DeleteCommunityServiceRequest(){
+  var userEmail = "asilcott@ufl.edu";
+  var userSess = $('#GetAttachedClubsByUserSession').val();
+  var request_id = "1";
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'DeleteCommunityServiceRequest', email:userEmail, session_id:userSess, request_id:request_id},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
+    var str = "Errcode : " + newdata.errcode;
+    str += "\nErrno : " + newdata.errno;
+    str += "\nerrstr : " + newdata.errstr;
+    str += "\nData : " + JSON.stringify(newdata.data);
+    alert(str);
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
+function RespondCommunityServiceRequest(){
+  var userEmail = "asilcott@ufl.edu";
+  var userSess = $('#GetAttachedClubsByUserSession').val();
+  var request_id = "1";
+  var decision = "1";
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'RespondCommunityServiceRequest', email:userEmail, session_id:userSess, request_id:request_id, decision:decision},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
+    var str = "Errcode : " + newdata.errcode;
+    str += "\nErrno : " + newdata.errno;
+    str += "\nerrstr : " + newdata.errstr;
+    str += "\nData : " + JSON.stringify(newdata.data);
+    alert(str);
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
+
+function GetCommunityServiceRequestByUser(){
+var userEmail = sessionStorage.userEmail;
+  var userSession = sessionStorage.session_id;
+  $.ajax( {
+    type : 'POST',
+    data : {phpFunction:'GetCommunityServiceRequestByUser', email:userEmail, session_id:userSession},
+    url : serverAddress,
+  }).done(function (data, status) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
+    if(newdata.errcode != 0){
+      var str = "Errcode : " + newdata.errcode;
+      str += "\nErrno : " + newdata.errno;
+      str += "\nerrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+      alert(str);
+      return;
+    } else {
+      alert(results);
+    }
+  }).fail(function (data, status) {
+    alert('errorr');
+  });
+}
+
+  function GetCommunityServiceRequestByEmail(){
+  var userEmail = sessionStorage.userEmail;
+  var userSession = sessionStorage.session_id;
+  var reqEmail = //Something form the html
+  $.ajax( {
+    type : 'POST',
+    data : {phpFunction:'GetCommunityServiceRequestByEmail', email:userEmail, session_id:userSession, request_email:reqEmail},
+    url : serverAddress,
+  }).done(function (data, status) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
+    if(newdata.errcode != 0){
+      var str = "Errcode : " + newdata.errcode;
+      str += "\nErrno : " + newdata.errno;
+      str += "\nerrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+      alert(str);
+      return;
+    } else {
+      alert(results);
+    }
+  }).fail(function (data, status) {
+    alert('errorr');
+  });
+}
+
+  function GetCommunityServiceRequestByClub(){
+  var userEmail = sessionStorage.userEmail;
+  var userSession = sessionStorage.session_id;
+  $.ajax( {
+    type : 'POST',
+    data : {phpFunction:'GetCommunityServiceRequestByClub', email:userEmail, session_id:userSession, club_name: "Mens Lacrosse", year:"2016"},
+    url : serverAddress,
+  }).done(function (data, status) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
+    if(newdata.errcode != 0){
+      var str = "Errcode : " + newdata.errcode;
+      str += "\nErrno : " + newdata.errno;
+      str += "\nerrstr : " + newdata.errstr;
+      str += "\nData : " + JSON.stringify(newdata.data);
+      alert(str);
+      return;
+    } else {
+      alert(results);
+    }
+  }).fail(function (data, status) {
+    alert('errorr');
+  });
 }
