@@ -13,6 +13,8 @@
         width:33%;
         float: left;
         overflow-y: scroll;
+        position:relative;
+        top: 0;
       }
       .divRow {
           clear:both;
@@ -27,7 +29,7 @@
     </style>
   </head>
   <body>
-    <div class="results" style="position:fixed">
+    <div class="results">
       <h1>Results:</h1>
       <button onclick=clearHeading('Sessions','Active Sessions')>Clear Sessions</button>
       <button onclick=clearHeading('ClubTeams','Club Teams')>Clear ClubTeams</button>
