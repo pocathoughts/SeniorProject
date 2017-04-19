@@ -210,7 +210,6 @@ function EditCommunityServiceRequestValidate ($link, $data){
     exitfnc($returnData);
   } else {
     $i = 0;
-    echo $rows[$i];
     $att = $data['attribute'];
     if ($rows[$i]['active_bool'] === 0){
       $returnData['errcode'] = 2;
@@ -218,7 +217,6 @@ function EditCommunityServiceRequestValidate ($link, $data){
       $returnData['errstr'] = "request is no longer active and cannot be edited";
       exitfnc($returnData);
     }
-    echo $rows[$i][$att];
     if ($rows[$i][$att] != $data['old_value']){
       $returnData['errcode'] = 2;
       $returnData['errno'] = 2000;
@@ -305,7 +303,7 @@ function EditCommunityServiceRequest ($link, $data){
   EditCommunityServiceRequestValidate($link, $data);
   //require old value in request check it in validate
   //insert CommunityService request
-  $update = "UPDATE community_service_request SET " . $data['attribute'] . " = " . $data['new_value'] . " WHERE community_service_id = " . $data['community_service_id'];
+  $update = "UPDATE community_service_request SET " . $data['attribute'] . " = " . $data['new_value'] . " WHERE request_id = " . $data['request_id'];
   nonQuery($link, $update, "edit CommunityService request", 5000);
   $returnData['errcode'] = 0;
   $returnData['errno'] = 0;
