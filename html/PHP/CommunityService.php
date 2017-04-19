@@ -197,9 +197,54 @@ function CreateCommunityServiceRequestValidate ($link, &$data){
 function EditCommunityServiceRequestValidate ($link, $data){
   InjectClubYearIdByCommunityServiceID($link, $data);
   EditCommunityServiceRequestPermissionCheck($link, $data);
+  //query request by old value, request id, and active_bool
+  $select = "SELECT active_bool, " . $data['attribute']  . " FROM community_service_request WHERE request_id =" . $data['request_id'];
+  $results = queryMultiple($link, $select, "Com Serv Query", 5000);
+  while ($row = mysqli_fetch_array($results)){
+    $rows[] = $row;
+  }
+  if (sizeof($rows) == 0){
+    $returnData['errcode'] = 2;
+    $returnData['errno'] = 2000;
+    $returnData['errstr'] = "invalid request id";
+    exitfnc($returnData);
+  } else {
+    $att = $data['attribute'];
+    if ($row[$i]['active_bool'] == 0){
+      $returnData['errcode'] = 2;
+      $returnData['errno'] = 2000;
+      $returnData['errstr'] = "request is no longer active and cannot be edited"
+      exitfnc($returnData);
+    }
+    if ($row[$i][$att] != $data['old_value']){
+      $returnData['errcode'] = 2;
+      $returnData['errno'] = 2000;
+      $returnData['errstr'] = "request has been edited and cannot be changed"
+      exitfnc($returnData);
+    }
+  }
 }
 function DeleteCommunityServiceRequestValidate ($link, $data){
   DeleteCommunityServiceRequestPermissionCheck($link, $data);
+  $select = "SELECT active_bool FROM community_service_request WHERE request_id =" . $data['request_id'];
+  $results = queryMultiple($link, $select, "Com Serv Query", 5000);
+  while ($row = mysqli_fetch_array($results)){
+    $rows[] = $row;
+  }
+  if (sizeof($rows) == 0){
+    $returnData['errcode'] = 2;
+    $returnData['errno'] = 2000;
+    $returnData['errstr'] = "invalid request id";
+    exitfnc($returnData);
+  } else {
+    $att = $data['attribute'];
+    if ($row[$i]['active_bool'] == 0){
+      $returnData['errcode'] = 2;
+      $returnData['errno'] = 2000;
+      $returnData['errstr'] = "request is no longer active and cannot be edited"
+      exitfnc($returnData);
+    }
+  }
 }
 function RespondCommunityServiceRequestValidate ($link, $data){
   RespondCommunityServiceRequestPermissionCheck($link, $data);
@@ -268,7 +313,12 @@ function EditCommunityServiceRequest ($link, $data){
 function DeleteCommunityServiceRequest ($link, $data){
   DeleteCommunityServiceRequestValidate($link, $data);
   //remove the CommunityService request.
-  $delete = "DELETE FROM community_service WHERE request_id = " . $data['request_id'];
+  $delete = "DELETE FROM community_service_request WHERE request_id = " . $data['request_id'];
+  nonQuery($link, $update, "delete CommunityService request", 5000);
+  $returnData['errcode'] = 0;
+  $returnData['errno'] = 0;
+  $returnData['data']['status'] = 'successful'; 
+  exitfnc($returnData);
   //return 0 on success
 }
 function RespondCommunityServiceRequest ($link, $data){

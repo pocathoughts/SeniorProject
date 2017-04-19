@@ -24,7 +24,7 @@ INSERT INTO user_account (email, password, name, recSport_acc, account_id) VALUE
 /*----Adding user and asilcot to Mens Lacrosse----*/
 INSERT INTO club_position (account_id, club_year_id, position_name, president_bool) VALUES ('100', 1000, 'President', 1);
 INSERT INTO club_position (account_id, club_year_id, position_name, president_bool) VALUES ('101', 1000, 'VP', 0);
-INSERT INTO club_position (account_id, club_year_id, position_name, president_bool) VALUES ('101', 1001, 'President', 1);
+INSERT INTO club_position (account_id, club_year_id, position_name, president_bool) VALUES ('102', 1001, 'President', 1);
 
 /*----Adding requester's request to Join----*/
 INSERT INTO club_position_request(account_id, club_year_id, position_name, president_bool) VALUES ('102', 1000, 'secretary', 0);
