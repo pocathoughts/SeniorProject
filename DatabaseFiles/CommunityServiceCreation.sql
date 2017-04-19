@@ -8,6 +8,9 @@ CREATE TABLE community_service(
   event_date VARCHAR(200) NOT NULL,*/
   total_hours INT NOT NULL,
   club_year_id INT NOT NULL,
+  requester_id INT NOT NULL,
+
+  FOREIGN KEY (requester_id) REFERENCES user_account(account_id) ON DELETE CASCADE,
   
   FOREIGN KEY (club_year_id) REFERENCES club_operating_year(club_year_id) ON DELETE CASCADE,
   PRIMARY KEY (community_service_id)
