@@ -15,7 +15,7 @@ function CreateCommunityServiceRequestPermissionCheck($link, $data){
       $returnData['errstr'] = "User is not associated with Club";
       exitfnc($returnData);
   }  
-}
+} 
 function EditCommunityServiceRequestPermissionCheck($link, $data){
   //TODO club member or admin
   if ($data['admin'] == 1){
@@ -597,6 +597,7 @@ WHERE club_operating_year.club_year_id = " . $data['club_year_id'];
     $returnData['errcode'] = 0;
     $returnData['errno'] = 0;
     exitfnc($returnData);
+  }
 }
 function GetCommunityServiceEditRequestByUser ($link, $data){
   GetCommunityServiceEditRequestByUserValidate($link, $data);
