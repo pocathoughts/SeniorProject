@@ -171,7 +171,8 @@ function getClubRequestByClub() {
       alert(str);
     } else {
       var requestsArray = newdata.data.requests;
-      document.getElementById("ClubRequests").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + "-" + (clubYear+1) + ")</h3>";
+      var newYear = clubYear +1;
+      document.getElementById("ClubRequests").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + "-" + newYear + ")</h3>";
       for (i = 0; i < requestsArray.length; i++){
         var printString = "<p>Name : " + requestsArray[i].name + "<br>";
         printString += "Email : " + requestsArray[i].email + "<br>";
@@ -282,7 +283,8 @@ function GetClubPositionByClub(){
       alert(str);
     } else {
       var positionsArray = newdata.data.positions;
-      document.getElementById("ClubPositions").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + "-" + (clubYear+1) + ")</h3>";
+      var newYear = clubYear +1;
+      document.getElementById("ClubPositions").innerHTML = "<h3>Requests Attached to " + clubName + ", (" + clubYear + "-" + newYear + ")</h3>";
       for (i = 0; i < positionsArray.length; i++){
         var printString = "<p>Name : " + positionsArray[i].name + "<br>";
         printString += "Email : " + positionsArray[i].email + "<br>";
