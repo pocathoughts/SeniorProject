@@ -467,6 +467,29 @@ function DeleteCommunityServiceRequest(){
     alert("errorr");
   });
 }
+function RespondCommunityServiceRequest(){
+  var userEmail = "asilcott@ufl.edu";
+  var userSess = $('#GetAttachedClubsByUserSession').val();
+  var request_id = "1";
+  var decision = "1";
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'DeleteCommunityServiceRequest', email:userEmail, session_id:userSess, request_id:request_id, decision:decision},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    var str = "Errcode : " + newdata.errcode;
+    str += "\nErrno : " + newdata.errno;
+    str += "\nErrstr : " + newdata.errstr;
+    str += "\nData : " + JSON.stringify(newdata.data);
+    alert(str);
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
 
 //old functions  This includes the login, new functions wont
 /*

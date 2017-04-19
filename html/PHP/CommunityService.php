@@ -250,7 +250,28 @@ function DeleteCommunityServiceRequestValidate ($link, $data){
   }
 }
 function RespondCommunityServiceRequestValidate ($link, $data){
+  InjectClubYearIdByCommunityServiceID($link, $data);
   RespondCommunityServiceRequestPermissionCheck($link, $data);
+  $select = "SELECT active_bool FROM community_service_request WHERE request_id =" . $data['request_id'];
+  $results = queryMultiple($link, $select, "Com Serv Query", 5000);
+  while ($row = mysqli_fetch_array($results)){
+    $rows[] = $row;
+  }
+  if (sizeof($rows) == 0){
+    $returnData['errcode'] = 2;
+    $returnData['errno'] = 2000;
+    $returnData['errstr'] = "invalid request id";
+    exitfnc($returnData);
+  } else {
+    $i = 0;
+    $att = $data['attribute'];
+    if ($rows[$i]['active_bool'] == 0){
+      $returnData['errcode'] = 2;
+      $returnData['errno'] = 2000;
+      $returnData['errstr'] = "request is no longer active and cannot be responded to";
+      exitfnc($returnData);
+    }
+  }
 }
 function EditCommunityServiceValidate ($link, $data){
   EditCommunityServicePermissionCheck($link, $data);
@@ -329,15 +350,22 @@ function RespondCommunityServiceRequest ($link, $data){
   $id = 0;
   if ($data['decision'] == 1){
     //insert into CommunityService
-    $insetCommunityService = "INSERT INTO community_service (DATA) SELECT DATA FROM community_service_request WHERE request_id = " . $data['request_id'];
+    $insetCommunityService = "INSERT INTO community_service (total_hours, club_year_id) SELECT total_hours, club_year_id FROM community_service_request WHERE request_id = " . $data['request_id'];
     //query
+    nonQuery($link, $insetCommunityService, "insert CommunityService request", 5000);
   } 
   
   //insert response audit
   $insertAudit = "INSERT INTO community_service_request_response (request_id, responder_id, decision) VALUES (" . $data['request_id'] . ", " . $data['account_id'] . ", " . $data['decision'] . ")";
+  nonQuery($link, $insertAudit, "insert Audit CommunityService request", 5000);
   //update active_bool and CommunityService id
   $update = "UPDATE community_service_request SET active_bool = 0 and community_service_id = " . $id . "WHERE request_id = " . $data['request_id'];
+  nonQuery($link, $update, "update CommunityService request", 5000);
   //return 0 on success
+  $returnData['errcode'] = 0;
+  $returnData['errno'] = 0;
+  $returnData['data']['status'] = 'successful'; 
+  exitfnc($returnData);
 }
 function EditCommunityService ($link, $data){
   CreateCommunityServiceRequestValidate($link, $data);
