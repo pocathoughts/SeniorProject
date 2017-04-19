@@ -128,7 +128,7 @@ function getAllClubs(){
 }
 
 function getAllClubsExecutiveBoardMembers(){
-    alert("we are here");
+    alert("we are here in exec board members");
   $.ajax( {
     type : 'POST',
     data : {phpFunction:'GetAllClubs'},
@@ -144,6 +144,8 @@ function getAllClubsExecutiveBoardMembers(){
       alert(str);
     } else {
       results = results.name;
+      alert("executiveboardmembers");
+      alert(results);
       var stringToAdd = "";
       for (i = 0; i< results.length; i++){
         stringToAdd += "<li> " + results[i] + "</li>";
@@ -555,6 +557,7 @@ function displayLoggedInUser(){
 }
 
 function populateNavBarWithNameAndClub(){
+    alert("populate nav bar");
     var userEmail = sessionStorage.userEmail;
     var userSess = sessionStorage.session_id;
     $.ajax( {
