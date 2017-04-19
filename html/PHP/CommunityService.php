@@ -353,7 +353,7 @@ function RespondCommunityServiceRequest ($link, $data){
   $id = 0;
   if ($data['decision'] == 1){
     //insert into CommunityService
-    $insetCommunityService = "INSERT INTO community_service (total_hours, club_year_id) SELECT total_hours, club_year_id FROM community_service_request WHERE request_id = " . $data['request_id'];
+    $insetCommunityService = "INSERT INTO community_service (total_hours, club_year_id, requester_id) SELECT total_hours, club_year_id, reqeuster_id FROM community_service_request WHERE request_id = " . $data['request_id'];
     //query
     nonQuery($link, $insetCommunityService, "insert CommunityService request", 5000);
   } 
