@@ -1,5 +1,5 @@
 var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
-function login(){
+function Login(){
   var userEmail = $('#LoginEmail').val();
   var userPass = $('#LoginPass').val();
   //alert("here");
