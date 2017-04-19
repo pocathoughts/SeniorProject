@@ -46,12 +46,12 @@ function createUserAccount(){
   alert('gere2');
   $.ajax( {
     type : 'POST',
-    data : {phpFunction:'CreateUserAccount',email:userEmail, password:userPass, name:userName},
+    data : {phpFunction:'CreateUserAccount',email:userEmail,password:userPass,name:userName},
     url  : serverAddress,
   })
   .done(function ( data, status ) {
+    alert("data");
     var newdata = JSON.parse(data);
-    var results = newdata.data;
     if(newdata.errcode !== 0){
       var str = "Errcode : " + newdata.errcode;
       str += "\nErrno : " + newdata.errno;
