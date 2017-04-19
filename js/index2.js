@@ -1,14 +1,7 @@
 var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
-//function login(){
-
-  $("#login_form").submit(function(e){
-  e.preventDefault();
-  alert('inside login')
-  var values = $(this).serializeArray();
-  var userEmail = values[0].value;
-  var userPass = values[1].value;
-  //var userEmail = $('#LoginEmail').val();
-  //var userPass = $('#LoginPass').val();
+function login(){
+  var userEmail = $('#LoginEmail').val();
+  var userPass = $('#LoginPass').val();
   //alert("here");
   $.ajax( {
     type : 'POST',
@@ -24,44 +17,32 @@ var serverAddress = 'http://70.171.6.119:2555/PHP/Controller.php';
       str += "\nErrstr : " + newdata.errstr;
       str += "\nData : " + JSON.stringify(newdata.data);
       alert(str);
-      //window.location.href ="";
       return;
     }
-
-
     var str = "User Email" + userEmail.toLowerCase();
     str += "\nSession_id = " + JSON.stringify(results.session_id);
     alert(str);
-    // var idString = userEmail.toLowerCase()  + "ID";
-    // var node = document.getElementById(idString);
-    // if (node == null){
-    //   var textNode = document.createElement("p");
-    //   //textNode.id = idSting;
-    //   textNode.setAttribute('id', idString);
-    //   textNode.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
-    //   document.getElementById("Sessions").appendChild(textNode);
-    // } else {
-    //   node.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
-    // }
+     var idString = userEmail.toLowerCase()  + "ID";
+     var node = document.getElementById(idString);
+     if (node == null){
+       var textNode = document.createElement("p");
+       //textNode.id = idSting;
+       textNode.setAttribute('id', idString);
+       textNode.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
+       document.getElementById("Sessions").appendChild(textNode);
+     } else {
+       node.innerHTML = "User: " + userEmail.toLowerCase()  + " session: " + JSON.stringify(results.session_id);
+     }
   })
   .fail(function (xhr, data, status) {
     alert( "errorr");
   });
 });
 
-//function createUserAccount() {
-$("#create_account_form").submit(function(e){
-  e.preventDefault();
-  alert('inside createAccount')
-  var values = $(this).serializeArray();
-  var userName = values[0].value;
-  var userEmail = values[1].value;
-    if(values[2].value == values[3].value)
-      var userPass = values[2].value;
-    else{
-      alert("Passwords do not match!!");
-      return
-    }
+function createUserAccount() {
+  var userEmail = $('#CreateAccountEmail');
+  var userName = $('#CreateAccountName');
+  var userEmail = $('#CreateAccountPass');
   $.ajax( {
     type : 'POST',
     data : {phpFunction:'CreateUserAccount',email:userEmail, password:userPass,name:userName},
@@ -79,7 +60,6 @@ $("#create_account_form").submit(function(e){
     }
     else {
       alert('success');
-      window.location.href = "signUpAdditionalInfo.html"
     }
   })
   .fail(function ( data, status ) {
