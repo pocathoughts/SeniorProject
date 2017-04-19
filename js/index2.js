@@ -95,7 +95,7 @@ function getAllClubs(){
 
 function getAttachedClubsByUser(){
   var userEmail = $('#GetAttachedClubsByUserEmail').val();
-  var userSession = $('#GetAttachedClubsByUserPass').val();
+  var userSession = $('#GetAttachedClubsByUserSession').val();
   $.ajax( {
     type : 'POST',
     data : {phpFunction:'GetAttachedClubsByUser', email:userEmail, session_id:userSession},
@@ -376,6 +376,35 @@ function RemoveClubPositionByUser(){
   $.ajax( { 
     type : 'POST',
     data : {phpFunction:'RemoveClubPositionByUser', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear, position:clubPosition},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    var str = "Errcode : " + newdata.errcode;
+    str += "\nErrno : " + newdata.errno;
+    str += "\nErrstr : " + newdata.errstr;
+    str += "\nData : " + JSON.stringify(newdata.data);
+    alert(str);
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+}
+function CreateCommunityServiceRequest(){
+  //var userEmail = $('#RemoveClubPositionByUserEmail').val();
+  //var userSess = $('#RemoveClubPositionByUserSession').val();
+  //var clubName = $('#RemoveClubPositionByUserClubName').val();
+  //var clubYear = $('#RemoveClubPositionByUserYear').val();
+  //var clubPosition = $('#RemoveClubPositionByUserPosition').val();
+  var userEmail = "asilcott@ufl.edu";
+  var userSess = $('#GetAttachedClubsByUserSession').val();
+  var clubName = "Mens Lacrosse";
+  var clubYear = "2016";
+  var total_hours = "25";
+  $.ajax( { 
+    type : 'POST',
+    data : {phpFunction:'CreateCommunityServiceRequest', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear, total_hours:total_hours},
     url  : serverAddress,
   })
   .done(function ( data, status ) {
