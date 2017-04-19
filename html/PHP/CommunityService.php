@@ -359,7 +359,7 @@ function RespondCommunityServiceRequest ($link, $data){
   $insertAudit = "INSERT INTO community_service_request_response (request_id, responder_id, decision) VALUES (" . $data['request_id'] . ", " . $data['account_id'] . ", " . $data['decision'] . ")";
   nonQuery($link, $insertAudit, "insert Audit CommunityService request", 5000);
   //update active_bool and CommunityService id
-  $update = "UPDATE community_service_request SET active_bool = 0 and community_service_id = " . $id . "WHERE request_id = " . $data['request_id'];
+  $update = "UPDATE community_service_request SET active_bool = 0 and community_service_id = " . $id . " WHERE request_id = " . $data['request_id'];
   nonQuery($link, $update, "update CommunityService request", 5000);
   //return 0 on success
   $returnData['errcode'] = 0;
