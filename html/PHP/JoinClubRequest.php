@@ -290,6 +290,7 @@ INNER JOIN club_operating_year ON club_position_request.club_year_id = club_oper
 INNER JOIN club_team ON club_operating_year.club_id = club_team.club_id
 INNER JOIN operating_year ON club_operating_year.year_id = operating_year.year_id
 WHERE user_account.account_id =" . $data['account_id'];
+  echo $monsterQuery;
   $results = queryMultiple($link, $monsterQuery, "gathering request information query", 5000);
   while ($row = mysqli_fetch_array($results)){
     $rows[] = $row;
