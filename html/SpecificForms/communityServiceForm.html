@@ -15,6 +15,10 @@
     <script type="text/javascript" src="../../js/index.js"></script>
     <!-- Placed at the end of the document so the pages load faster -->
 
+    <script>
+        window.onload = populateDropDownWithClubSports();
+    </script>
+
     <script type="text/javascript" src="../../js/customScript.js"></script>
     <title>Community Service Form</title>
 
@@ -72,7 +76,9 @@
                 </div>
                 <div class="row"> <!-- Confirm Password field !-->
                     <label id = "font-style" for="club" class="control-label">Sports Club</label>
-                    <input type="text" class="form-control" id="between_input" name="club" placeholder="Sports Club">
+                    <select id = "sports-club-list" class="form-control">
+                        <option value = "default" selected> Sports Club Name </option>
+                    </select>
                 </div>
                 <div class="row"> <!-- Full Name field !-->
                     <label id = "font-style" for="full_name" class="control-label">Date of Community Service Event</label>
@@ -80,11 +86,11 @@
                 </div>
                 <div class="row"> <!-- Email field !-->
                     <label id = "font-style" for="email_id" class="control-label">Scheduled Start Time of the Event</label>
-                    <input type="email" class="form-control" id="between_input" name="start" placeholder="Start Time Format - Hour:Minutes AM/PM">
+                    <input type="time" class="form-control" id="between_input" name="start" placeholder="00:00 AM/PM">
                 </div>
                 <div class="row"> <!-- Password field !-->
                     <label id = "font-style" for="email_id" class="control-label">Scheduled End Time of the Event</label>
-                    <input type="password" class="form-control" id="between_input" name="end" placeholder="End Time Format - Hour:Minutes AM/PM">
+                    <input type="time" class="form-control" id="between_input" name="end" placeholder="00:00 AM/PM">
                 </div>
                 <div class="row"> <!-- Confirm Password field !-->
                     <label id = "font-style" for="email_id" class="control-label">If this is an ongoing event with multiple dates, list all dates below:</label>
@@ -169,22 +175,13 @@
 
 
     <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="../js/index.js"></script>
-    <script type="text/javascript" src="../js/customScript.js"></script>
-    <script type="text/javascript">
-
-        app.initialize();
-    </script>
+    <script type="text/javascript" src="../../js/index.js"></script>
+    <script type="text/javascript" src="../../js/customScript.js"></script>
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="jquery/jquery-2.0.3.min.js"></script>
     <script src="bootstrap/bootstrap-2.3.1.min.js"></script>
 
 
-    <script>
-        $(document).ready(function () {
-            $('.dropdown-toggle').dropdown();
-        });
-    </script>
 </body>
 
 </html>
