@@ -190,7 +190,7 @@ function GetCommunityServiceEditRequestByClubPermissionCheck($link, $data){
   }
 }
 //--------------------------------------Validation Methods -------------------------------------------
-function CreateCommunityServiceRequestValidate ($link, $data){
+function CreateCommunityServiceRequestValidate ($link, &$data){
   InjectClubYearIdByClubYear($link, $data);
   CreateCommunityServiceRequestPermissionCheck($link, $data);
 }
