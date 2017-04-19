@@ -245,7 +245,7 @@ function GetCommunityServiceEditRequestByClubValidate ($link, $data){
 function CreateCommunityServiceRequest ($link, $data){
   CreateCommunityServiceRequestValidate($link, $data);
   //insert request CommunityService
-  $insert = "INSERT INTO community_service_request (total_hours, club_year_id) VALUES (" . $data['total_hours'] . ", " . $data['club_year_id'] . ")";
+  $insert = "INSERT INTO community_service_request (total_hours, club_year_id, requester_id) VALUES (" . $data['total_hours'] . ", " . $data['club_year_id'] . ", " . $data['account_id'] . ")";
   echo $insert;
   nonQuery($link, $insert, "insert CommunityService request", 5000);
   $returnData['errcode'] = 0;

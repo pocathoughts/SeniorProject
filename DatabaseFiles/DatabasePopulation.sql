@@ -46,5 +46,4 @@ SELECT * FROM community_service_change_request;
 SELECT * FROM community_service_change_request_response;
 SELECT * FROM community_service_request;
 SELECT * FROM community_service_request_response;
-SELECT * FROM community_service_request_change_request;
-SELECT * FROM community_service_request_change_request_response;
+SELECT * FROM community_service_request_change;
