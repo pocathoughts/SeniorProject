@@ -213,13 +213,13 @@ function EditCommunityServiceRequestValidate ($link, $data){
     if ($row[$i]['active_bool'] == 0){
       $returnData['errcode'] = 2;
       $returnData['errno'] = 2000;
-      $returnData['errstr'] = "request is no longer active and cannot be edited"
+      $returnData['errstr'] = "request is no longer active and cannot be edited";
       exitfnc($returnData);
     }
     if ($row[$i][$att] != $data['old_value']){
       $returnData['errcode'] = 2;
       $returnData['errno'] = 2000;
-      $returnData['errstr'] = "request has been edited and cannot be changed"
+      $returnData['errstr'] = "request has been edited and cannot be changed";
       exitfnc($returnData);
     }
   }
@@ -241,7 +241,7 @@ function DeleteCommunityServiceRequestValidate ($link, $data){
     if ($row[$i]['active_bool'] == 0){
       $returnData['errcode'] = 2;
       $returnData['errno'] = 2000;
-      $returnData['errstr'] = "request is no longer active and cannot be edited"
+      $returnData['errstr'] = "request is no longer active and cannot be edited";
       exitfnc($returnData);
     }
   }
