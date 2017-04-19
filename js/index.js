@@ -853,13 +853,13 @@ function RespondRequest(request, decision) {
 }
 
 function CreateCommunityServiceRequest(){
-  var values = $("form").serializeArray();
+  var values = $(this).serializeArray();
   var userEmail = sessionStorage.userEmail;
   var userSess = sessionStorage.session_id;
 
-  var clubName = $('#sports-club-list').val();
+  var clubName = values[3].value;
   var clubYear = "2016";
-  var total_hours = values[9].value;
+  var total_hours = values[10].value;
   $.ajax( {
     type : 'POST',
     data : {phpFunction:'CreateCommunityServiceRequest', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear, total_hours:total_hours},
@@ -1177,3 +1177,47 @@ $.ajax( {
     alert('errorr');
   });
 }
+
+$('#CommServForm').submit(function(e){
+  //window.open("https://script.google.com/macros/s/AKfycbxrUzD_lW6qJSoLTwEdrZZJq8cy6u9p6cf1ec5kCbuk1xf-ZyQ/exec",'_blank');
+  var values = $(this).serializeArray();
+  var userEmail = sessionStorage.userEmail;
+  var userSess = sessionStorage.session_id;
+
+  var clubName = values[3].value;
+  var clubYear = "2016";
+  var total_hours = values[10].value;
+  $.ajax( {
+    type : 'POST',
+    data : {phpFunction:'CreateCommunityServiceRequest', email:userEmail, session_id:userSess, club_name:clubName, year:clubYear, total_hours:total_hours},
+    url  : serverAddress,
+  })
+  .done(function ( data, status ) {
+    var newdata = JSON.parse(data);
+    var results = newdata.data;
+    if(newdata.errcode == 2){
+      alert(newdata.errstr + "\n\nPlease log in");
+      window.location.href = "../Authentication/login.html";
+      return;
+    }
+    var str = "Errcode : " + newdata.errcode;
+    str += "\nErrno : " + newdata.errno;
+    str += "\nerrstr : " + newdata.errstr;
+    str += "\nData : " + JSON.stringify(newdata.data);
+    alert(str);
+   })
+  .fail(function ( data, status ) {
+    alert("errorr");
+  });
+  // e.preventDefault();
+  // $.ajax({
+  //   type: "POST",
+  //   dataType: 'text/html',
+  //   url: "https://script.google.com/macros/s/AKfycbxrUzD_lW6qJSoLTwEdrZZJq8cy6u9p6cf1ec5kCbuk1xf-ZyQ/exec",
+  //   data: $(this).serialize(),
+  // }).done(function(data, status){
+  //   alert("We did it");
+  // }).fail(function(data, status){
+  //   alert("We didn't do it :(");
+  // });
+});
