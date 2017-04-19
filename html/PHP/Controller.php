@@ -62,7 +62,7 @@ switch ($functionChoice) {
     DeleteJoinClubRequest($link, $dataContainer, $returnData);
     break;
   case 'GetJoinClubRequestByUser':
-    GetJoinClubRequestByEmail($link, $dataContainer, $returnData);
+    GetJoinClubRequestByUser($link, $dataContainer, $returnData);
     break;
   case 'GetJoinClubRequestByEmail':
     GetJoinClubRequestByEmail($link, $dataContainer, $returnData);
