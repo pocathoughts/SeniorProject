@@ -209,16 +209,16 @@ function EditCommunityServiceRequestValidate ($link, $data){
     $returnData['errstr'] = "invalid request id";
     exitfnc($returnData);
   } else {
-    echo $row;
+    echo $rows[$i];
     $att = $data['attribute'];
-    if ($row[$i]['active_bool'] === 0){
+    if ($rows[$i]['active_bool'] === 0){
       $returnData['errcode'] = 2;
       $returnData['errno'] = 2000;
       $returnData['errstr'] = "request is no longer active and cannot be edited";
       exitfnc($returnData);
     }
-    echo $row[$i][$att];
-    if ($row[$i][$att] != $data['old_value']){
+    echo $rows[$i][$att];
+    if ($rows[$i][$att] != $data['old_value']){
       $returnData['errcode'] = 2;
       $returnData['errno'] = 2000;
       $returnData['errstr'] = "request has been edited and cannot be changed";
